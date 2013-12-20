@@ -1,13 +1,9 @@
-## gradle
 /.gradle
 /build
 /gradle
-## ForgeGradle
 /run
 *.keystore
 gradle.properties
-
-## eclipse
 /.settings
 /.metadata
 /.classpath
@@ -15,9 +11,12 @@ gradle.properties
 /bin
 /eclipse
 /Files
-
-## intellij
 /out
 /.idea
 /*.iml
 /atlassian-ide-plugin.xml
+CREDITS-fml.txt
+Forge.ipr
+Forge.iws
+gradlew
+gradlew.bat
