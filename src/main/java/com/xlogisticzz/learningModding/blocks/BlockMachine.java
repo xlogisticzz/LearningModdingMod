@@ -2,13 +2,20 @@ package com.xlogisticzz.learningModding.blocks;
 
 import java.util.List;
 
+import com.xlogisticzz.learningModding.LearningModding;
+import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
+import cpw.mods.fml.common.network.FMLNetworkHandler;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
@@ -25,7 +32,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 
-public class BlockMachine extends Block {
+public class BlockMachine extends BlockContainer {
     
     @SideOnly(Side.CLIENT)
     private Icon topIcon;
@@ -63,10 +70,16 @@ public class BlockMachine extends Block {
         
     }
     
-    private void spawnGravel(World world, int x, int y, int z) {
-    
+    private void spawnGravel(World world, IInventory inventory, int x, int y, int z) {
         if (world.isAirBlock(x, y, z)){
-            world.setBlock(x, y, z, Block.gravel.blockID);
+            for(int i = 0; i < inventory.getSizeInventory(); i++){
+                ItemStack stack = inventory.getStackInSlot(i);
+                if(stack != null && stack.itemID == Block.gravel.blockID){
+                    inventory.decrStackSize(i, 1);
+                    world.setBlock(x, y, z, Block.gravel.blockID);
+                    return;
+                }
+            }
         }
     }
     
@@ -76,10 +89,14 @@ public class BlockMachine extends Block {
      */
     @Override
     public void onEntityWalking(World par1World, int x, int y, int z, Entity par5Entity) {
-    
+
         if (!par1World.isRemote && par1World.getBlockMetadata(x, y, z) % 2 == 0){
-            spawnGravel(par1World, x, y + 20, z);
-            spawnGravel(par1World, x, y + 21, z);
+            TileEntity tileEntity = par1World.getBlockTileEntity(x, y, z);
+            if (tileEntity != null && tileEntity instanceof  TileEntityMachine) {
+                TileEntityMachine machine = (TileEntityMachine)tileEntity;
+                spawnGravel(par1World, machine, x, y + 20, z);
+                spawnGravel(par1World, machine, x, y + 21, z);
+            }
         }
     }
     
@@ -92,28 +109,32 @@ public class BlockMachine extends Block {
     
         int meta = world.getBlockMetadata(x, y, z);
         if (!world.isRemote && world.isBlockIndirectlyGettingPowered(x, y, z) && meta % 2 == 0){
-            switch (meta / 2) {
-                case 1 :
-                    for (int i = 0; i < 5; i++){
-                        spawnGravel(world, x, y + 20 + i, z);
-                    }
-                    break;
-                case 2 :
-                    for (int i = -1; i <= 1; i++){
-                        spawnGravel(world, x + i, y + 20, z - 2);
-                        spawnGravel(world, x + i, y + 20, z + 2);
-                        spawnGravel(world, x - 2, y + 20, z + i);
-                        spawnGravel(world, x + 2, y + 20, z + i);
-                    }
-                    break;
-                case 3 :
-                    for (int i = 1; i <= 3; i++){
-                        spawnGravel(world, x + i, y + 20, z);
-                        spawnGravel(world, x - i, y + 20, z);
-                        spawnGravel(world, x, y + 20, z + i);
-                        spawnGravel(world, x, y + 20, z - i);
-                    }
-                    break;
+            TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+            if (tileEntity != null && tileEntity instanceof  TileEntityMachine) {
+                TileEntityMachine machine = (TileEntityMachine)tileEntity;
+                switch (meta / 2) {
+                    case 1 :
+                        for (int i = 0; i < 5; i++){
+                            spawnGravel(world, machine, x, y + 20 + i, z);
+                        }
+                        break;
+                    case 2 :
+                        for (int i = -1; i <= 1; i++){
+                            spawnGravel(world, machine, x + i, y + 20, z - 2);
+                            spawnGravel(world, machine, x + i, y + 20, z + 2);
+                            spawnGravel(world, machine, x - 2, y + 20, z + i);
+                            spawnGravel(world, machine, x + 2, y + 20, z + i);
+                        }
+                        break;
+                    case 3 :
+                        for (int i = 1; i <= 3; i++){
+                            spawnGravel(world, machine, x + i, y + 20, z);
+                            spawnGravel(world, machine, x - i, y + 20, z);
+                            spawnGravel(world, machine, x, y + 20, z + i);
+                            spawnGravel(world, machine, x, y + 20, z - i);
+                        }
+                        break;
+                }
             }
         }
         
@@ -150,7 +171,9 @@ public class BlockMachine extends Block {
     public boolean onBlockActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer, int side, float offsetX, float offsetY, float offsetZ) {
     
         if (!par1World.isRemote){
-            int metadata = par1World.getBlockMetadata(x, y, z);
+            FMLNetworkHandler.openGui(par5EntityPlayer, LearningModding.instance, 0, par1World, x, y, z);
+
+           /* int metadata = par1World.getBlockMetadata(x, y, z);
             
             int selectedType = metadata / 2;
             
@@ -159,6 +182,8 @@ public class BlockMachine extends Block {
             int newMetadata = selectedType * 2 + isDisabled;
             
             par1World.setBlockMetadataWithNotify(x, y, z, newMetadata, 3);
+
+            */
         }
         return true;
     }
@@ -185,5 +210,38 @@ public class BlockMachine extends Block {
             par3List.add(new ItemStack(id, 1, i * 2));
         }
     }
-    
+
+    @Override
+    public TileEntity createNewTileEntity(World world) {
+        return new TileEntityMachine();
+    }
+
+    @Override
+    public void breakBlock(World world, int x, int y, int z, int id, int meta) {
+        TileEntity  te = world.getBlockTileEntity(x, y, z);
+        if(te != null && te instanceof IInventory){
+            IInventory inventory = (IInventory)te;
+
+            for(int i = 0; i< inventory.getSizeInventory(); i++){
+                ItemStack stack = inventory.getStackInSlotOnClosing(i);
+
+                if(stack != null){
+                    float spawnX = x + world.rand.nextFloat();
+                    float spawnY = y + world.rand.nextFloat();
+                    float spawnZ = z + world.rand.nextFloat();
+
+                    EntityItem droppedItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack);
+
+                    float mult = 0.05F;
+
+                    droppedItem.motionX = (-0.5F + world.rand.nextFloat()) * mult;
+                    droppedItem.motionX = (4 + world.rand.nextFloat()) * mult;
+                    droppedItem.motionX = (-0.5F + world.rand.nextFloat()) * mult;
+
+                    world.spawnEntityInWorld(droppedItem);
+                }
+            }
+        }
+        super.breakBlock(world, x, y, z, id, meta);
+    }
 }

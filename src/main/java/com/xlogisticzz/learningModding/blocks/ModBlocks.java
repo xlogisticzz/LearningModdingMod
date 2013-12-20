@@ -2,6 +2,7 @@ package com.xlogisticzz.learningModding.blocks;
 
 import com.xlogisticzz.learningModding.items.ItemOre;
 import com.xlogisticzz.learningModding.proxies.CommonProxy;
+import com.xlogisticzz.learningModding.tileEntites.*;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -10,10 +11,6 @@ import com.xlogisticzz.learningModding.items.ItemMachine;
 import com.xlogisticzz.learningModding.items.ItemMarker;
 import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.lib.Ids;
-import com.xlogisticzz.learningModding.tileEntites.TileEntityBomb;
-import com.xlogisticzz.learningModding.tileEntites.TileEntityClicker;
-import com.xlogisticzz.learningModding.tileEntites.TileEntityNoteSequencer;
-import com.xlogisticzz.learningModding.tileEntites.TileEntityNumbers;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -62,16 +59,23 @@ public class ModBlocks {
     public static void initInfo() {
 
         for(int i = 0; i < Constants.BlockNames.MACHINE_BLOCK_NAME.length; i++){
-            CommonProxy.registerBlock(machineblock, i, "pickaxe", 2, ItemMachine.class, Constants.BlockNames.MACHINE_BLOCK_NAME[i]);
+            CommonProxy.addName(machineblock, Constants.BlockNames.MACHINE_BLOCK_NAME[i]);
+            CommonProxy.setBlockHarvestLevel(machineblock, i, "pickaxe", 2);
         }
+        CommonProxy.registerBlock(machineblock, 0, ItemMachine.class);
+        CommonProxy.registerTileEntity(TileEntityMachine.class);
 
         for(int i = 0; i < Constants.BlockNames.MARKERS_NAME.length; i++){
-            CommonProxy.registerBlock(markerBlock, i, "pickaxe", 2, ItemMarker.class, Constants.BlockNames.MARKERS_NAME[i]);
+            CommonProxy.addName(markerBlock, Constants.BlockNames.MARKERS_NAME[i]);
+            CommonProxy.setBlockHarvestLevel(markerBlock, i, "pickaxe", 2);
         }
+        CommonProxy.registerBlock(markerBlock, 0, ItemMarker.class);
 
         for(int i = 0; i < Constants.BlockNames.ORES.length; i++){
-            CommonProxy.registerBlock(ores, i, "pickaxe", 3, ItemOre.class, Constants.BlockNames.ORES[i]);
+            CommonProxy.addName(ores, Constants.BlockNames.ORES[i]);
+            CommonProxy.setBlockHarvestLevel(ores, i, "pickaxe", 2);
         }
+        CommonProxy.registerBlock(ores, 0, ItemOre.class);
 
         CommonProxy.registerBlock(titaniumblock, 0, "pickaxe", 3, Constants.BlockNames.TITANIUM_BLOCK_NAME);
         CommonProxy.registerBlock(rubyblock, 0, "pickaxe", 3, Constants.BlockNames.RUBY_BLOCK_NAME);

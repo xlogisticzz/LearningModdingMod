@@ -51,18 +51,26 @@ public class CommonProxy {
         entity.worldObj.removeEntity(entity);
     }
 
-    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, String name){
+    public static void registerBlock(Block block, int meta){
         GameRegistry.registerBlock(block, block.getUnlocalizedName().replace("block.", "") + meta);
-        addName(block, name);
-        setBlockHarvestLevel(block, meta, toolClassType, harvestLevel);
+    }
+    public static void registerBlock(Block block, int meta, Class<? extends ItemBlock> item){
+        GameRegistry.registerBlock(block, item, block.getUnlocalizedName().replace("tile.", "") + meta);
     }
 
-    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, Class<? extends ItemBlock> item, String name){
-        GameRegistry.registerBlock(block, item, block.getUnlocalizedName().replace("tile.", "") + meta, Constants.Mod.MODID);
-        addName(block, name);
-        if(toolClassType != null){
+    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, String name){
+        registerBlock(block, meta);
+            addName(block, name);
             setBlockHarvestLevel(block, meta, toolClassType, harvestLevel);
-        }
+    }
+
+
+    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, Class<? extends ItemBlock> item, String name){
+        registerBlock(block, meta, item);
+            addName(block, name);
+            if(toolClassType != null){
+                setBlockHarvestLevel(block, meta, toolClassType, harvestLevel);
+            }
     }
 
     public static void setBlockHarvestLevel(Block block, int metadata, String toolClass, int harvestLevel){

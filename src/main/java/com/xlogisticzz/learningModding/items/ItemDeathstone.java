@@ -39,12 +39,12 @@ public class ItemDeathstone extends Item {
         this.setHasSubtypes(true);
     }
     
-    @Override
+  @Override
     public String getUnlocalizedName(ItemStack par1ItemStack) {
-    
+
         return Constants.UnLocalisedNames.DEATHSTONE + par1ItemStack.getItemDamage();
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister register) {
@@ -136,4 +136,6 @@ public class ItemDeathstone extends Item {
         }
         
     }
+
+
 }

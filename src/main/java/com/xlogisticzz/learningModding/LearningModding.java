@@ -2,6 +2,7 @@ package com.xlogisticzz.learningModding;
 
 import java.io.File;
 
+import com.xlogisticzz.learningModding.client.interfaces.gui.GuiHandler;
 import net.minecraft.block.BlockDispenser;
 
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
@@ -67,6 +68,7 @@ public class LearningModding {
         Recipies.initVanilla();
         ModEntities.initInfo();
         new WorldGenerationHandler();
+        new GuiHandler();
         
         BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.entityBlockTeleporter, new DispenserBehaviourBlockEntityTeleport());
         
