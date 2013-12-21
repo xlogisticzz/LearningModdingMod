@@ -32,155 +32,69 @@ public class PacketHandler implements IPacketHandler {
         EntityPlayer entityPlayer = (EntityPlayer) player;
         
         /* ID for the packet */
+        int packetType = reader.readByte();
         int packetId = reader.readByte();
-        
+
         /* Code based upon ID for the packet */
-        switch (packetId) {
-        /* Spaceship Bomb packet */
+        switch (packetType) {
+        /* Spaceship packet */
             case 0:
-                int entityId = reader.readInt();
-                Entity entity = entityPlayer.worldObj.getEntityByID(entityId);
-                if (entity != null && entity instanceof EntitySpaceship && entity.riddenByEntity == entityPlayer) {
-                    ((EntitySpaceship) entity).dropBomb();
-                }
-                break;
+                switch (packetId) {
+                    case 0:
+                        int entityId = reader.readInt();
+                        Entity entity = entityPlayer.worldObj.getEntityByID(entityId);
+                        if (entity != null && entity instanceof EntitySpaceship && entity.riddenByEntity == entityPlayer) {
+                            ((EntitySpaceship) entity).dropBomb();
+                        }
+                        break;
 
+                    case 1:
+                        int entityId1 = reader.readInt();
+                        Entity entity1 = entityPlayer.worldObj.getEntityByID(entityId1);
+                        if (entity1 != null && entity1 instanceof EntitySpaceship && entity1.riddenByEntity == entityPlayer) {
+                            ((EntitySpaceship) entity1).openInventory();
+                        }
+                        break;
+                }
+            /*Another Packet type
             case 1:
-                int entityId1 = reader.readInt();
-                Entity entity1 = entityPlayer.worldObj.getEntityByID(entityId1);
-                if (entity1 != null && entity1 instanceof EntitySpaceship && entity1.riddenByEntity == entityPlayer) {
-                    ((EntitySpaceship) entity1).forward();
-                }
-                break;
+                switch (packetId){
 
-            case 2:
-                int entityId2 = reader.readInt();
-                Entity entity2 = entityPlayer.worldObj.getEntityByID(entityId2);
-                if (entity2 != null && entity2 instanceof EntitySpaceship && entity2.riddenByEntity == entityPlayer) {
-                    ((EntitySpaceship) entity2).backward();
-                }
-                break;
+            }*/
 
-            case 3:
-                int entityId3 = reader.readInt();
-                Entity entity3 = entityPlayer.worldObj.getEntityByID(entityId3);
-                if (entity3 != null && entity3 instanceof EntitySpaceship && entity3.riddenByEntity == entityPlayer) {
-                    ((EntitySpaceship) entity3).up();
-                }
-                break;
-
-            case 4:
-                int entityId4 = reader.readInt();
-                Entity entity4 = entityPlayer.worldObj.getEntityByID(entityId4);
-                if (entity4 != null && entity4 instanceof EntitySpaceship && entity4.riddenByEntity == entityPlayer) {
-                    ((EntitySpaceship) entity4).down();
-                }
-                break;
-
-            case 5:
-                int entityId5 = reader.readInt();
-                Entity entity5 = entityPlayer.worldObj.getEntityByID(entityId5);
-                if (entity5 != null && entity5 instanceof EntitySpaceship && entity5.riddenByEntity == entityPlayer) {
-                    ((EntitySpaceship) entity5).openInventory();
-                }
-                break;
         }
 
     }
 
     /* Spaceship Bomb packet */
-    public static void sendShipBombPacket(EntitySpaceship entity) {
+    public static void sendShipPacket(EntitySpaceship entity, int packetId) {
 
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         DataOutputStream dataStream = new DataOutputStream(byteStream);
 
-        try {
-            dataStream.writeByte(0);
-            dataStream.writeInt(entity.entityId);
+        switch (packetId) {
+            case 0:
+                try {
+                    dataStream.writeByte(0);
+                    dataStream.writeByte(0);
+                    dataStream.writeInt(entity.entityId);
 
-            PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
-        } catch (IOException e) {
-            System.err.append("Failled to send spaceship drop packet");
+                    PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
+                } catch (IOException e) {
+                    System.err.append("Failled to send spaceship drop packet");
+                }
+                break;
+            case 1:
+                try {
+                    dataStream.writeByte(0);
+                    dataStream.writeByte(1);
+                    dataStream.writeInt(entity.entityId);
+
+                    PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
+                } catch (IOException e) {
+                    System.err.append("Failled to send spaceship Inventory packet");
+                }
+                break;
         }
-    }
-
-    public static void sendShipForwardPacket(EntitySpaceship entity) {
-
-        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        DataOutputStream dataStream = new DataOutputStream(byteStream);
-
-        try {
-            dataStream.writeByte(1);
-            dataStream.writeInt(entity.entityId);
-
-            PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
-        } catch (IOException e) {
-            System.err.append("Failled to send spaceship Forward packet");
-        }
-
-    }
-
-    public static void sendShipBackwardPacket(EntitySpaceship entity) {
-
-        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        DataOutputStream dataStream = new DataOutputStream(byteStream);
-
-        try {
-            dataStream.writeByte(2);
-            dataStream.writeInt(entity.entityId);
-
-            PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
-        } catch (IOException e) {
-            System.err.append("Failled to send spaceship Forward packet");
-        }
-
-    }
-
-    public static void sendShipUpPacket(EntitySpaceship entity) {
-
-        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        DataOutputStream dataStream = new DataOutputStream(byteStream);
-
-        try {
-            dataStream.writeByte(3);
-            dataStream.writeInt(entity.entityId);
-
-            PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
-        } catch (IOException e) {
-            System.err.append("Failled to send spaceship Forward packet");
-        }
-
-    }
-
-    public static void sendShipDownPacket(EntitySpaceship entity) {
-
-        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        DataOutputStream dataStream = new DataOutputStream(byteStream);
-
-        try {
-            dataStream.writeByte(4);
-            dataStream.writeInt(entity.entityId);
-
-            PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
-        } catch (IOException e) {
-            System.err.append("Failled to send spaceship Forward packet");
-        }
-
-    }
-
-    public static void sendShipInventoryPacket(EntitySpaceship spaceship) {
-
-        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        DataOutputStream dataStream = new DataOutputStream(byteStream);
-
-        try {
-            dataStream.writeByte(5);
-            dataStream.writeInt(spaceship.entityId);
-
-            PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
-        } catch (IOException e) {
-            System.err.append("Failled to send spaceship Inventory packet");
-        }
-
     }
 }

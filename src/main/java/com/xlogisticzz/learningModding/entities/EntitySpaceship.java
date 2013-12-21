@@ -138,7 +138,7 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
                 Minecraft.getMinecraft().thePlayer.addChatMessage("You don't have enough ammo left");
                 Sounds.OUT_OF_AMMO.play(this.posX, this.posY, this.posZ, 1, 0);
             } else {
-                PacketHandler.sendShipBombPacket(this);
+                PacketHandler.sendShipPacket(this, 0);
             }
         }
         this.lastPressedBombState = bombState;
@@ -146,31 +146,9 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
         if (SpaceshipInventoryKeyBind.keyPressed) {
             SpaceshipInventoryKeyBind.keyPressed = false;
             if (this.charged && this.riddenByEntity == Minecraft.getMinecraft().thePlayer) {
-                PacketHandler.sendShipInventoryPacket(this);
+                PacketHandler.sendShipPacket(this, 1);
             }
         }
-
-        boolean forwardState = Minecraft.getMinecraft().gameSettings.keyBindForward.pressed;
-        if (forwardState && this.charged && this.riddenByEntity == Minecraft.getMinecraft().thePlayer) {
-            PacketHandler.sendShipForwardPacket(this);
-        }
-
-        boolean backwardState = Minecraft.getMinecraft().gameSettings.keyBindBack.pressed;
-        if (backwardState && this.charged && this.riddenByEntity == Minecraft.getMinecraft().thePlayer) {
-            PacketHandler.sendShipBackwardPacket(this);
-
-        }
-
-        boolean UpState = Minecraft.getMinecraft().gameSettings.keyBindJump.pressed;
-        if (UpState && this.charged && this.riddenByEntity == Minecraft.getMinecraft().thePlayer) {
-            PacketHandler.sendShipUpPacket(this);
-        }
-
-        boolean DownState = Minecraft.getMinecraft().gameSettings.keyBindDrop.pressed;
-        if (DownState && this.charged && this.riddenByEntity == Minecraft.getMinecraft().thePlayer) {
-            PacketHandler.sendShipDownPacket(this);
-        }
-
     }
 
     @Override
@@ -254,85 +232,6 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
             }
         }
         return false;
-    }
-
-    public void forward() {
-
-        float yaw = this.riddenByEntity.rotationYaw;
-
-        if (yaw - 90 > 180) {
-            int num = (int) (yaw - 90 - 180);
-
-            int newnum = -180 + num;
-
-            this.setRotation(newnum, this.rotationPitch);
-
-        } else {
-            this.setRotation(yaw - 90, this.rotationPitch);
-        }
-
-        if (yaw >= 315 && yaw <= 0) {
-            if (this.motionZ < 10) {
-                this.motionZ = this.motionZ + 0.1F;
-            }
-        } else if (yaw >= 0 && yaw <= 45) {
-            if (this.motionZ < 10) {
-                this.motionZ = this.motionZ + 0.1F;
-            }
-        } else if (yaw >= 45 && yaw <= 135) {
-            if (this.motionX > -10) {
-                this.motionX = this.motionX - 0.1F;
-            }
-        } else if (yaw >= 135 && yaw <= 225) {
-            if (this.motionZ > -10) {
-                this.motionZ = this.motionZ - 0.1F;
-            }
-        } else if (yaw >= 225 && yaw <= 315) {
-            if (this.motionX < 10) {
-                this.motionX = this.motionX + 0.1F;
-            }
-        }
-    }
-
-    public void backward() {
-
-        float yaw = this.riddenByEntity.rotationYaw;
-
-        if (yaw >= 315 && yaw <= 360) {
-            if (this.motionZ > -10) {
-                this.motionZ = this.motionZ - 0.1F;
-            }
-        } else if (yaw >= 0 && yaw <= 45) {
-            if (this.motionZ > -10) {
-                this.motionZ = this.motionZ - 0.1F;
-            }
-        } else if (yaw >= 45 && yaw <= 135) {
-            if (this.motionX < 10) {
-                this.motionX = this.motionX + 0.1F;
-            }
-        } else if (yaw >= 135 && yaw <= 225) {
-            if (this.motionZ < 10) {
-                this.motionZ = this.motionZ + 0.1F;
-            }
-        } else if (yaw >= 225 && yaw <= 315) {
-            if (this.motionX > -10) {
-                this.motionX = this.motionX - 0.1F;
-            }
-        }
-    }
-
-    public void up() {
-
-        if (this.motionY < 10) {
-            this.motionY = this.motionY + 0.1F;
-        }
-    }
-
-    public void down() {
-
-        if (this.motionY > -10) {
-            this.motionY = this.motionY - 0.1F;
-        }
     }
 
     private ItemStack[] items;
