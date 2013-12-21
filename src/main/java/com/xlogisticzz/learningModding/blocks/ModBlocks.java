@@ -1,29 +1,24 @@
 package com.xlogisticzz.learningModding.blocks;
 
-import com.xlogisticzz.learningModding.items.ItemOre;
-import com.xlogisticzz.learningModding.proxies.CommonProxy;
-import com.xlogisticzz.learningModding.tileEntites.*;
-import net.minecraft.block.Block;
-import net.minecraftforge.common.MinecraftForge;
-
 import com.xlogisticzz.learningModding.LearningModdingCreativeTab;
 import com.xlogisticzz.learningModding.items.ItemMachine;
 import com.xlogisticzz.learningModding.items.ItemMarker;
+import com.xlogisticzz.learningModding.items.ItemOre;
 import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.lib.Ids;
-
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import com.xlogisticzz.learningModding.proxies.CommonProxy;
+import com.xlogisticzz.learningModding.tileEntites.*;
+import net.minecraft.block.Block;
 
 /**
  * Learning Modding Mod
- * 
+ *
  * @author xLoGisTicZz. Some code may be from tutorials.
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 
 public class ModBlocks {
-    
+
     public static BlockModOre ores;
     public static BlockModOreStorage titaniumblock;
     public static BlockModOreStorage rubyblock;
@@ -37,9 +32,10 @@ public class ModBlocks {
     public static BlockPoison poisonBlock;
     public static BlockHeightParticle particleBlock;
     public static BlockNoteSequencer noteSequencer;
-    
+    public static BlockCakeStorage cakeStorage;
+
     public static void init() {
-    
+
         ores = new BlockModOre(Ids.TITANIUMORE);
         titaniumblock = new BlockModOreStorage(Ids.TITANIUMBLOCK, Block.soundMetalFootstep, LearningModdingCreativeTab.tabLearningModding, 6.0F, 12.0F, Constants.UnLocalisedNames.TITANIUM_BLOCK, Constants.Icons.TITANIUM_BLOCK);
         rubyblock = new BlockModOreStorage(Ids.RUBYBLOCK, Block.soundMetalFootstep, LearningModdingCreativeTab.tabLearningModding, 5.0F, 10.0F, Constants.UnLocalisedNames.RUBY_BLOCK, Constants.Icons.RUBY_BLOCK);
@@ -53,25 +49,26 @@ public class ModBlocks {
         poisonBlock = new BlockPoison(Ids.POISON);
         particleBlock = new BlockHeightParticle(Ids.HEIGHTPARTICLE);
         noteSequencer = new BlockNoteSequencer(Ids.NOTE_SEQUENCER);
-        
+        cakeStorage = new BlockCakeStorage(Ids.CAKE_STORAGE);
+
     }
-    
+
     public static void initInfo() {
 
-        for(int i = 0; i < Constants.BlockNames.MACHINE_BLOCK_NAME.length; i++){
+        for (int i = 0; i < Constants.BlockNames.MACHINE_BLOCK_NAME.length; i++) {
             CommonProxy.addName(machineblock, Constants.BlockNames.MACHINE_BLOCK_NAME[i]);
             CommonProxy.setBlockHarvestLevel(machineblock, i, "pickaxe", 2);
         }
         CommonProxy.registerBlock(machineblock, 0, ItemMachine.class);
         CommonProxy.registerTileEntity(TileEntityMachine.class);
 
-        for(int i = 0; i < Constants.BlockNames.MARKERS_NAME.length; i++){
+        for (int i = 0; i < Constants.BlockNames.MARKERS_NAME.length; i++) {
             CommonProxy.addName(markerBlock, Constants.BlockNames.MARKERS_NAME[i]);
             CommonProxy.setBlockHarvestLevel(markerBlock, i, "pickaxe", 2);
         }
         CommonProxy.registerBlock(markerBlock, 0, ItemMarker.class);
 
-        for(int i = 0; i < Constants.BlockNames.ORES.length; i++){
+        for (int i = 0; i < Constants.BlockNames.ORES.length; i++) {
             CommonProxy.addName(ores, Constants.BlockNames.ORES[i]);
             CommonProxy.setBlockHarvestLevel(ores, i, "pickaxe", 2);
         }
@@ -91,6 +88,8 @@ public class ModBlocks {
         CommonProxy.registerBlock(particleBlock, 0, "pickaxe", 2, Constants.BlockNames.HEIGHT_PARTICLE_NAME);
         CommonProxy.registerBlock(noteSequencer, 0, "pickaxe", 2, Constants.BlockNames.NOTE_SEQUENCER_NAME);
         CommonProxy.registerTileEntity(TileEntityNoteSequencer.class);
+        CommonProxy.registerBlock(cakeStorage, 0, "pickaxe", 2, Constants.BlockNames.CAKESTORAGE);
+        CommonProxy.registerTileEntity(TileEntityCakeStorage.class);
 
     }
 }

@@ -2,13 +2,13 @@ package com.xlogisticzz.learningModding.lib;
 
 /**
  * Learning Modding Mod
- * 
+ *
  * @author xLoGisTicZz. Some code may be from tutorials.
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 
 public class Ids {
-    
+
     // Block IDs
     // Defaults
     public static int TITANIUMORE_DEFAULT = 500;
@@ -27,7 +27,8 @@ public class Ids {
     public static int POISON_DEFAULT = 513;
     public static int HEIGHTPARTICLE_DEFAULT = 514;
     public static int NOTE_SEQUENCER_DEFAULT = 515;
-    
+    public static int CAKE_STORAGE_DEFAULT = 516;
+
     // Current
     public static int TITANIUMORE;
     public static int RUBYORE;
@@ -45,7 +46,9 @@ public class Ids {
     public static int POISON;
     public static int HEIGHTPARTICLE;
     public static int NOTE_SEQUENCER;
-    
+    public static int CAKE_STORAGE;
+
+
     // Item IDs
     // Defaults
     public static int TITANIUMINGOT_DEFAULT = 5000;
@@ -66,7 +69,7 @@ public class Ids {
     public static int SPAWN_SPACESHIP_DEFAULT = 5015;
     public static int ENTITY_LAUNCHER_DEFAULT = 5016;
     public static int PIG_CONVERTER_DEFAULT = 5017;
-    
+
     // Current
     public static int TITANIUMINGOT;
     public static int RUBY;
@@ -86,5 +89,5 @@ public class Ids {
     public static int SPAWN_SPACESHIP;
     public static int ENTITY_LAUNCHER;
     public static int PIG_CONVERTER;
-    
+
 }

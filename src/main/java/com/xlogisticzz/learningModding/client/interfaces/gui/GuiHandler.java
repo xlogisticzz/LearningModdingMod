@@ -5,7 +5,9 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 */
 
 import com.xlogisticzz.learningModding.LearningModding;
+import com.xlogisticzz.learningModding.client.interfaces.contaners.ContainerCakeStorage;
 import com.xlogisticzz.learningModding.client.interfaces.contaners.ContainerMachine;
+import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -21,11 +23,17 @@ public class GuiHandler implements IGuiHandler {
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        switch(ID){
-            case  0 :
-                TileEntity te = world.getBlockTileEntity(x, y, z);
-                if(te != null && te instanceof TileEntityMachine){
-                    return  new ContainerMachine(player.inventory, (TileEntityMachine) te);
+        TileEntity te = world.getBlockTileEntity(x, y, z);
+        switch (ID) {
+            case 0:
+                if (te != null && te instanceof TileEntityMachine) {
+                    return new ContainerMachine(player.inventory, (TileEntityMachine) te);
+                }
+                break;
+
+            case 1:
+                if (te != null && te instanceof TileEntityCakeStorage) {
+                    return new ContainerCakeStorage(player.inventory, (TileEntityCakeStorage) te);
                 }
                 break;
 
@@ -35,11 +43,17 @@ public class GuiHandler implements IGuiHandler {
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        switch(ID){
-            case  0 :
-                TileEntity te = world.getBlockTileEntity(x, y, z);
-                if(te != null && te instanceof TileEntityMachine){
-                    return  new GuiMachine(player.inventory, (TileEntityMachine) te);
+        TileEntity te = world.getBlockTileEntity(x, y, z);
+        switch (ID) {
+            case 0:
+                if (te != null && te instanceof TileEntityMachine) {
+                    return new GuiMachine(player.inventory, (TileEntityMachine) te);
+                }
+                break;
+
+            case 1:
+                if (te != null && te instanceof TileEntityCakeStorage) {
+                    return new GuiCakeStorage(player.inventory, (TileEntityCakeStorage) te);
                 }
                 break;
 
