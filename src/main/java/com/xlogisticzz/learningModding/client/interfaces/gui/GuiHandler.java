@@ -5,9 +5,9 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 */
 
 import com.xlogisticzz.learningModding.LearningModding;
-import com.xlogisticzz.learningModding.client.interfaces.contaners.ContainerCakeStorage;
-import com.xlogisticzz.learningModding.client.interfaces.contaners.ContainerMachine;
-import com.xlogisticzz.learningModding.client.interfaces.contaners.ContainerSpaceship;
+import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerCakeStorage;
+import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerMachine;
+import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerSpaceship;
 import com.xlogisticzz.learningModding.entities.EntitySpaceship;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;

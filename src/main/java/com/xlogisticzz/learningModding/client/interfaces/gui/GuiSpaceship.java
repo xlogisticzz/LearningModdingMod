@@ -4,7 +4,7 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
 */
 
-import com.xlogisticzz.learningModding.client.interfaces.contaners.ContainerSpaceship;
+import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerSpaceship;
 import com.xlogisticzz.learningModding.entities.EntitySpaceship;
 import com.xlogisticzz.learningModding.lib.Constants;
 import net.minecraft.client.Minecraft;

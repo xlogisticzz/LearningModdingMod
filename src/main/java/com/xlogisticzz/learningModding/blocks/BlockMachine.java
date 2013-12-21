@@ -149,16 +149,6 @@ public class BlockMachine extends BlockContainer {
     public boolean onBlockActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer, int side, float offsetX, float offsetY, float offsetZ) {
         if (!par1World.isRemote) {
             if (!par5EntityPlayer.isSneaking()) {
-                int metadata = par1World.getBlockMetadata(x, y, z);
-
-                int selectedType = metadata / 2;
-
-                int isDisabled = metadata % 2 == 1 ? 0 : 1;
-
-                int newMetadata = selectedType * 2 + isDisabled;
-
-                par1World.setBlockMetadataWithNotify(x, y, z, newMetadata, 3);
-            } else {
                 FMLNetworkHandler.openGui(par5EntityPlayer, LearningModding.instance, 0, par1World, x, y, z);
             }
         }

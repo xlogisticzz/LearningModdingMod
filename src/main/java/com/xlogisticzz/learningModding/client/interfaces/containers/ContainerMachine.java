@@ -1,4 +1,4 @@
-package com.xlogisticzz.learningModding.client.interfaces.contaners;
+package com.xlogisticzz.learningModding.client.interfaces.containers;
 /*
 * @author xLoGisTicZz
 * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
@@ -6,6 +6,7 @@ package com.xlogisticzz.learningModding.client.interfaces.contaners;
 
 import com.xlogisticzz.learningModding.client.interfaces.slots.SlotGravel;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -33,7 +34,7 @@ public class ContainerMachine extends Container {
 
         // Block slots
         for (int x = 0; x < 3; x++) {
-            addSlotToContainer(new SlotGravel(entityMachine, x, 62 + 18 * x, 26));
+            addSlotToContainer(new SlotGravel(entityMachine, x, 8 + 18 * x, 17));
         }
     }
 
@@ -43,7 +44,37 @@ public class ContainerMachine extends Container {
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
+    public ItemStack transferStackInSlot(EntityPlayer player, int i) {
+        Slot slot = getSlot(i);
+
+        if (slot != null && slot.getHasStack()) {
+            ItemStack stack = slot.getStack();
+            ItemStack result = stack.copy();
+
+            if (i >= 36) {
+                if (!mergeItemStack(stack, 0, 36, false)) {
+                    return null;
+                }
+            } else if (stack.itemID != Block.gravel.blockID || !mergeItemStack(stack, 36, 36 + entityMachine.getSizeInventory(), false)) {
+                return null;
+            }
+
+            if (stack.stackSize == 0) {
+                slot.putStack(null);
+            } else {
+                slot.onSlotChanged();
+            }
+
+            slot.onPickupFromSlot(player, stack);
+
+            return result;
+        }
+
         return null;
     }
+
+    public TileEntityMachine getMachine() {
+        return entityMachine;
+    }
+
 }

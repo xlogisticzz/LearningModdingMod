@@ -2,13 +2,16 @@ package com.xlogisticzz.learningModding.network;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerMachine;
 import com.xlogisticzz.learningModding.entities.EntitySpaceship;
 import com.xlogisticzz.learningModding.lib.Constants;
+import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 
@@ -32,8 +35,8 @@ public class PacketHandler implements IPacketHandler {
         EntityPlayer entityPlayer = (EntityPlayer) player;
         
         /* ID for the packet */
-        int packetType = reader.readByte();
-        int packetId = reader.readByte();
+        byte packetType = reader.readByte();
+        byte packetId = reader.readByte();
 
         /* Code based upon ID for the packet */
         switch (packetType) {
@@ -56,15 +59,19 @@ public class PacketHandler implements IPacketHandler {
                         }
                         break;
                 }
-            /*Another Packet type
+            /*Button Packet type*/
             case 1:
-                switch (packetId){
-
-            }*/
+                Container container = entityPlayer.openContainer;
+                if (container != null && container instanceof ContainerMachine) {
+                    TileEntityMachine machine = ((ContainerMachine) container).getMachine();
+                    machine.reciveButtonEvent(packetId);
+                }
+                break;
 
         }
 
     }
+
 
     /* Spaceship Bomb packet */
     public static void sendShipPacket(EntitySpaceship entity, int packetId) {
@@ -79,7 +86,7 @@ public class PacketHandler implements IPacketHandler {
                     dataStream.writeByte(0);
                     dataStream.writeInt(entity.entityId);
 
-                    PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
+                    PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.CHANNEL_NAME, byteStream.toByteArray()));
                 } catch (IOException e) {
                     System.err.append("Failled to send spaceship drop packet");
                 }
@@ -90,11 +97,26 @@ public class PacketHandler implements IPacketHandler {
                     dataStream.writeByte(1);
                     dataStream.writeInt(entity.entityId);
 
-                    PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
+                    PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.CHANNEL_NAME, byteStream.toByteArray()));
                 } catch (IOException e) {
                     System.err.append("Failled to send spaceship Inventory packet");
                 }
                 break;
+        }
+    }
+
+    /*Button Packets*/
+    public static void sendButtonPacket(byte id) {
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        DataOutputStream dataStream = new DataOutputStream(byteStream);
+
+        try {
+            dataStream.writeByte((byte) 1);
+            dataStream.writeByte(id);
+
+            PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.CHANNEL_NAME, byteStream.toByteArray()));
+        } catch (IOException ex) {
+            System.err.append("Failed to send button click packet");
         }
     }
 }
