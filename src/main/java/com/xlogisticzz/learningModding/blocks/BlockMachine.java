@@ -49,10 +49,6 @@ public class BlockMachine extends BlockContainer {
         this.setUnlocalizedName(Constants.UnLocalisedNames.MACHINE_BLOCK);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.Block#registerIcons(net.minecraft.client.renderer.texture.IconRegister)
-     */
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister IconRegister) {
@@ -81,10 +77,6 @@ public class BlockMachine extends BlockContainer {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.Block#onEntityWalking(net.minecraft.world.World, int, int, int, net.minecraft.entity.Entity)
-     */
     @Override
     public void onEntityWalking(World par1World, int x, int y, int z, Entity par5Entity) {
 
@@ -98,10 +90,6 @@ public class BlockMachine extends BlockContainer {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.Block#onNeighborBlockChange(net.minecraft.world.World, int, int, int, int)
-     */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, int id) {
 
@@ -138,10 +126,6 @@ public class BlockMachine extends BlockContainer {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.Block#getIcon(int, int)
-     */
     @Override
     @SideOnly(Side.CLIENT)
     public Icon getIcon(int side, int metadata) {
@@ -161,10 +145,6 @@ public class BlockMachine extends BlockContainer {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.Block#onBlockActivated(net.minecraft.world.World, int, int, int, net.minecraft.entity.player.EntityPlayer, int, float, float, float)
-     */
     @Override
     public boolean onBlockActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer, int side, float offsetX, float offsetY, float offsetZ) {
         if (!par1World.isRemote) {
@@ -185,20 +165,12 @@ public class BlockMachine extends BlockContainer {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.Block#damageDropped(int)
-     */
     @Override
     public int damageDropped(int metadata) {
 
         return metadata;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.Block#getSubBlocks(int, net.minecraft.creativetab.CreativeTabs, java.util.List)
-     */
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void getSubBlocks(int id, CreativeTabs par2CreativeTabs, List par3List) {

@@ -1,6 +1,7 @@
 package com.xlogisticzz.learningModding;
 
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
+import com.xlogisticzz.learningModding.client.SpaceshipInventoryKeyBind;
 import com.xlogisticzz.learningModding.client.interfaces.gui.GuiHandler;
 import com.xlogisticzz.learningModding.configuration.ConfigurationHandler;
 import com.xlogisticzz.learningModding.crafting.Recipies;
@@ -11,6 +12,7 @@ import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.network.PacketHandler;
 import com.xlogisticzz.learningModding.proxies.CommonProxy;
 import com.xlogisticzz.learningModding.world.WorldGenerationHandler;
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -22,6 +24,8 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.client.settings.KeyBinding;
+import org.lwjgl.input.Keyboard;
 
 import java.io.File;
 
@@ -60,6 +64,10 @@ public class LearningModding {
     /* Initialisation */
     @EventHandler
     public void load(FMLInitializationEvent event) {
+
+        KeyBinding[] key = {new KeyBinding("SpaceShip Inventory", Keyboard.KEY_F)};
+        boolean[] repeat = {false};
+        KeyBindingRegistry.registerKeyBinding(new SpaceshipInventoryKeyBind(key, repeat));
 
         ModEntities.init();
         ModBlocks.initInfo();

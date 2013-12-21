@@ -76,6 +76,14 @@ public class PacketHandler implements IPacketHandler {
                     ((EntitySpaceship) entity4).down();
                 }
                 break;
+
+            case 5:
+                int entityId5 = reader.readInt();
+                Entity entity5 = entityPlayer.worldObj.getEntityByID(entityId5);
+                if (entity5 != null && entity5 instanceof EntitySpaceship && entity5.riddenByEntity == entityPlayer) {
+                    ((EntitySpaceship) entity5).openInventory();
+                }
+                break;
         }
 
     }
@@ -156,6 +164,22 @@ public class PacketHandler implements IPacketHandler {
             PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
         } catch (IOException e) {
             System.err.append("Failled to send spaceship Forward packet");
+        }
+
+    }
+
+    public static void sendShipInventoryPacket(EntitySpaceship spaceship) {
+
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        DataOutputStream dataStream = new DataOutputStream(byteStream);
+
+        try {
+            dataStream.writeByte(5);
+            dataStream.writeInt(spaceship.entityId);
+
+            PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.MODID, byteStream.toByteArray()));
+        } catch (IOException e) {
+            System.err.append("Failled to send spaceship Inventory packet");
         }
 
     }
