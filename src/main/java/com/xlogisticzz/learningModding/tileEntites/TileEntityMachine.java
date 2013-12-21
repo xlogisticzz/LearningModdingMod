@@ -12,12 +12,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityMachine extends TileEntity implements IInventory{
+public class TileEntityMachine extends TileEntity implements IInventory {
 
     private ItemStack[] items;
 
     public TileEntityMachine() {
-          items = new ItemStack[3];
+        items = new ItemStack[3];
     }
 
     @Override
@@ -33,11 +33,11 @@ public class TileEntityMachine extends TileEntity implements IInventory{
     @Override
     public ItemStack decrStackSize(int i, int j) {
         ItemStack stack = getStackInSlot(i);
-        if(stack != null ){
-            if(stack.stackSize <= j){
+        if (stack != null) {
+            if (stack.stackSize <= j) {
                 setInventorySlotContents(i, null);
-            }else{
-                stack.splitStack(j);
+            } else {
+                stack = stack.splitStack(j);
                 onInventoryChanged();
             }
         }
@@ -54,7 +54,7 @@ public class TileEntityMachine extends TileEntity implements IInventory{
     @Override
     public void setInventorySlotContents(int i, ItemStack itemstack) {
         items[i] = itemstack;
-        if(itemstack != null && itemstack.stackSize > getInventoryStackLimit()){
+        if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
             itemstack.stackSize = getInventoryStackLimit();
         }
         onInventoryChanged();
@@ -77,15 +77,17 @@ public class TileEntityMachine extends TileEntity implements IInventory{
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-        return entityplayer.getDistanceSq(xCoord + 0.5 ,yCoord + 0.5 ,zCoord + 0.5) <= 64;
+        return entityplayer.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) <= 64;
 
     }
 
     @Override
-    public void openChest() {}
+    public void openChest() {
+    }
 
     @Override
-    public void closeChest() {}
+    public void closeChest() {
+    }
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
@@ -98,12 +100,12 @@ public class TileEntityMachine extends TileEntity implements IInventory{
 
         NBTTagList items = par1NBTTagCompound.getTagList("Items");
 
-        for(int i = 0; i < items.tagCount(); i++){
-            NBTTagCompound item = (NBTTagCompound)items.tagAt(i);
+        for (int i = 0; i < items.tagCount(); i++) {
+            NBTTagCompound item = (NBTTagCompound) items.tagAt(i);
             int slot = item.getByte("Slot");
 
-            if(slot >= 0 && slot < getSizeInventory()){
-                setInventorySlotContents(slot,ItemStack.loadItemStackFromNBT(item));
+            if (slot >= 0 && slot < getSizeInventory()) {
+                setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
             }
         }
 
@@ -115,11 +117,11 @@ public class TileEntityMachine extends TileEntity implements IInventory{
 
         NBTTagList items = new NBTTagList();
 
-        for(int i = 0; i < getSizeInventory(); i++){
+        for (int i = 0; i < getSizeInventory(); i++) {
             ItemStack stack = getStackInSlot(i);
-            if(stack != null){
+            if (stack != null) {
                 NBTTagCompound item = new NBTTagCompound();
-                item.setByte("Slot", (byte)i);
+                item.setByte("Slot", (byte) i);
                 stack.writeToNBT(item);
                 items.appendTag(item);
             }

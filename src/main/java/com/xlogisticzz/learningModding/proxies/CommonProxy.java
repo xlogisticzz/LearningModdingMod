@@ -18,62 +18,63 @@ import net.minecraftforge.common.MinecraftForge;
 
 /**
  * Learning Modding Mod
- * 
+ *
  * @author xLoGisTicZz. Some code may be from tutorials.
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 
 public class CommonProxy {
-    
+
     public void initSounds() {
     }
-    
+
     public void initRenderers() {
     }
 
-    public String getMinecraftVersion(){
+    public String getMinecraftVersion() {
         return Loader.instance().getMinecraftModContainer().getVersion();
     }
 
-    public Object getClient(){
+    public Object getClient() {
         return null;
     }
 
-    public World getClientWorld(){
+    public World getClientWorld() {
         return null;
     }
 
-    public String getCurrentLang(){
+    public String getCurrentLang() {
         return null;
     }
 
-    public void removeEntity(Entity entity){
+    public void removeEntity(Entity entity) {
         entity.worldObj.removeEntity(entity);
     }
 
-    public static void registerBlock(Block block, int meta){
+    public static void registerBlock(Block block, int meta) {
         GameRegistry.registerBlock(block, block.getUnlocalizedName().replace("block.", "") + meta);
     }
-    public static void registerBlock(Block block, int meta, Class<? extends ItemBlock> item){
+
+    public static void registerBlock(Block block, int meta, Class<? extends ItemBlock> item) {
         GameRegistry.registerBlock(block, item, block.getUnlocalizedName().replace("tile.", "") + meta);
     }
 
-    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, String name){
+    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, String name) {
         registerBlock(block, meta);
-            addName(block, name);
-            setBlockHarvestLevel(block, meta, toolClassType, harvestLevel);
+        addName(block, name);
+        setBlockHarvestLevel(block, meta, toolClassType, harvestLevel);
     }
 
 
-    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, Class<? extends ItemBlock> item, String name){
+    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, Class<? extends ItemBlock> item, String name) {
         registerBlock(block, meta, item);
-            addName(block, name);
-            if(toolClassType != null){
-                setBlockHarvestLevel(block, meta, toolClassType, harvestLevel);
-            }
+        addName(block, name);
+        if (toolClassType != null) {
+            setBlockHarvestLevel(block, meta, toolClassType, harvestLevel);
+        }
     }
 
-    public static void setBlockHarvestLevel(Block block, int metadata, String toolClass, int harvestLevel){
+    public static void setBlockHarvestLevel(Block block, int metadata, String toolClass, int harvestLevel) {
         MinecraftForge.setBlockHarvestLevel(block, metadata, toolClass, harvestLevel);
     }
 
@@ -81,28 +82,29 @@ public class CommonProxy {
         GameRegistry.registerItem(item, item.getUnlocalizedName().replace("item.", ""), Constants.Mod.MODID);
         addName(item, name);
     }
-    public static void registerItem(Item item,ItemStack itemStack, String name) {
+
+    public static void registerItem(Item item, ItemStack itemStack, String name) {
         GameRegistry.registerItem(item, item.getUnlocalizedName(itemStack), Constants.Mod.MODID);
         addName(itemStack, name);
     }
 
-    public static void registerTileEntity(Class<? extends TileEntity> clas){
+    public static void registerTileEntity(Class<? extends TileEntity> clas) {
         GameRegistry.registerTileEntity(clas, clas.getName());
     }
 
-    public static void addShapedRecipe(ItemStack result, Object[] recipe){
-        CraftingManager.getInstance().addRecipe(result,recipe);
+    public static void addShapedRecipe(ItemStack result, Object[] recipe) {
+        CraftingManager.getInstance().addRecipe(result, recipe);
     }
 
-    public static void addShapelessRecipe(ItemStack result, Object... recipe){
+    public static void addShapelessRecipe(ItemStack result, Object... recipe) {
         CraftingManager.getInstance().addShapelessRecipe(result, recipe);
     }
 
-    public static void addName(Object obj, String name){
+    public static void addName(Object obj, String name) {
         LanguageRegistry.addName(obj, name);
     }
 
-    public static void addSmeltingRecipe(int id, int meta, ItemStack itemstack, int xp){
+    public static void addSmeltingRecipe(int id, int meta, ItemStack itemstack, int xp) {
         FurnaceRecipes.smelting().addSmelting(id, meta, itemstack, xp);
     }
 

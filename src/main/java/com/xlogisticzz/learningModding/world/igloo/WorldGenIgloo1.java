@@ -1,19 +1,19 @@
 package com.xlogisticzz.learningModding.world.igloo;
 
-import java.util.Random;
-
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 /**
  * Learning Modding Mod
- * 
+ *
  * @author xLoGisTicZz. Some code may be from tutorials.
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 public class WorldGenIgloo1 {
-    
+
     public boolean generate(World world, Random par2Random, int i, int j, int k) {
-    
+
         world.setBlock(i + 0, j + 0, k + 0, 0, 0, 1);
         world.setBlock(i + 1, j + 0, k + 0, 0, 0, 1);
         world.setBlock(i + 2, j + 0, k + 0, 0, 0, 1);

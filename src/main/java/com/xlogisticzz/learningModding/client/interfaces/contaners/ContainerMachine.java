@@ -12,7 +12,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerMachine extends Container{
+public class ContainerMachine extends Container {
 
     TileEntityMachine entityMachine;
 
@@ -20,19 +20,19 @@ public class ContainerMachine extends Container{
         this.entityMachine = entityMachine;
 
         // Player Hotbar
-        for(int x = 0; x < 9; x++){
+        for (int x = 0; x < 9; x++) {
             addSlotToContainer(new Slot(inventoryPlayer, x, 8 + 18 * x, 130));
         }
 
         // Player Inventory
-        for(int y = 0; y < 3; y++){
-            for(int x = 0; x < 9; x++){
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 9; x++) {
                 addSlotToContainer(new Slot(inventoryPlayer, x + y * 9 + 9, 8 + 18 * x, 72 + y * 18));
             }
         }
 
         // Block slots
-        for(int x = 0; x < 3; x++){
+        for (int x = 0; x < 3; x++) {
             addSlotToContainer(new SlotGravel(entityMachine, x, 62 + 18 * x, 26));
         }
     }
