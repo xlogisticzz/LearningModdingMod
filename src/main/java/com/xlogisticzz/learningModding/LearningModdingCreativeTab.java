@@ -15,7 +15,6 @@ public class LearningModdingCreativeTab {
 
     public static CreativeTabs tabLearningModding = new CreativeTabs("tabLearningModding") {
 
-        /* Tab Icon */
         @Override
         public ItemStack getIconItemStack() {
 

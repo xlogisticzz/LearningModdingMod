@@ -27,10 +27,6 @@ public class EntityPosionFX extends EntityFX {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.client.particle.EntityFX#onUpdate()
-     */
     @Override
     public void onUpdate() {
 
@@ -40,10 +36,6 @@ public class EntityPosionFX extends EntityFX {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.client.particle.EntityFX#getFXLayer()
-     */
     @Override
     public int getFXLayer() {
 

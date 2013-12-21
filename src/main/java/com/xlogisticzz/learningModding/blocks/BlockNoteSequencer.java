@@ -30,10 +30,6 @@ public class BlockNoteSequencer extends BlockContainer {
         this.setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.Block#registerIcons(net.minecraft.client.renderer.texture.IconRegister)
-     */
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister) {
@@ -41,10 +37,6 @@ public class BlockNoteSequencer extends BlockContainer {
         this.blockIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.NOTE_SEQUENCER);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.Block#onNeighborBlockChange(net.minecraft.world.World, int, int, int, int)
-     */
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, int id) {
 
@@ -59,10 +51,6 @@ public class BlockNoteSequencer extends BlockContainer {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.block.ITileEntityProvider#createNewTileEntity(net.minecraft.world.World)
-     */
     @Override
     public TileEntity createNewTileEntity(World world) {
 

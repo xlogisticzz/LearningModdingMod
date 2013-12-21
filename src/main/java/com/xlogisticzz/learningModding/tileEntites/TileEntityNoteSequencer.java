@@ -53,10 +53,6 @@ public class TileEntityNoteSequencer extends TileEntity {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.tileentity.TileEntity#readFromNBT(net.minecraft.nbt.NBTTagCompound)
-     */
     @Override
     public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
 
@@ -68,10 +64,6 @@ public class TileEntityNoteSequencer extends TileEntity {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * @see net.minecraft.tileentity.TileEntity#writeToNBT(net.minecraft.nbt.NBTTagCompound)
-     */
     @Override
     public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
 
