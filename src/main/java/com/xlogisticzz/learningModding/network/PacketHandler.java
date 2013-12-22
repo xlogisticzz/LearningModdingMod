@@ -2,9 +2,11 @@ package com.xlogisticzz.learningModding.network;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerCakeStorage;
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerMachine;
 import com.xlogisticzz.learningModding.entities.EntitySpaceship;
 import com.xlogisticzz.learningModding.lib.Constants;
+import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -67,6 +69,13 @@ public class PacketHandler implements IPacketHandler {
                     machine.reciveButtonEvent(packetId);
                 }
                 break;
+            case 2:
+                Container container1 = entityPlayer.openContainer;
+                if (container1 != null && container1 instanceof ContainerCakeStorage) {
+                    TileEntityCakeStorage cakeStorage = ((ContainerCakeStorage) container1).getTile();
+                    cakeStorage.reciveButtonEvent(packetId);
+                }
+                break;
 
         }
 
@@ -105,13 +114,27 @@ public class PacketHandler implements IPacketHandler {
         }
     }
 
-    /*Button Packets*/
-    public static void sendButtonPacket(byte id) {
+    /*Machine Button Packets*/
+    public static void sendMachineButtonPacket(byte id) {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         DataOutputStream dataStream = new DataOutputStream(byteStream);
 
         try {
             dataStream.writeByte((byte) 1);
+            dataStream.writeByte(id);
+
+            PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.CHANNEL_NAME, byteStream.toByteArray()));
+        } catch (IOException ex) {
+            System.err.append("Failed to send button click packet");
+        }
+    }
+    /*Cake button Packets*/
+    public static void sendCakeButtonPacket(byte id) {
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        DataOutputStream dataStream = new DataOutputStream(byteStream);
+
+        try {
+            dataStream.writeByte((byte) 2);
             dataStream.writeByte(id);
 
             PacketDispatcher.sendPacketToServer(PacketDispatcher.getPacket(Constants.Mod.CHANNEL_NAME, byteStream.toByteArray()));

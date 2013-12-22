@@ -106,7 +106,7 @@ public class GuiMachine extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        PacketHandler.sendButtonPacket((byte) par1GuiButton.id);
+        PacketHandler.sendMachineButtonPacket((byte) par1GuiButton.id);
         if (par1GuiButton.id == 0) {
             par1GuiButton.displayString = par1GuiButton.displayString.equals(DISABLE_TEXT) ? ENABLE_TEXT : DISABLE_TEXT;
         } else if (par1GuiButton.id == 1) {
