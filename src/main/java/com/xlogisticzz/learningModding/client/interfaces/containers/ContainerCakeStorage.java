@@ -6,8 +6,6 @@ package com.xlogisticzz.learningModding.client.interfaces.containers;
 
 import com.xlogisticzz.learningModding.client.interfaces.slots.SlotCake;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
-import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

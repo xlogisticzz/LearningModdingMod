@@ -41,7 +41,7 @@ public class GuiCakeStorage extends GuiContainer {
 
         float filled = cakeStorage.getCake() / 10F;
         int barHeight = (int) (filled * 34);
-        if(barHeight > 0){
+        if (barHeight > 0) {
             int srcX = xSize;
             int srcY = 34 - barHeight;
 
@@ -59,15 +59,15 @@ public class GuiCakeStorage extends GuiContainer {
         super.initGui();
         buttonList.clear();
 
-        GuiButton place = new GuiButton(0, guiLeft + 110, guiTop + 16, 60 , 20, "Place Cake");
+        GuiButton place = new GuiButton(0, guiLeft + 110, guiTop + 16, 60, 20, "Place Cake");
         place.enabled = cakeStorage.worldObj.isAirBlock(cakeStorage.xCoord, cakeStorage.yCoord + 1, cakeStorage.zCoord);
         buttonList.add(place);
     }
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        PacketHandler.sendCakeButtonPacket((byte)par1GuiButton.id);
-        if(par1GuiButton.id == 0){
+        PacketHandler.sendCakeButtonPacket((byte) par1GuiButton.id);
+        if (par1GuiButton.id == 0) {
             par1GuiButton.enabled = false;
 
         }

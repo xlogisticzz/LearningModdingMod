@@ -4,9 +4,7 @@ package com.xlogisticzz.learningModding.tileEntites;
 * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
 */
 
-import com.xlogisticzz.learningModding.items.ModItems;
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -136,11 +134,11 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     public void reciveButtonEvent(byte buttonId) {
         switch (buttonId) {
             case 0:
-                if(getCake() > 0 && worldObj.isAirBlock(xCoord, yCoord + 1, zCoord)){
-                    worldObj.setBlock(xCoord, yCoord +1, zCoord, Block.cake.blockID,0, 2);
-                    for(int i = 0; i< getSizeInventory() ; i++){
+                if (getCake() > 0 && worldObj.isAirBlock(xCoord, yCoord + 1, zCoord)) {
+                    worldObj.setBlock(xCoord, yCoord + 1, zCoord, Block.cake.blockID, 0, 2);
+                    for (int i = 0; i < getSizeInventory(); i++) {
                         ItemStack stack = getStackInSlot(i);
-                        if(stack != null && stack.itemID == Item.cake.itemID){
+                        if (stack != null && stack.itemID == Item.cake.itemID) {
                             decrStackSize(i, 1);
                             break;
                         }

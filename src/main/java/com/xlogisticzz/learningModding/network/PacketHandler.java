@@ -128,6 +128,7 @@ public class PacketHandler implements IPacketHandler {
             System.err.append("Failed to send button click packet");
         }
     }
+
     /*Cake button Packets*/
     public static void sendCakeButtonPacket(byte id) {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
