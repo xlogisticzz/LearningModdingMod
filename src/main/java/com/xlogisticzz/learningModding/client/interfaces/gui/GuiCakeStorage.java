@@ -20,7 +20,6 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiCakeStorage extends GuiContainer {
-
     private TileEntityCakeStorage cakeStorage;
 
     public GuiCakeStorage(InventoryPlayer inventoryPlayer, TileEntityCakeStorage cakeStorage) {
@@ -49,18 +48,20 @@ public class GuiCakeStorage extends GuiContainer {
         }
     }
 
+
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         fontRenderer.drawString("Cake Storage", 8, 6, 0x404040);
     }
+
 
     @Override
     public void initGui() {
         super.initGui();
         buttonList.clear();
 
-        GuiButton place = new GuiButton(0, guiLeft + 110, guiTop + 16, 60, 20, "Place Cake");
-        place.enabled = cakeStorage.worldObj.isAirBlock(cakeStorage.xCoord, cakeStorage.yCoord + 1, cakeStorage.zCoord);
+        GuiButton place = new GuiButton(0, guiLeft + 110, guiTop + 13, 60, 20, "Place Cake");
+        place.enabled = cakeStorage.worldObj.getBlockId(cakeStorage.xCoord, cakeStorage.yCoord + 1, cakeStorage.zCoord) == 0;
         buttonList.add(place);
     }
 
@@ -69,7 +70,6 @@ public class GuiCakeStorage extends GuiContainer {
         PacketHandler.sendCakeButtonPacket((byte) par1GuiButton.id);
         if (par1GuiButton.id == 0) {
             par1GuiButton.enabled = false;
-
         }
     }
 }

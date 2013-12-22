@@ -134,8 +134,12 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     public void reciveButtonEvent(byte buttonId) {
         switch (buttonId) {
             case 0:
-                if (getCake() > 0 && worldObj.isAirBlock(xCoord, yCoord + 1, zCoord)) {
-                    worldObj.setBlock(xCoord, yCoord + 1, zCoord, Block.cake.blockID, 0, 2);
+                if (getCake() > 0) {
+                    if (worldObj.getBlockId(xCoord, yCoord + 1, zCoord) == 0) {
+                        worldObj.setBlock(xCoord, yCoord + 1, zCoord, Block.cake.blockID, 0, 2);
+
+                    }
+
                     for (int i = 0; i < getSizeInventory(); i++) {
                         ItemStack stack = getStackInSlot(i);
                         if (stack != null && stack.itemID == Item.cake.itemID) {
@@ -144,8 +148,6 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
                         }
                     }
                 }
-                break;
-
         }
     }
 
@@ -174,4 +176,5 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
 
         cake = -1;
     }
+
 }
