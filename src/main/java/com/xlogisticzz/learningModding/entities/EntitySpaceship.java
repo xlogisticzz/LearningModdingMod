@@ -4,7 +4,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.xlogisticzz.learningModding.LearningModding;
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
-import com.xlogisticzz.learningModding.client.SpaceshipInventoryKeyBind;
+import com.xlogisticzz.learningModding.client.keyBinds.SpaceshipInventoryKeyBind;
 import com.xlogisticzz.learningModding.client.sounds.Sounds;
 import com.xlogisticzz.learningModding.network.PacketHandler;
 import cpw.mods.fml.common.network.FMLNetworkHandler;

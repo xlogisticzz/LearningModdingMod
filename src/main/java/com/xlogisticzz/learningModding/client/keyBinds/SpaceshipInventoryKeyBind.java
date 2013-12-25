@@ -1,4 +1,4 @@
-package com.xlogisticzz.learningModding.client;
+package com.xlogisticzz.learningModding.client.keyBinds;
 /*
 * @author xLoGisTicZz
 * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
