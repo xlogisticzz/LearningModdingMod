@@ -10,9 +10,11 @@ import com.xlogisticzz.learningModding.network.PacketHandler;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -46,6 +48,20 @@ public class GuiCakeStorage extends GuiContainer {
 
             drawTexturedModalRect(guiLeft + 100, guiTop + 17 + 34 - barHeight, srcX, srcY, 7, barHeight);
         }
+
+        int srcX = cakeStorage.getCurrentDir() * 20;
+        int srcY = ySize;
+        drawTexturedModalRect(guiLeft + 70, guiTop + 58, srcX, srcY, 20, 22);
+
+
+        Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+
+        if (!cakeStorage.isAirInCurrentDir()) {
+            int id = cakeStorage.getBlockIdAtCurrentPos();
+            Block block = Block.blocksList[id];
+            drawTexturedModelRectFromIcon(guiLeft + 85, guiTop + 58, block.getIcon(1, 0), 16, 16);
+        }
+
     }
 
 
@@ -54,22 +70,37 @@ public class GuiCakeStorage extends GuiContainer {
         fontRenderer.drawString("Cake Storage", 8, 6, 0x404040);
     }
 
+    private GuiButton place;
 
     @Override
     public void initGui() {
         super.initGui();
         buttonList.clear();
 
-        GuiButton place = new GuiButton(0, guiLeft + 110, guiTop + 13, 60, 20, "Place Cake");
+        place = new GuiButton(0, guiLeft + 110, guiTop + 23, 60, 20, "Place Cake");
         place.enabled = cakeStorage.worldObj.getBlockId(cakeStorage.xCoord, cakeStorage.yCoord + 1, cakeStorage.zCoord) == 0;
         buttonList.add(place);
+
+        GuiButton changeDir = new GuiButton(1, guiLeft + 5, guiTop + 58, 60, 20, "Change Dir");
+        buttonList.add(changeDir);
     }
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
         PacketHandler.sendCakeButtonPacket((byte) par1GuiButton.id);
         if (par1GuiButton.id == 0) {
-            par1GuiButton.enabled = false;
+            if (cakeStorage.isAirInCurrentDir()) {
+                par1GuiButton.enabled = true;
+            } else {
+                par1GuiButton.enabled = false;
+            }
+        } else if (par1GuiButton.id == 1) {
+            par1GuiButton.enabled = true;
+            if (cakeStorage.isAirInCurrentDir()) {
+                place.enabled = true;
+            } else {
+                place.enabled = false;
+            }
         }
     }
 }

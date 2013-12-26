@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntityCakeStorage extends TileEntity implements IInventory {
 
     private ItemStack[] items;
+    public byte currentDir = 0;
 
     public TileEntityCakeStorage() {
         items = new ItemStack[10];
@@ -35,6 +36,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
                 setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
             }
         }
+        currentDir = par1NBTTagCompound.getByte("currentDir");
     }
 
     @Override
@@ -53,6 +55,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             }
         }
         par1NBTTagCompound.setTag("Items", items);
+        par1NBTTagCompound.setByte("currentDir", currentDir);
     }
 
 
@@ -135,19 +138,17 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         switch (buttonId) {
             case 0:
                 if (getCake() > 0) {
-                    if (worldObj.getBlockId(xCoord, yCoord + 1, zCoord) == 0) {
-                        worldObj.setBlock(xCoord, yCoord + 1, zCoord, Block.cake.blockID, 0, 2);
+                    placeCakeInCurrentDir();
 
-                    }
-
-                    for (int i = 0; i < getSizeInventory(); i++) {
-                        ItemStack stack = getStackInSlot(i);
-                        if (stack != null && stack.itemID == Item.cake.itemID) {
-                            decrStackSize(i, 1);
-                            break;
-                        }
-                    }
                 }
+                break;
+
+            case 1:
+                increaseDir();
+                System.out.println("incresaed dir to  " + getCurrentDir());
+
+                break;
+
         }
     }
 
@@ -177,4 +178,140 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         cake = -1;
     }
 
+    public byte getCurrentDir() {
+        return currentDir;
+    }
+
+    public boolean placeCakeInCurrentDir() {
+        boolean state = false;
+        if (!isAirInCurrentDir()) {
+            state = false;
+        } else {
+            switch (getCurrentDir()) {
+                case 0:
+                    if (worldObj.setBlock(xCoord, yCoord + 1, zCoord, Block.cake.blockID, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 1:
+                    if (worldObj.setBlock(xCoord, yCoord - 1, zCoord, Block.cake.blockID, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 2:
+                    if (worldObj.setBlock(xCoord, yCoord, zCoord - 1, Block.cake.blockID, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 3:
+                    if (worldObj.setBlock(xCoord, yCoord, zCoord + 1, Block.cake.blockID, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 4:
+                    if (worldObj.setBlock(xCoord + 1, yCoord, zCoord, Block.cake.blockID, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 5:
+                    if (worldObj.setBlock(xCoord - 1, yCoord, zCoord, Block.cake.blockID, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+            }
+        }
+        if (state) {
+            for (int i = 0; i < getSizeInventory(); i++) {
+                ItemStack stack = getStackInSlot(i);
+                if (stack != null && stack.itemID == Item.cake.itemID) {
+                    decrStackSize(i, 1);
+                    break;
+                }
+            }
+        }
+        if (!state) {
+            System.out.println("could not place " + getCurrentDir());
+        } else {
+            System.out.println("placed cake " + getCurrentDir());
+        }
+        return state;
+    }
+
+    public void increaseDir() {
+        if (getCurrentDir() == 5) {
+            currentDir = 0;
+        } else {
+            currentDir = (byte) (currentDir + 1);
+        }
+    }
+
+    public boolean isAirInCurrentDir() {
+        switch (getCurrentDir()) {
+            case 0:
+                if (worldObj.getBlockId(xCoord, yCoord + 1, zCoord) == 0) {
+                    return true;
+                }
+                break;
+            case 1:
+                if (worldObj.getBlockId(xCoord, yCoord - 1, zCoord) == 0) {
+                    return true;
+                }
+                break;
+            case 2:
+                if (worldObj.getBlockId(xCoord, yCoord, zCoord - 1) == 0) {
+                    return true;
+                }
+                break;
+            case 3:
+                if (worldObj.getBlockId(xCoord, yCoord, zCoord + 1) == 0) {
+                    return true;
+                }
+                break;
+            case 4:
+                if (worldObj.getBlockId(xCoord + 1, yCoord, zCoord) == 0) {
+                    return true;
+                }
+                break;
+            case 5:
+                if (worldObj.getBlockId(xCoord - 1, yCoord, zCoord) == 0) {
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+    public int getBlockIdAtCurrentPos() {
+        int id = 0;
+
+        if (isAirInCurrentDir()) {
+            return id;
+        } else {
+            switch (getCurrentDir()) {
+                case 0:
+                    id = worldObj.getBlockId(xCoord, yCoord + 1, zCoord);
+                    break;
+                case 1:
+                    id = worldObj.getBlockId(xCoord, yCoord - 1, zCoord);
+
+                    break;
+                case 2:
+                    id = worldObj.getBlockId(xCoord, yCoord, zCoord - 1);
+
+                    break;
+                case 3:
+                    id = worldObj.getBlockId(xCoord, yCoord, zCoord + 1);
+                    break;
+                case 4:
+                    id = worldObj.getBlockId(xCoord + 1, yCoord, zCoord);
+
+                    break;
+                case 5:
+                    id = worldObj.getBlockId(xCoord - 1, yCoord, zCoord);
+                    break;
+
+            }
+            return id;
+        }
+    }
 }
