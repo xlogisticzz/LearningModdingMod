@@ -120,6 +120,18 @@ public class BlockMachine extends BlockContainer {
                             spawnGravel(world, machine, x, y + 20, z - i);
                         }
                         break;
+
+                    case 4:
+                        for (int i = 0; i < machine.customSetup.length; i++) {
+                            if (machine.customSetup[i]) {
+                                int dropX = x + i / 7 - 3;
+                                int dropZ = z + i % 7 - 3;
+
+                                spawnGravel(world, machine, dropX, y + 20, dropZ);
+                            }
+                        }
+
+                        break;
                 }
             }
         }

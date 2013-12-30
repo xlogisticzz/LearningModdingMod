@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import scala.tools.nsc.backend.jvm.GenASM;
 
 @SideOnly(Side.CLIENT)
 public class GuiMachine extends GuiContainer {
@@ -29,13 +30,23 @@ public class GuiMachine extends GuiContainer {
         this.entityMachine = entityMachine;
 
         xSize = 176;
-        ySize = 154;
+        ySize = 218;
     }
 
     private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/machine.png");
+    private static final GuiRectangle[] rectangles;
+
+    static {
+        rectangles = new GuiRectangle[49];
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                rectangles[i * 7 + j] = new GuiRectangle(57 + i * 9, 70 + j * 9, 8, 8);
+            }
+        }
+    }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+    protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
         GL11.glColor4f(1, 1, 1, 1);
         Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
@@ -59,34 +70,57 @@ public class GuiMachine extends GuiContainer {
             drawTexturedModalRect(guiLeft + 157, guiTop + 40 + 27 - barHeight, srcX, srcY, 7, barHeight);
         }
 
+        if (type == 4) {
+            for (int i = 0; i < rectangles.length; i++) {
+                GuiRectangle rect = rectangles[i];
+                int srcX = xSize;
+
+                if (rect.inRect(this, x, y)) {
+                    srcX += 8;
+                }
+
+                rect.draw(this, srcX, 27);
+
+                if (entityMachine.customSetup[i]) {
+                    rect.draw(this, xSize, 35);
+                }
+            }
+
+        }
+
         Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         drawTexturedModelRectFromIcon(guiLeft + 63, guiTop + 17, ModBlocks.machineblock.getIcon(1, meta), 16, 16);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int y) {
-        fontRenderer.drawString("Machine", 8, 6, 0x404040);
+        fontRenderer.drawString("Silly Machine", 8, 6, 0x404040);
 
         int type = entityMachine.worldObj.getBlockMetadata(entityMachine.xCoord, entityMachine.yCoord, entityMachine.zCoord) / 2;
 
-        String string;
+        String str;
         boolean invalid = true;
         if (type == 0) {
-            string = "No Type Selected";
-        } else {
-            int count = 0;
+            str = "No type selected";
+        }else{
+            int count;
             if (type == 1) {
                 count = 5;
-            } else {
+            }else if(type == 4) {
+                count = entityMachine.getCustomGravel();
+            }else{
                 count = 12;
             }
+
             if (entityMachine.getGravel() >= count) {
                 invalid = false;
             }
-            string = "Requires " + count + " gravel blocks per drop";
+
+            str = "Requires " + count + " anvils per drop";
         }
-        int colour = invalid ? 0xD30000 : 0x404040;
-        fontRenderer.drawSplitString(string, 45, 44, 100, colour);
+
+        int color = invalid ? 0xD30000 : 0x404040;
+        fontRenderer.drawSplitString(str, 45, 44, 100, color);
     }
 
     private static final String ENABLE_TEXT = "Enable";
@@ -112,5 +146,46 @@ public class GuiMachine extends GuiContainer {
         } else if (par1GuiButton.id == 1) {
             par1GuiButton.enabled = false;
         }
+    }
+
+    @Override
+    protected void mouseClicked(int x, int y, int button) {
+        super.mouseClicked(x, y, button);
+
+        for (int i = 0; i < rectangles.length; i++) {
+            GuiRectangle rect = rectangles[i];
+
+            if (rect.inRect(this, x, y)) {
+                PacketHandler.sendMachineButtonPacket((byte)(2 + i));
+                currentDragMode = entityMachine.customSetup[i];
+                entityMachine.setCustomGravel(i, !currentDragMode);
+                break;
+            }
+        }
+    }
+
+    private boolean currentDragMode;
+
+    @Override
+    protected void mouseClickMove(int x, int y, int button, long timeSinceClick) {
+        super.mouseClickMove(x, y, button, timeSinceClick);
+
+        for (int i = 0; i < rectangles.length; i++) {
+            GuiRectangle rect = rectangles[i];
+
+            if (entityMachine.customSetup[i] == currentDragMode && rect.inRect(this, x, y)) {
+                PacketHandler.sendMachineButtonPacket((byte)(2 + i));
+                entityMachine.setCustomGravel(i, !currentDragMode);
+                break;
+            }
+        }
+    }
+
+    protected int getLeft() {
+        return guiLeft;
+    }
+
+    protected int getTop() {
+        return guiTop;
     }
 }

@@ -30,7 +30,7 @@ public class Constants {
         public static final String[] ORES = {"Ruby Ore", "Titanium Ore"};
         public static final String TITANIUM_BLOCK_NAME = "Titanium Block";
         public static final String RUBY_BLOCK_NAME = "Ruby Block";
-        public static final String[] MACHINE_BLOCK_NAME = {"Machine Block", "Machine Block Disabled", "Machine Block Arrow", "Machine Block Arrow Disabled", "Machine Block Border", "Machine Block Border Disabled", "Machine Block Cross", "Machine Block Cross Disabled"};
+        public static final String[] MACHINE_BLOCK_NAME = {"Machine Block", "Machine Block Disabled", "Machine Block Arrow", "Machine Block Arrow Disabled", "Machine Block Border", "Machine Block Border Disabled", "Machine Block Cross", "Machine Block Cross Disabled", "Machine Block Custom", "Machine Block Custom Disabled"};
         public static final String GLASS_CONNECTED = "Glass Connected";
         public static final String[] MARKERS_NAME = {"Blue Marker", "Blue Marker Marked", "Brown Marker", "Brown Marker Marked", "Green Marker", "Green Marker Marked", "Grey Marker", "Grey Marker Marked", "Orange Marker", "Orange Marker Marked", "Purple Marker", "Purple Marker Marked", "Red Marker", "Red Marker Marked", "Yellow Marker", "Yellow Marker Marked"};
         public static final String BOMB_NAME = "Bomb";
@@ -58,7 +58,7 @@ public class Constants {
         public static final String RUBY_LEGGINGS_NAME = "Ruby Leggings";
         public static final String RUBY_BOOTS_NAME = "Ruby Boots";
         public static final String RUBY_WAND_NAME = "Ruby Wand";
-        public static final String[] CARD_NAMES = {"Arrow Card", "Border Card", "Cross Card"};
+        public static final String[] CARD_NAMES = {"Arrow Card", "Border Card", "Cross Card", "Custom Card"};
         public static final String[] DEATHSTONES_NAMES = {"Deathstone Creeper", "Deathstone Enderman", "Deathstone Pig", "Deathstone Player", "Deathstone Skeleton"};
         public static final String WAND_NAME = "Wand";
         public static final String SPAWN_SPACESHIP_NAME = "Spawn Spaceship";
@@ -80,7 +80,7 @@ public class Constants {
         public static final String RUBY_SPADE = "ruby_spade";
         public static final String RUBY_AXE = "ruby_axe";
         public static final String RUBY_HOE = "ruby_hoe";
-        public static final String[] CARD_ICONS = {"card_arrow", "card_box", "card_cross"};
+        public static final String[] CARD_ICONS = {"card_arrow", "card_box", "card_cross", "card_custom"};
         public static final String[] DEATHSTONES_ICONS = {"deathstone_creeper", "deathstone_enderman", "deathstone_pig", "deathstone_player", "deathstone_skeleton"};
         public static final String WAND = "wand";
         public static final String SPAWN_SPACESHIP = "spawn_spaceship";
@@ -95,7 +95,7 @@ public class Constants {
         public static final String MACHINE_TOP = "machine_top";
         public static final String MACHINE_BOTTOM = "machine_bottom";
         public static final String MACHINE_DISABLED = "machine_disabled";
-        public static final String[] MACHINE_SIDES = {"machine_side", "machine_side_arrow", "machine_side_box", "machine_side_cross"};
+        public static final String[] MACHINE_SIDES = {"machine_side", "machine_side_arrow", "machine_side_box", "machine_side_cross", "machine_side_custom"};
         public static final String[] GLASS_CONNECTED = {"Glass", "Glass_1_d", "Glass_1_l", "Glass_1_r", "Glass_1_u", "Glass_2_dl", "Glass_2_dr", "Glass_2_lr", "Glass_2_ud", "Glass_2_ul", "Glass_2_ur", "Glass_3_dlr", "Glass_3_udl", "Glass_3_udr", "Glass_3_ulr", "Glass_4"};
         public static final String[] MARKERS = {"marker_blue", "marker_blue_marked", "marker_brown", "marker_brown_marked", "marker_green", "marker_green_marked", "marker_grey", "marker_grey_marked", "marker_orange", "marker_orange_marked", "marker_purple", "marker_purple_marked", "marker_red", "marker_red_marked", "marker_yellow", "marker_yellow_marked"};
         public static final String BOMB = "bomb";

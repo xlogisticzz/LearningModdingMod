@@ -17,9 +17,11 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntityMachine extends TileEntity implements IInventory {
 
     private ItemStack[] items;
+    public final boolean[] customSetup;
 
     public TileEntityMachine() {
         items = new ItemStack[3];
+        customSetup = new boolean[49];
     }
 
     @Override
@@ -111,6 +113,10 @@ public class TileEntityMachine extends TileEntity implements IInventory {
             }
         }
 
+        for (int i = 0; i < customSetup.length; i++) {
+            setCustomGravel(i, par1NBTTagCompound.getBoolean("Custom" + i));
+        }
+
     }
 
     @Override
@@ -129,6 +135,10 @@ public class TileEntityMachine extends TileEntity implements IInventory {
             }
         }
         par1NBTTagCompound.setTag("Items", items);
+
+        for (int i = 0; i < customSetup.length; i++) {
+            par1NBTTagCompound.setBoolean("Custom" + i, customSetup[i]);
+        }
     }
 
     public void reciveButtonEvent(byte buttonId) {
@@ -162,6 +172,10 @@ public class TileEntityMachine extends TileEntity implements IInventory {
 
                     worldObj.spawnEntityInWorld(droppedItem);
                 }
+
+            default:
+                buttonId -= 2;
+                setCustomGravel(buttonId, !customSetup[buttonId]);
         }
     }
 
@@ -189,5 +203,21 @@ public class TileEntityMachine extends TileEntity implements IInventory {
         super.onInventoryChanged();
 
         gravel = -1;
+    }
+
+    private int customGravel = 0;
+
+    public int getCustomGravel() {
+        return customGravel;
+    }
+
+    public void setCustomGravel(int i, boolean val) {
+        boolean oldVal = customSetup[i];
+        if (oldVal && !val) {
+            customGravel--;
+        } else if (!oldVal && val) {
+            customGravel++;
+        }
+        customSetup[i] = val;
     }
 }

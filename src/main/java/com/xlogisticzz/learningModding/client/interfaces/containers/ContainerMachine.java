@@ -6,12 +6,17 @@ package com.xlogisticzz.learningModding.client.interfaces.containers;
 
 import com.xlogisticzz.learningModding.client.interfaces.slots.SlotGravel;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
+import java.util.Arrays;
 
 public class ContainerMachine extends Container {
 
@@ -22,13 +27,13 @@ public class ContainerMachine extends Container {
 
         // Player Hotbar
         for (int x = 0; x < 9; x++) {
-            addSlotToContainer(new Slot(inventoryPlayer, x, 8 + 18 * x, 130));
+            addSlotToContainer(new Slot(inventoryPlayer, x, 8 + 18 * x, 194));
         }
 
         // Player Inventory
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 9; x++) {
-                addSlotToContainer(new Slot(inventoryPlayer, x + y * 9 + 9, 8 + 18 * x, 72 + y * 18));
+                addSlotToContainer(new Slot(inventoryPlayer, x + y * 9 + 9, 8 + 18 * x, 136 + y * 18));
             }
         }
 
@@ -77,4 +82,35 @@ public class ContainerMachine extends Container {
         return entityMachine;
     }
 
+    @Override
+    public void addCraftingToCrafters(ICrafting par1ICrafting) {
+        super.addCraftingToCrafters(par1ICrafting);
+
+        for (int i = 0; i < entityMachine.customSetup.length; i++) {
+            par1ICrafting.sendProgressBarUpdate(this, i, entityMachine.customSetup[i] ? 1 : 0);
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int id, int data) {
+        entityMachine.setCustomGravel(id, data != 0);
+    }
+
+    private boolean[] olddata = new boolean[49];
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+
+        for (Object player : crafters) {
+            for (int i = 0; i < entityMachine.customSetup.length; i++) {
+                if (entityMachine.customSetup[i] != olddata[i]) {
+                    ((ICrafting) player).sendProgressBarUpdate(this, i, entityMachine.customSetup[i] ? 1 : 0);
+                }
+            }
+        }
+
+        olddata = Arrays.copyOf(entityMachine.customSetup, entityMachine.customSetup.length);
+    }
 }
