@@ -18,14 +18,14 @@ public class GuiRectangle {
         this.h = h;
     }
 
-    public boolean inRect(GuiMachine guiMachine, int mouseX, int mouseY){
+    public boolean inRect(GuiMachine guiMachine, int mouseX, int mouseY) {
         mouseX -= guiMachine.getLeft();
         mouseY -= guiMachine.getTop();
 
         return x <= mouseX && mouseX <= x + w && y <= mouseY && mouseY <= y + h;
     }
 
-    public void draw(GuiMachine guiMachine, int srcX, int srcY){
+    public void draw(GuiMachine guiMachine, int srcX, int srcY) {
         guiMachine.drawTexturedModalRect(guiMachine.getLeft() + x, guiMachine.getTop() + y, srcX, srcY, w, h);
     }
 }

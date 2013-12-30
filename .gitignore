@@ -16,11 +16,13 @@ gradle.properties
 /*.iml
 /atlassian-ide-plugin.xml
 CREDITS-fml.txt
-*.ipr
-*.iws
+/*.ipr
+/*.iws
 gradlew
 gradlew.bat
 MinecraftForge-License.txt
 MinecraftForge-Credits.txt
 LICENSE-fml.txt
 forge-1.6.4-9.11.1.964-changelog.txt
+Forge 1.6.4.ipr
+Forge 1.6.4.iws

@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import scala.tools.nsc.backend.jvm.GenASM;
 
 @SideOnly(Side.CLIENT)
 public class GuiMachine extends GuiContainer {
@@ -102,13 +101,13 @@ public class GuiMachine extends GuiContainer {
         boolean invalid = true;
         if (type == 0) {
             str = "No type selected";
-        }else{
+        } else {
             int count;
             if (type == 1) {
                 count = 5;
-            }else if(type == 4) {
+            } else if (type == 4) {
                 count = entityMachine.getCustomGravel();
-            }else{
+            } else {
                 count = 12;
             }
 
@@ -156,7 +155,7 @@ public class GuiMachine extends GuiContainer {
             GuiRectangle rect = rectangles[i];
 
             if (rect.inRect(this, x, y)) {
-                PacketHandler.sendMachineButtonPacket((byte)(2 + i));
+                PacketHandler.sendMachineButtonPacket((byte) (2 + i));
                 currentDragMode = entityMachine.customSetup[i];
                 entityMachine.setCustomGravel(i, !currentDragMode);
                 break;
@@ -174,7 +173,7 @@ public class GuiMachine extends GuiContainer {
             GuiRectangle rect = rectangles[i];
 
             if (entityMachine.customSetup[i] == currentDragMode && rect.inRect(this, x, y)) {
-                PacketHandler.sendMachineButtonPacket((byte)(2 + i));
+                PacketHandler.sendMachineButtonPacket((byte) (2 + i));
                 entityMachine.setCustomGravel(i, !currentDragMode);
                 break;
             }
