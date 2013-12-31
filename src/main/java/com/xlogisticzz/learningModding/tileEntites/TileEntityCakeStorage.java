@@ -16,10 +16,11 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntityCakeStorage extends TileEntity implements IInventory {
 
     private ItemStack[] items;
-    public byte currentDir = 0;
+    public byte currentDir;
 
     public TileEntityCakeStorage() {
         items = new ItemStack[10];
+        currentDir = 0;
     }
 
     @Override
@@ -246,6 +247,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     public boolean isAirInCurrentDir() {
+        //System.out.println("checking" + getCurrentDir());
         switch (getCurrentDir()) {
             case 0:
                 if (worldObj.getBlockId(xCoord, yCoord + 1, zCoord) == 0) {

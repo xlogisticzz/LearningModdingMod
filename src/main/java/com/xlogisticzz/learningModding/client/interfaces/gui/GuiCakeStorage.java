@@ -59,7 +59,9 @@ public class GuiCakeStorage extends GuiContainer {
         if (!cakeStorage.isAirInCurrentDir()) {
             int id = cakeStorage.getBlockIdAtCurrentPos();
             Block block = Block.blocksList[id];
-            drawTexturedModelRectFromIcon(guiLeft + 85, guiTop + 58, block.getIcon(1, 0), 16, 16);
+            if (block.blockID != 0) {
+                drawTexturedModelRectFromIcon(guiLeft + 90, guiTop + 58, block.getIcon(1, 0), 16, 16);
+            }
         }
 
     }
@@ -78,7 +80,7 @@ public class GuiCakeStorage extends GuiContainer {
         buttonList.clear();
 
         place = new GuiButton(0, guiLeft + 110, guiTop + 23, 60, 20, "Place Cake");
-        place.enabled = cakeStorage.worldObj.getBlockId(cakeStorage.xCoord, cakeStorage.yCoord + 1, cakeStorage.zCoord) == 0;
+        place.enabled = cakeStorage.isAirInCurrentDir();
         buttonList.add(place);
 
         GuiButton changeDir = new GuiButton(1, guiLeft + 5, guiTop + 58, 60, 20, "Change Dir");
@@ -89,13 +91,10 @@ public class GuiCakeStorage extends GuiContainer {
     protected void actionPerformed(GuiButton par1GuiButton) {
         PacketHandler.sendCakeButtonPacket((byte) par1GuiButton.id);
         if (par1GuiButton.id == 0) {
-            if (cakeStorage.isAirInCurrentDir()) {
-                par1GuiButton.enabled = true;
-            } else {
-                par1GuiButton.enabled = false;
-            }
+            par1GuiButton.enabled = false;
         } else if (par1GuiButton.id == 1) {
             par1GuiButton.enabled = true;
+            cakeStorage.increaseDir();
             if (cakeStorage.isAirInCurrentDir()) {
                 place.enabled = true;
             } else {
