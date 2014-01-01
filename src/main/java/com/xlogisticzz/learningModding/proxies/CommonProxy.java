@@ -107,5 +107,4 @@ public class CommonProxy {
     public static void addSmeltingRecipe(int id, int meta, ItemStack itemstack, int xp) {
         FurnaceRecipes.smelting().addSmelting(id, meta, itemstack, xp);
     }
-
 }

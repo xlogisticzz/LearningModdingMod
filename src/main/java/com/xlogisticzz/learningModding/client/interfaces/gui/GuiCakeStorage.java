@@ -49,6 +49,24 @@ public class GuiCakeStorage extends GuiContainer {
             drawTexturedModalRect(guiLeft + 100, guiTop + 17 + 34 - barHeight, srcX, srcY, 7, barHeight);
         }
 
+        int timerWidth = cakeStorage.getTimer();
+        if (timerWidth > 0) {
+            int srcX = xSize + 10;
+            int srcY = 0;
+
+            drawTexturedModalRect(guiLeft + 119, guiTop + 44, srcX, srcY, timerWidth, 7);
+        }
+
+        filled = cakeStorage.getBuffer() / 6F;
+        barHeight = (int) (filled * 34);
+        if (barHeight > 0) {
+            int srcX = xSize + 7;
+            int srcY = 34 - barHeight;
+
+            drawTexturedModalRect(guiLeft + 108, guiTop + 17 + 34 - barHeight, srcX, srcY, 3, barHeight);
+        }
+
+
         int srcX = cakeStorage.getCurrentDir() * 20;
         int srcY = ySize;
         drawTexturedModalRect(guiLeft + 70, guiTop + 58, srcX, srcY, 20, 22);
@@ -71,11 +89,11 @@ public class GuiCakeStorage extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         fontRenderer.drawString("Cake Storage", 8, 6, 0x404040);
 
-        if(!cakeStorage.isAirInCurrentDir()){
+        if (!cakeStorage.isAirInCurrentDir()) {
             int id = cakeStorage.getBlockIdAtCurrentPos();
             Block block = Block.blocksList[id];
             String str = "Cannot place Cake " + cakeStorage.getCurrentTextDir().toLowerCase() + " as the block is occupied by " + block.getLocalizedName();
-            fontRenderer.drawSplitString(str, 70, 84 ,100, 0x404040);
+            fontRenderer.drawSplitString(str, 70, 84, 100, 0x404040);
         }
     }
 
@@ -92,6 +110,9 @@ public class GuiCakeStorage extends GuiContainer {
 
         GuiButton changeDir = new GuiButton(1, guiLeft + 5, guiTop + 58, 60, 20, "Change Dir");
         buttonList.add(changeDir);
+
+        buttonList.add(new GuiButton(2, guiLeft + 5, guiTop + 106, 50, 20, "Dispense"));
+
     }
 
     @Override

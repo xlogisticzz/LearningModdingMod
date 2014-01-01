@@ -6,9 +6,12 @@ package com.xlogisticzz.learningModding.client.interfaces.containers;
 
 import com.xlogisticzz.learningModding.client.interfaces.slots.SlotCake;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -80,5 +83,43 @@ public class ContainerCakeStorage extends Container {
 
     public TileEntityCakeStorage getTile() {
         return tile;
+    }
+
+    @Override
+    public void addCraftingToCrafters(ICrafting player) {
+        super.addCraftingToCrafters(player);
+
+        player.sendProgressBarUpdate(this, 0, tile.getTimer());
+        player.sendProgressBarUpdate(this, 1, tile.getBuffer());
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int id, int val) {
+        if (id == 0) {
+            tile.setTimer(val);
+        } else if (id == 1) {
+            tile.setBuffer(val);
+        }
+    }
+
+    private int oldTimer;
+    private int oldBuffer;
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+
+        for (Object player : crafters) {
+            if (oldTimer != tile.getTimer()) {
+                ((ICrafting) player).sendProgressBarUpdate(this, 0, tile.getTimer());
+            }
+            if (oldBuffer != tile.getBuffer()) {
+                ((ICrafting) player).sendProgressBarUpdate(this, 1, tile.getBuffer());
+            }
+        }
+
+        oldTimer = tile.getTimer();
+        oldBuffer = tile.getBuffer();
     }
 }

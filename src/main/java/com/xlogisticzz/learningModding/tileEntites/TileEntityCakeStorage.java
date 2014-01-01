@@ -17,10 +17,26 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
 
     private ItemStack[] items;
     public byte currentDir;
+    private int timer;
+    private int delay;
+    private int buffer;
 
     public TileEntityCakeStorage() {
         items = new ItemStack[10];
         currentDir = 0;
+    }
+
+    @Override
+    public void updateEntity() {
+        if (!worldObj.isRemote) {
+            if (++delay == 5) {
+                if (++timer == 48) {
+                    dispenseCake();
+                    timer = 0;
+                }
+                delay = 0;
+            }
+        }
     }
 
     @Override
@@ -38,6 +54,9 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             }
         }
         currentDir = par1NBTTagCompound.getByte("currentDir");
+        buffer = par1NBTTagCompound.getByte("Buffer");
+        timer = par1NBTTagCompound.getByte("Timer");
+
     }
 
     @Override
@@ -57,6 +76,8 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         }
         par1NBTTagCompound.setTag("Items", items);
         par1NBTTagCompound.setByte("currentDir", currentDir);
+        par1NBTTagCompound.setByte("Timer", (byte) timer);
+        par1NBTTagCompound.setByte("Buffer", (byte) buffer);
     }
 
 
@@ -139,7 +160,10 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         switch (buttonId) {
             case 0:
                 if (getCake() > 0) {
-                    placeCakeInCurrentDir();
+                    if (placeCakeInCurrentDir(true, 0)) {
+                        removeCake();
+                    }
+
 
                 }
                 break;
@@ -147,9 +171,11 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             case 1:
                 increaseDir();
                 System.out.println("incresaed dir to  " + getCurrentDir());
-
                 break;
 
+            case 2:
+                dispenseCake();
+                break;
         }
     }
 
@@ -177,31 +203,32 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         super.onInventoryChanged();
 
         cake = -1;
+        updateBuffer();
     }
 
     public byte getCurrentDir() {
         return currentDir;
     }
 
-    public String getCurrentTextDir(){
+    public String getCurrentTextDir() {
         String str;
-        switch (currentDir){
-            case 0 :
+        switch (getCurrentDir()) {
+            case 0:
                 str = "Up";
                 break;
-            case 1 :
+            case 1:
                 str = "Down";
                 break;
-            case 2 :
+            case 2:
                 str = "North";
                 break;
-            case 3 :
+            case 3:
                 str = "South";
                 break;
-            case 4 :
+            case 4:
                 str = "East";
                 break;
-            case 5 :
+            case 5:
                 str = "West";
                 break;
             default:
@@ -211,53 +238,45 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         return str;
     }
 
-    public boolean placeCakeInCurrentDir() {
+    public boolean placeCakeInCurrentDir(boolean accountAir, int meta) {
         boolean state = false;
-        if (!isAirInCurrentDir()) {
+        if (accountAir && !isAirInCurrentDir()) {
             state = false;
         } else {
             switch (getCurrentDir()) {
                 case 0:
-                    if (worldObj.setBlock(xCoord, yCoord + 1, zCoord, Block.cake.blockID, 0, 2)) {
+                    if (worldObj.setBlock(xCoord, yCoord + 1, zCoord, Block.cake.blockID, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 1:
-                    if (worldObj.setBlock(xCoord, yCoord - 1, zCoord, Block.cake.blockID, 0, 2)) {
+                    if (worldObj.setBlock(xCoord, yCoord - 1, zCoord, Block.cake.blockID, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 2:
-                    if (worldObj.setBlock(xCoord, yCoord, zCoord - 1, Block.cake.blockID, 0, 2)) {
+                    if (worldObj.setBlock(xCoord, yCoord, zCoord - 1, Block.cake.blockID, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 3:
-                    if (worldObj.setBlock(xCoord, yCoord, zCoord + 1, Block.cake.blockID, 0, 2)) {
+                    if (worldObj.setBlock(xCoord, yCoord, zCoord + 1, Block.cake.blockID, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 4:
-                    if (worldObj.setBlock(xCoord + 1, yCoord, zCoord, Block.cake.blockID, 0, 2)) {
+                    if (worldObj.setBlock(xCoord + 1, yCoord, zCoord, Block.cake.blockID, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 5:
-                    if (worldObj.setBlock(xCoord - 1, yCoord, zCoord, Block.cake.blockID, 0, 2)) {
+                    if (worldObj.setBlock(xCoord - 1, yCoord, zCoord, Block.cake.blockID, meta, 2)) {
                         state = true;
                     }
                     break;
             }
         }
-        if (state) {
-            for (int i = 0; i < getSizeInventory(); i++) {
-                ItemStack stack = getStackInSlot(i);
-                if (stack != null && stack.itemID == Item.cake.itemID) {
-                    decrStackSize(i, 1);
-                    break;
-                }
-            }
-        }
+
         if (!state) {
             System.out.println("could not place " + getCurrentDir());
         } else {
@@ -342,6 +361,97 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
 
             }
             return id;
+        }
+    }
+
+    public int getMetaAtCurrentPos() {
+        int id = 0;
+        if (isAirInCurrentDir()) {
+            return id;
+        } else {
+            switch (getCurrentDir()) {
+                case 0:
+                    id = worldObj.getBlockMetadata(xCoord, yCoord + 1, zCoord);
+                    break;
+                case 1:
+                    id = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
+
+                    break;
+                case 2:
+                    id = worldObj.getBlockMetadata(xCoord, yCoord, zCoord - 1);
+
+                    break;
+                case 3:
+                    id = worldObj.getBlockMetadata(xCoord, yCoord, zCoord + 1);
+                    break;
+                case 4:
+                    id = worldObj.getBlockMetadata(xCoord + 1, yCoord, zCoord);
+
+                    break;
+                case 5:
+                    id = worldObj.getBlockMetadata(xCoord - 1, yCoord, zCoord);
+                    break;
+
+            }
+            return id;
+        }
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
+
+    public int getBuffer() {
+        return buffer;
+    }
+
+    public void setBuffer(int buffer) {
+        this.buffer = buffer;
+    }
+
+    private void dispenseCake() {
+        if (getBuffer() > 0) {
+            int missing = 0;
+            if (isAirInCurrentDir()) {
+                missing = 6;
+            } else if (getBlockIdAtCurrentPos() == Block.cake.blockID) {
+                missing = getMetaAtCurrentPos();
+            }
+
+            if (missing > 0) {
+                int generate = Math.min(missing, getBuffer());
+                setBuffer(getBuffer() - generate);
+                updateBuffer();
+                if (generate < missing && getBuffer() > 0) {
+                    setBuffer(getBuffer() - (missing - generate));
+                    generate = missing;
+                }
+
+                if (generate > 0) {
+                    placeCakeInCurrentDir(false, missing - generate);
+                }
+            }
+        }
+    }
+
+    private void removeCake() {
+        for (int i = 0; i < getSizeInventory(); i++) {
+            ItemStack stack = getStackInSlot(i);
+            if (stack != null && isItemValidForSlot(i, stack)) {
+                setInventorySlotContents(i, null);
+                break;
+            }
+        }
+    }
+
+    private void updateBuffer() {
+        if (getCake() > 0 && buffer == 0) {
+            buffer = 6;
+            removeCake();
         }
     }
 }
