@@ -60,7 +60,7 @@ public class GuiCakeStorage extends GuiContainer {
             int id = cakeStorage.getBlockIdAtCurrentPos();
             Block block = Block.blocksList[id];
             if (block.blockID != 0) {
-                drawTexturedModelRectFromIcon(guiLeft + 90, guiTop + 58, block.getIcon(1, 0), 16, 16);
+                drawTexturedModelRectFromIcon(guiLeft + 90, guiTop + 60, block.getIcon(1, 0), 16, 16);
             }
         }
 
@@ -70,6 +70,13 @@ public class GuiCakeStorage extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         fontRenderer.drawString("Cake Storage", 8, 6, 0x404040);
+
+        if(!cakeStorage.isAirInCurrentDir()){
+            int id = cakeStorage.getBlockIdAtCurrentPos();
+            Block block = Block.blocksList[id];
+            String str = "Cannot place Cake " + cakeStorage.getCurrentTextDir().toLowerCase() + " as the block is occupied by " + block.getLocalizedName();
+            fontRenderer.drawSplitString(str, 70, 84 ,100, 0x404040);
+        }
     }
 
     private GuiButton place;
@@ -79,7 +86,7 @@ public class GuiCakeStorage extends GuiContainer {
         super.initGui();
         buttonList.clear();
 
-        place = new GuiButton(0, guiLeft + 110, guiTop + 23, 60, 20, "Place Cake");
+        place = new GuiButton(0, guiLeft + 5, guiTop + 82, 60, 20, "Place Cake");
         place.enabled = cakeStorage.isAirInCurrentDir();
         buttonList.add(place);
 

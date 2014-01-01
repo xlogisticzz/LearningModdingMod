@@ -183,6 +183,34 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         return currentDir;
     }
 
+    public String getCurrentTextDir(){
+        String str;
+        switch (currentDir){
+            case 0 :
+                str = "Up";
+                break;
+            case 1 :
+                str = "Down";
+                break;
+            case 2 :
+                str = "North";
+                break;
+            case 3 :
+                str = "South";
+                break;
+            case 4 :
+                str = "East";
+                break;
+            case 5 :
+                str = "West";
+                break;
+            default:
+                str = "error";
+                break;
+        }
+        return str;
+    }
+
     public boolean placeCakeInCurrentDir() {
         boolean state = false;
         if (!isAirInCurrentDir()) {
