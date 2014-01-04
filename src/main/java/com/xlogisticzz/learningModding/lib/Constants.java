@@ -169,6 +169,15 @@ public class Constants {
         public static int RUBY_WORLD_GEN_HIGHESTY;
         public static final int RUBY_WORLD_GEN_HIGHESTY_DEFAULT = 128;
 
+        public static int TITANIUM_WORLD_GEN_AMOUNT;
+        public static final int TITANIUM_WORLD_GEN_AMOUNT_DEFAULT = 16;
+        public static int TITANIUM_WORLD_GEN_ITERATIONS;
+        public static final int TITANIUM_WORLD_GEN_ITERATIONS_DEFAULT = 20;
+        public static int TITANIUM_WORLD_GEN_LOWESTY;
+        public static final int TITANIUM_WORLD_GEN_LOWESTY_DEFAULT = 1;
+        public static int TITANIUM_WORLD_GEN_HIGHESTY;
+        public static final int TITANIUM_WORLD_GEN_HIGHESTY_DEFAULT = 128;
+
     }
 
     public static class Armor {
