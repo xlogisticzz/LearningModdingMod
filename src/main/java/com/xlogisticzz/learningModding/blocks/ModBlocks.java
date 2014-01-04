@@ -1,14 +1,13 @@
 package com.xlogisticzz.learningModding.blocks;
 
-import com.xlogisticzz.learningModding.LearningModdingCreativeTab;
 import com.xlogisticzz.learningModding.items.ItemMachine;
 import com.xlogisticzz.learningModding.items.ItemMarker;
 import com.xlogisticzz.learningModding.items.ItemOre;
+import com.xlogisticzz.learningModding.items.ItemOreStorage;
 import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.lib.Ids;
 import com.xlogisticzz.learningModding.proxies.CommonProxy;
 import com.xlogisticzz.learningModding.tileEntites.*;
-import net.minecraft.block.Block;
 
 /**
  * Learning Modding Mod
@@ -20,8 +19,7 @@ import net.minecraft.block.Block;
 public class ModBlocks {
 
     public static BlockModOre ores;
-    public static BlockModOreStorage titaniumblock;
-    public static BlockModOreStorage rubyblock;
+    public static BlockModOreStorage orestorageblocks;
     public static BlockMachine machineblock;
     public static BlockGlassConnected glassConnected;
     public static BlockMarker markerBlock;
@@ -36,11 +34,10 @@ public class ModBlocks {
 
     public static void init() {
 
-        ores = new BlockModOre(Ids.TITANIUMORE);
-        titaniumblock = new BlockModOreStorage(Ids.TITANIUMBLOCK, Block.soundMetalFootstep, LearningModdingCreativeTab.tabLearningModding, 6.0F, 12.0F, Constants.UnLocalisedNames.TITANIUM_BLOCK, Constants.Icons.TITANIUM_BLOCK);
-        rubyblock = new BlockModOreStorage(Ids.RUBYBLOCK, Block.soundMetalFootstep, LearningModdingCreativeTab.tabLearningModding, 5.0F, 10.0F, Constants.UnLocalisedNames.RUBY_BLOCK, Constants.Icons.RUBY_BLOCK);
+        ores = new BlockModOre(Ids.ORE);
+        orestorageblocks = new BlockModOreStorage(Ids.STORAGE_BLOCK);
         machineblock = new BlockMachine(Ids.MACHINEBLOCK);
-        glassConnected = new BlockGlassConnected(Ids.GLASS_CONNECTED, false);
+        glassConnected = new BlockGlassConnected(Ids.GLASS_CONNECTED);
         markerBlock = new BlockMarker(Ids.MARKERS);
         bomb = new BlockBomb(Ids.BOMB);
         superBomb = new BlockSuperBomb(Ids.SUPERBOMB);
@@ -74,8 +71,12 @@ public class ModBlocks {
         }
         CommonProxy.registerBlock(ores, 0, ItemOre.class);
 
-        CommonProxy.registerBlock(titaniumblock, 0, "pickaxe", 3, Constants.BlockNames.TITANIUM_BLOCK_NAME);
-        CommonProxy.registerBlock(rubyblock, 0, "pickaxe", 3, Constants.BlockNames.RUBY_BLOCK_NAME);
+        for (int i = 0; i < Constants.BlockNames.ORESTORAGEBLOCKS.length; i++) {
+            CommonProxy.addName(orestorageblocks, Constants.BlockNames.ORESTORAGEBLOCKS[i]);
+            CommonProxy.setBlockHarvestLevel(orestorageblocks, i, "pickaxe", 2);
+        }
+        CommonProxy.registerBlock(orestorageblocks, 0, ItemOreStorage.class);
+
         CommonProxy.registerBlock(glassConnected, 0, null, 1, Constants.BlockNames.GLASS_CONNECTED);
         CommonProxy.registerBlock(bomb, 0, null, 1, Constants.BlockNames.BOMB_NAME);
         CommonProxy.registerTileEntity(TileEntityBomb.class);

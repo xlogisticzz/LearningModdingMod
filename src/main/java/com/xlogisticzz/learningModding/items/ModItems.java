@@ -19,8 +19,7 @@ import net.minecraftforge.common.EnumHelper;
 public class ModItems {
 
     // Mod ItemNames
-    public static ItemModItem titanitumIngot;
-    public static ItemModItem ruby;
+    public static ItemModItem items;
     public static ItemModPickaxe rubyPickaxe;
     public static ItemModSpade rubySpade;
     public static ItemModSword rubySword;
@@ -44,8 +43,7 @@ public class ModItems {
 
     public static void init() {
 
-        titanitumIngot = new ItemModItem(Ids.TITANIUMINGOT, LearningModdingCreativeTab.tabLearningModding, 64, Constants.UnLocalisedNames.TITANIUM_INGOT, Constants.Icons.TITANIUM_INGOT);
-        ruby = new ItemModItem(Ids.RUBY, LearningModdingCreativeTab.tabLearningModding, 64, Constants.UnLocalisedNames.RUBY, Constants.Icons.RUBY);
+        items = new ItemModItem(Ids.ITEMS);
         rubyPickaxe = new ItemModPickaxe(Ids.RUBY_PICKAXE, materialRuby, 5.0F, 10.0F, LearningModdingCreativeTab.tabLearningModding, Constants.UnLocalisedNames.RUBY_PICKAXE, Constants.Icons.RUBY_PICKAXE, Constants.Misc.RUBY_DURABILITY);
         rubySpade = new ItemModSpade(Ids.RUBY_SPADE, materialRuby, LearningModdingCreativeTab.tabLearningModding, Constants.Misc.RUBY_DURABILITY, Constants.UnLocalisedNames.RUBY_SPADE, Constants.Icons.RUBY_SPADE);
         rubySword = new ItemModSword(Ids.RUBY_SWORD, materialRuby, LearningModdingCreativeTab.tabLearningModding, Constants.Misc.RUBY_DURABILITY, Constants.UnLocalisedNames.RUBY_SWORD, Constants.Icons.RUBY_SWORD);
@@ -69,8 +67,6 @@ public class ModItems {
 
     public static void initLang() {
 
-        CommonProxy.registerItem(ruby, Constants.ItemNames.RUBY_NAME);
-        CommonProxy.registerItem(titanitumIngot, Constants.ItemNames.TITANIUM_INGOT_NAME);
         CommonProxy.registerItem(rubyWand, Constants.ItemNames.RUBY_WAND_NAME);
         CommonProxy.registerItem(wand, Constants.ItemNames.WAND_NAME);
         CommonProxy.registerItem(spawnSpaceship, Constants.ItemNames.SPAWN_SPACESHIP_NAME);
@@ -87,9 +83,13 @@ public class ModItems {
         CommonProxy.registerItem(rubyLeggings, Constants.ItemNames.RUBY_LEGGINGS_NAME);
         CommonProxy.registerItem(rubyBoots, Constants.ItemNames.RUBY_BOOTS_NAME);
 
-        for (int j = 0; j < Constants.ItemNames.CARD_NAMES.length; j++) {
-            CommonProxy.registerItem(card, new ItemStack(card, 1, j), Constants.ItemNames.CARD_NAMES[j]);
+        for (int i = 0; i < Constants.ItemNames.CARD_NAMES.length; i++) {
+            CommonProxy.registerItem(card, new ItemStack(card, 1, i), Constants.ItemNames.CARD_NAMES[i]);
         }
+        for (int i = 0; i < Constants.ItemNames.ITEMS_NAME.length; i++) {
+            CommonProxy.registerItem(card, new ItemStack(card, 1, i), Constants.ItemNames.ITEMS_NAME[i]);
+        }
+
         for (int i = 0; i < Constants.ItemNames.DEATHSTONES_NAMES.length; i++) {
             CommonProxy.registerItem(deathstone, new ItemStack(deathstone, 1, i), Constants.ItemNames.DEATHSTONES_NAMES[i]);
         }

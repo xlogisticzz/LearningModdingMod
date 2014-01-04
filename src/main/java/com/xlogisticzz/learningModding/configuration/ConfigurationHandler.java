@@ -24,10 +24,8 @@ public class ConfigurationHandler {
         configuration.load();
 
         // Blocks
-        Ids.TITANIUMORE = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Titanium Ore ID", Ids.TITANIUMORE_DEFAULT).getInt();
-        Ids.RUBYORE = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Ruby Ore ID", Ids.RUBYORE_DEFAULT).getInt();
-        Ids.RUBYBLOCK = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Ruby Block ID", Ids.RUBYBLOCK_DEFAULT).getInt();
-        Ids.TITANIUMBLOCK = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Titanium Block ID", Ids.TITANIUMBLOCK_DEFAULT).getInt();
+        Ids.ORE = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Ore ID's", Ids.ORE_DEFAULT).getInt();
+        Ids.STORAGE_BLOCK = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Ore Storage Blocks ID's", Ids.STORAGE_BLOCK_DEFAULT).getInt();
         Ids.MACHINEBLOCK = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Machine Block ID", Ids.MACHINEBLOCK_DEFAULT).getInt();
         Ids.GLASS_CONNECTED = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Glass Id", Ids.GLASS_CONNECTED_DEFAULT).getInt();
         Ids.TESTBLOCK = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Test Id", Ids.TESTBLOCK_DEFAULT).getInt();
@@ -42,8 +40,7 @@ public class ConfigurationHandler {
         Ids.CAKE_STORAGE = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Cake Storage Block Id", Ids.CAKE_STORAGE_DEFAULT).getInt();
 
         // Item IDs
-        Ids.TITANIUMINGOT = configuration.getItem(Configuration.CATEGORY_ITEM, "Titanium Ingot ID", Ids.TITANIUMINGOT_DEFAULT).getInt() - 256;
-        Ids.RUBY = configuration.getItem(Configuration.CATEGORY_ITEM, "Ruby ID", Ids.RUBY_DEFAULT).getInt() - 256;
+        Ids.ITEMS = configuration.getItem(Configuration.CATEGORY_ITEM, "Mod Items ID", Ids.ITEMS_DEFAULT).getInt() - 256;
         Ids.RUBY_SWORD = configuration.getItem(Configuration.CATEGORY_ITEM, "Ruby Sword ID", Ids.RUBY_SWORD_DEFAULT).getInt() - 256;
         Ids.RUBY_PICKAXE = configuration.getItem(Configuration.CATEGORY_ITEM, "Ruby Pickaxe ID", Ids.RUBY_PICKAXE_DEFAULT).getInt() - 256;
         Ids.RUBY_SPADE = configuration.getItem(Configuration.CATEGORY_ITEM, "Ruby Shovel ID", Ids.RUBY_SPADE_DEFAULT).getInt() - 256;

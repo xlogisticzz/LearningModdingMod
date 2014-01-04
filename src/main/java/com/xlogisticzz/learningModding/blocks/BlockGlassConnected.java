@@ -19,15 +19,13 @@ import net.minecraft.world.IBlockAccess;
 
 public class BlockGlassConnected extends Block {
 
-    public int render;
     private Icon[] icons;
 
-    public BlockGlassConnected(int par1, boolean par2) {
+    public BlockGlassConnected(int par1) {
 
         super(par1, Material.glass);
         this.setStepSound(soundGlassFootstep);
         this.setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
-        this.render = par2 ? 1 : 0;
         this.setUnlocalizedName(Constants.UnLocalisedNames.GLASS_CONNECTED);
         this.setHardness(0.4f);
     }
@@ -42,12 +40,6 @@ public class BlockGlassConnected extends Block {
     public boolean renderAsNormalBlock() {
 
         return false;
-    }
-
-    @Override
-    public int getRenderBlockPass() {
-
-        return this.render;
     }
 
     @Override

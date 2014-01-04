@@ -42,7 +42,6 @@ public class BlockModOre extends BlockOre {
             case 0:
                 return ModItems.ruby.itemID;
 
-
             default:
                 return this.blockID;
         }

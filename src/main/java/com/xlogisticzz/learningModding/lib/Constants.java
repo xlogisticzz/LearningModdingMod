@@ -14,8 +14,7 @@ public class Constants {
         public static final String MODID = "learningmodding";
         public static final String NAME = "Learning Modding";
         public static final String CHANNEL_NAME = MODID;
-        public static final String VERSION = "@VERSION@";
-        public static final String FINGERPRINT = "@FINGERPRINT@";
+        public static final String VERSION = "1.1.164.1";
     }
 
     public class Proxies {
@@ -28,8 +27,7 @@ public class Constants {
     public static class BlockNames {
 
         public static final String[] ORES = {"Ruby Ore", "Titanium Ore"};
-        public static final String TITANIUM_BLOCK_NAME = "Titanium Block";
-        public static final String RUBY_BLOCK_NAME = "Ruby Block";
+        public static final String[] ORESTORAGEBLOCKS = {"Titanium Block", "Ruby Block"};
         public static final String[] MACHINE_BLOCK_NAME = {"Machine Block", "Machine Block Disabled", "Machine Block Arrow", "Machine Block Arrow Disabled", "Machine Block Border", "Machine Block Border Disabled", "Machine Block Cross", "Machine Block Cross Disabled", "Machine Block Custom", "Machine Block Custom Disabled"};
         public static final String GLASS_CONNECTED = "Glass Connected";
         public static final String[] MARKERS_NAME = {"Blue Marker", "Blue Marker Marked", "Brown Marker", "Brown Marker Marked", "Green Marker", "Green Marker Marked", "Grey Marker", "Grey Marker Marked", "Orange Marker", "Orange Marker Marked", "Purple Marker", "Purple Marker Marked", "Red Marker", "Red Marker Marked", "Yellow Marker", "Yellow Marker Marked"};
@@ -46,8 +44,7 @@ public class Constants {
 
     public static class ItemNames {
 
-        public static final String RUBY_NAME = "Ruby";
-        public static final String TITANIUM_INGOT_NAME = "Titanium Ingot";
+        public static final String[] ITEMS_NAME = {"Ruby", "Titanium Ingot"};
         public static final String RUBY_PICKAXE_NAME = "Ruby Pickaxe";
         public static final String RUBY_SPADE_NAME = "Ruby Shovel";
         public static final String RUBY_SWORD_NAME = "Ruby Sword";
@@ -73,8 +70,7 @@ public class Constants {
         // Items
         public static final String RUBY_WAND = "uncharged_wand";
         public static final String RUBY_WAND_CHARGED = "charged_wand";
-        public static final String RUBY = "ruby";
-        public static final String TITANIUM_INGOT = "titanium_ingot";
+        public static final String[] ITEMS = {"ruby", "titanium_ingot"};
         public static final String RUBY_PICKAXE = "ruby_pickaxe";
         public static final String RUBY_SWORD = "ruby_sword";
         public static final String RUBY_SPADE = "ruby_spade";
@@ -90,8 +86,7 @@ public class Constants {
 
         // Blocks
         public static final String[] ORES = {"ruby_ore", "titanium_ore"};
-        public static final String RUBY_BLOCK = "ruby_block";
-        public static final String TITANIUM_BLOCK = "titanium_block";
+        public static final String[] ORE_STORAGE_BLOCKS = {"ruby_block", "titanium_block"};
         public static final String MACHINE_TOP = "machine_top";
         public static final String MACHINE_BOTTOM = "machine_bottom";
         public static final String MACHINE_DISABLED = "machine_disabled";
@@ -116,8 +111,7 @@ public class Constants {
     public class UnLocalisedNames {
 
         // Items
-        public static final String RUBY = "ruby";
-        public static final String TITANIUM_INGOT = "titaniumIngot";
+        public static final String ITEMS = "modItems";
         public static final String RUBY_PICKAXE = "rubyPickaxe";
         public static final String RUBY_SWORD = "rubySword";
         public static final String RUBY_SPADE = "rubySpade";
@@ -134,8 +128,7 @@ public class Constants {
 
         // Blocks
         public static final String ORE = "modOre";
-        public static final String RUBY_BLOCK = "rubyBlock";
-        public static final String TITANIUM_BLOCK = "titaniumBlock";
+        public static final String ORESTORAGEBLOCKS = "modOreStorage";
         public static final String MACHINE_BLOCK = "machineBlock";
         public static final String GLASS_CONNECTED = "glassConnected";
         public static final String MARKERS = "markers";
