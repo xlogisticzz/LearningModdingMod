@@ -18,7 +18,7 @@ public class LearningModdingCreativeTab {
         @Override
         public ItemStack getIconItemStack() {
 
-            return new ItemStack(ModItems.ruby, 1, 0);
+            return new ItemStack(ModItems.items, 1, 0);
         }
     };
 

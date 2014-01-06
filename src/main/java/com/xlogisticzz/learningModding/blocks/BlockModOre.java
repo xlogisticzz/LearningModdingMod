@@ -40,7 +40,7 @@ public class BlockModOre extends BlockOre {
         switch (meta) {
             // ruby
             case 0:
-                return ModItems.ruby.itemID;
+                return ModItems.items.itemID;
 
             default:
                 return this.blockID;

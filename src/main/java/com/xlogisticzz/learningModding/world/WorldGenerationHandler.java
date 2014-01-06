@@ -27,7 +27,7 @@ public class WorldGenerationHandler implements IWorldGenerator {
     public WorldGenerationHandler() {
 
         GameRegistry.registerWorldGenerator(this);
-        this.rubyGen = new WorldGenMinable(ModBlocks.ores.blockID, 0 , Constants.WorldGen.RUBY_WORLD_GEN_AMOUNT, Block.stone.blockID);
+        this.rubyGen = new WorldGenMinable(ModBlocks.ores.blockID, 0, Constants.WorldGen.RUBY_WORLD_GEN_AMOUNT, Block.stone.blockID);
         this.titaniumGen = new WorldGenMinable(ModBlocks.ores.blockID, 1, Constants.WorldGen.TITANIUM_WORLD_GEN_AMOUNT, Block.stone.blockID);
     }
 

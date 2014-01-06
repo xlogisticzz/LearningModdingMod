@@ -87,7 +87,7 @@ public class ModItems {
             CommonProxy.registerItem(card, new ItemStack(card, 1, i), Constants.ItemNames.CARD_NAMES[i]);
         }
         for (int i = 0; i < Constants.ItemNames.ITEMS_NAME.length; i++) {
-            CommonProxy.registerItem(card, new ItemStack(card, 1, i), Constants.ItemNames.ITEMS_NAME[i]);
+            CommonProxy.registerItem(items, new ItemStack(items, 1, i), Constants.ItemNames.ITEMS_NAME[i]);
         }
 
         for (int i = 0; i < Constants.ItemNames.DEATHSTONES_NAMES.length; i++) {
