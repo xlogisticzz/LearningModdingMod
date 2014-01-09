@@ -5,13 +5,16 @@ This mod is based upon many different tutorials and covers most aspects of moddi
 Some assets used are from the tutorials and belong to there respective authors.
 
 Setup development environment:
+
 To setup extract the zip downloaded from the repo to a folder.
 Then shift right click and click open command window here.
 Then execute without qoutes "gradlew setupDecompWorkspace" 
 Then based upon your chosen IDE execute:
+
 "gradlew idea" for intellij idea
 or
 "gradlew eclipse" for eclipse
+
 Finally open the project in the respective IDE and everything should be setup.
 
 NOTE: if you are using idea the run configurations may not be setup in this case you must have opened the project
