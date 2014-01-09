@@ -1,28 +1,8 @@
 /.gradle
 /build
-/gradle
-/run
-*.keystore
-gradle.properties
-/.settings
-/.metadata
-/.classpath
-/.project
-/bin
 /eclipse
-/Files
+/files
 /out
-/.idea
-/*.iml
-/atlassian-ide-plugin.xml
-CREDITS-fml.txt
-/*.ipr
-/*.iws
-gradlew
-gradlew.bat
-MinecraftForge-License.txt
-MinecraftForge-Credits.txt
-LICENSE-fml.txt
-forge-1.6.4-9.11.1.964-changelog.txt
+Forge 1.6.4.iml
 Forge 1.6.4.ipr
 Forge 1.6.4.iws
