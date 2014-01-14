@@ -27,7 +27,7 @@ public class Constants {
     public static class BlockNames {
 
         public static final String[] ORES = {"Ruby Ore", "Titanium Ore"};
-        public static final String[] ORESTORAGEBLOCKS = {"Titanium Block", "Ruby Block"};
+        public static final String[] ORESTORAGEBLOCKS = {"Ruby Block", "Titanium Block"};
         public static final String[] MACHINE_BLOCK_NAME = {"Machine Block", "Machine Block Disabled", "Machine Block Arrow", "Machine Block Arrow Disabled", "Machine Block Border", "Machine Block Border Disabled", "Machine Block Cross", "Machine Block Cross Disabled", "Machine Block Custom", "Machine Block Custom Disabled"};
         public static final String GLASS_CONNECTED = "Glass Connected";
         public static final String[] MARKERS_NAME = {"Blue Marker", "Blue Marker Marked", "Brown Marker", "Brown Marker Marked", "Green Marker", "Green Marker Marked", "Grey Marker", "Grey Marker Marked", "Orange Marker", "Orange Marker Marked", "Purple Marker", "Purple Marker Marked", "Red Marker", "Red Marker Marked", "Yellow Marker", "Yellow Marker Marked"};
