@@ -6,3 +6,6 @@
 Forge 1.6.4.iml
 Forge 1.6.4.ipr
 Forge 1.6.4.iws
+*.iml
+*.ipr
+*.iws
