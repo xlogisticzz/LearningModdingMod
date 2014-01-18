@@ -6,6 +6,7 @@ package com.xlogisticzz.learningModding.blocks;
 
 import com.xlogisticzz.learningModding.LearningModdingCreativeTab;
 import com.xlogisticzz.learningModding.lib.Constants;
+import com.xlogisticzz.learningModding.proxies.CommonProxy;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCustomFurnace;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,6 +16,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
@@ -152,7 +154,6 @@ public class BlockCustomFurnace extends BlockContainer {
         }
     }
 
-
     //TODO open GUI instead of changing state as this was a test
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float offsetX, float offsetY, float offsetZ) {
@@ -200,5 +201,17 @@ public class BlockCustomFurnace extends BlockContainer {
         } else {
             return 14;
         }
+    }
+
+    @Override
+    public void breakBlock(World world, int x, int y, int z, int oldId, int oldMeta) {
+        Random rand = new Random();
+        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+        if(tileEntity != null && tileEntity instanceof IInventory){
+            IInventory inv = (IInventory)tileEntity;
+            CommonProxy.dropItemsFromInventoryOnBlockBreak(inv, world, x, y, z, rand);
+        }
+
+        super.breakBlock(world, x, y, z, oldId, oldMeta);
     }
 }

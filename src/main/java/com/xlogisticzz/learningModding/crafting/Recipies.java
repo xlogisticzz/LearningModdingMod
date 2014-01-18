@@ -4,6 +4,7 @@ import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import com.xlogisticzz.learningModding.items.ModItems;
 import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.proxies.CommonProxy;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -25,7 +26,8 @@ public class Recipies {
         CommonProxy.addShapedRecipe(new ItemStack(ModBlocks.orestorageblocks, 1, 1), new Object[]{"XXX", "XXX", "XXX", 'X', new ItemStack(ModItems.items, 1, 0)});
         CommonProxy.addShapelessRecipe(new ItemStack(ModItems.items, 9, 0), new ItemStack(ModBlocks.orestorageblocks, 1, 0));
         CommonProxy.addShapelessRecipe(new ItemStack(ModItems.items, 9, 1), new ItemStack(ModBlocks.orestorageblocks, 1, 1));
-        
+        CommonProxy.addShapedRecipe(new ItemStack(ModBlocks.customFurnace, 1, 0), new Object[]{"XXX", "XFX", "XXX", 'X', new ItemStack(Block.blockNetherQuartz, 1, 0), 'F', new ItemStack(Block.furnaceIdle, 1, 0)});
+
         /* Register Item Recipies */
         CommonProxy.addShapedRecipe(new ItemStack(ModItems.wand), new Object[]{"  X", " / ", " / ", 'X', new ItemStack(ModItems.items, 1, 0), '/', Item.stick});
         CommonProxy.addShapedRecipe(new ItemStack(ModItems.rubyWand), new Object[]{"  X", " / ", "/  ", 'X', new ItemStack(ModItems.items, 1, 0), '/', Item.stick});
