@@ -31,6 +31,7 @@ public class ModBlocks {
     public static BlockHeightParticle particleBlock;
     public static BlockNoteSequencer noteSequencer;
     public static BlockCakeStorage cakeStorage;
+    public static BlockCustomFurnace customFurnace;
 
     public static void init() {
 
@@ -47,20 +48,21 @@ public class ModBlocks {
         particleBlock = new BlockHeightParticle(Ids.HEIGHTPARTICLE);
         noteSequencer = new BlockNoteSequencer(Ids.NOTE_SEQUENCER);
         cakeStorage = new BlockCakeStorage(Ids.CAKE_STORAGE);
+        customFurnace = new BlockCustomFurnace(Ids.CUSTOM_FURNACE);
 
     }
 
     public static void initInfo() {
 
-        for (int i = 0; i < Constants.BlockNames.MACHINE_BLOCK_NAME.length; i++) {
-            CommonProxy.addName(machineblock, Constants.BlockNames.MACHINE_BLOCK_NAME[i]);
+        for (int i = 0; i < Constants.BlockNames.MACHINE_BLOCK.length; i++) {
+            CommonProxy.addName(machineblock, Constants.BlockNames.MACHINE_BLOCK[i]);
             CommonProxy.setBlockHarvestLevel(machineblock, i, "pickaxe", 2);
         }
         CommonProxy.registerBlock(machineblock, 0, ItemMachine.class);
         CommonProxy.registerTileEntity(TileEntityMachine.class);
 
-        for (int i = 0; i < Constants.BlockNames.MARKERS_NAME.length; i++) {
-            CommonProxy.addName(markerBlock, Constants.BlockNames.MARKERS_NAME[i]);
+        for (int i = 0; i < Constants.BlockNames.MARKERS.length; i++) {
+            CommonProxy.addName(markerBlock, Constants.BlockNames.MARKERS[i]);
             CommonProxy.setBlockHarvestLevel(markerBlock, i, "pickaxe", 2);
         }
         CommonProxy.registerBlock(markerBlock, 0, ItemMarker.class);
@@ -71,26 +73,28 @@ public class ModBlocks {
         }
         CommonProxy.registerBlock(ores, 0, ItemOre.class);
 
-        for (int i = 0; i < Constants.BlockNames.ORESTORAGEBLOCKS.length; i++) {
-            CommonProxy.addName(orestorageblocks, Constants.BlockNames.ORESTORAGEBLOCKS[i]);
+        for (int i = 0; i < Constants.BlockNames.ORE_STORAGE_BLOCKS.length; i++) {
+            CommonProxy.addName(orestorageblocks, Constants.BlockNames.ORE_STORAGE_BLOCKS[i]);
             CommonProxy.setBlockHarvestLevel(orestorageblocks, i, "pickaxe", 2);
         }
         CommonProxy.registerBlock(orestorageblocks, 0, ItemOreStorage.class);
 
         CommonProxy.registerBlock(glassConnected, 0, null, 1, Constants.BlockNames.GLASS_CONNECTED);
-        CommonProxy.registerBlock(bomb, 0, null, 1, Constants.BlockNames.BOMB_NAME);
+        CommonProxy.registerBlock(bomb, 0, null, 1, Constants.BlockNames.BOMB);
         CommonProxy.registerTileEntity(TileEntityBomb.class);
-        CommonProxy.registerBlock(superBomb, 0, null, 1, Constants.BlockNames.SUPER_BOMB_NAME);
-        CommonProxy.registerBlock(numbers, 0, "pickaxe", 2, Constants.BlockNames.NUMBER_NAME);
+        CommonProxy.registerBlock(superBomb, 0, null, 1, Constants.BlockNames.SUPER_BOMB);
+        CommonProxy.registerBlock(numbers, 0, "pickaxe", 2, Constants.BlockNames.NUMBER);
         CommonProxy.registerTileEntity(TileEntityNumbers.class);
-        CommonProxy.registerBlock(clicker, 0, "pickaxe", 2, Constants.BlockNames.CLICKER_NAME);
+        CommonProxy.registerBlock(clicker, 0, "pickaxe", 2, Constants.BlockNames.CLICKER);
         CommonProxy.registerTileEntity(TileEntityClicker.class);
-        CommonProxy.registerBlock(poisonBlock, 0, "pickaxe", 2, Constants.BlockNames.POISON_NAME);
-        CommonProxy.registerBlock(particleBlock, 0, "pickaxe", 2, Constants.BlockNames.HEIGHT_PARTICLE_NAME);
-        CommonProxy.registerBlock(noteSequencer, 0, "pickaxe", 2, Constants.BlockNames.NOTE_SEQUENCER_NAME);
+        CommonProxy.registerBlock(poisonBlock, 0, "pickaxe", 2, Constants.BlockNames.POISON);
+        CommonProxy.registerBlock(particleBlock, 0, "pickaxe", 2, Constants.BlockNames.HEIGHT_PARTICLE);
+        CommonProxy.registerBlock(noteSequencer, 0, "pickaxe", 2, Constants.BlockNames.NOTE_SEQUENCER);
         CommonProxy.registerTileEntity(TileEntityNoteSequencer.class);
-        CommonProxy.registerBlock(cakeStorage, 0, "pickaxe", 2, Constants.BlockNames.CAKESTORAGE);
+        CommonProxy.registerBlock(cakeStorage, 0, "pickaxe", 2, Constants.BlockNames.CAKE_STORAGE);
         CommonProxy.registerTileEntity(TileEntityCakeStorage.class);
+        CommonProxy.registerBlock(customFurnace, 0, "pickaxe", 2, Constants.BlockNames.CUSTOM_FURNACE);
+        CommonProxy.registerTileEntity(TileEntityCustomFurnace.class);
 
     }
 }

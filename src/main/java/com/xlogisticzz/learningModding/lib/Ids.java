@@ -14,25 +14,24 @@ public class Ids {
     public static int ORE_DEFAULT = 500;
     public static int STORAGE_BLOCK_DEFAULT = 501;
     public static int GLASS_CONNECTED_DEFAULT = 502;
-    public static int TESTBLOCK_DEFAULT = 503;
-    public static int MARKERS_DEFAULT = 504;
-    public static int BOMB_DEFAULT = 505;
-    public static int SUPERBOMB_DEFAULT = 506;
-    public static int NUMBER_DEFAULT = 507;
-    public static int CLICKER_DEFAULT = 508;
-    public static int ENTITY_BLOCK_TELEPORTER_DEFAULT = 509;
-    public static int POISON_DEFAULT = 510;
-    public static int HEIGHTPARTICLE_DEFAULT = 511;
-    public static int NOTE_SEQUENCER_DEFAULT = 512;
+    public static int MARKERS_DEFAULT = 503;
+    public static int BOMB_DEFAULT = 504;
+    public static int SUPER_BOMB_DEFAULT = 505;
+    public static int NUMBER_DEFAULT = 506;
+    public static int CLICKER_DEFAULT = 507;
+    public static int ENTITY_BLOCK_TELEPORTER_DEFAULT = 508;
+    public static int POISON_DEFAULT = 509;
+    public static int HEIGHTPARTICLE_DEFAULT = 510;
+    public static int NOTE_SEQUENCER_DEFAULT = 511;
     public static int CAKE_STORAGE_DEFAULT = 512;
-    public static int MACHINEBLOCK_DEFAULT = 513;
+    public static int MACHINE_BLOCK_DEFAULT = 513;
+    public static int CUSTOM_FURNACE_DEFAULT = 514;
 
     // Current
     public static int ORE;
     public static int STORAGE_BLOCK;
     public static int MACHINEBLOCK;
     public static int GLASS_CONNECTED;
-    public static int TESTBLOCK;
     public static int MARKERS;
     public static int BOMB;
     public static int SUPERBOMB;
@@ -43,6 +42,7 @@ public class Ids {
     public static int HEIGHTPARTICLE;
     public static int NOTE_SEQUENCER;
     public static int CAKE_STORAGE;
+    public static int CUSTOM_FURNACE;
 
 
     // Item IDs

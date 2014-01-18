@@ -43,9 +43,9 @@ public class Recipies {
         CommonProxy.addShapedRecipe(new ItemStack(ModItems.rubyBoots), new Object[]{"   ", "X X", "X X", 'X', new ItemStack(ModItems.items, 1, 0)});
         CommonProxy.addShapedRecipe(new ItemStack(ModItems.rubyBoots), new Object[]{"X X", "X X", "   ", 'X', new ItemStack(ModItems.items, 1, 0)});
 
-        for (int i = 0; i < Constants.ItemNames.DEATHSTONES_NAMES.length; i++) {
+        for (int i = 0; i < Constants.ItemNames.DEATHSTONES.length; i++) {
             ItemStack input = new ItemStack(ModItems.deathstone, 1, i);
-            if (i == Constants.ItemNames.DEATHSTONES_NAMES.length - 1) {
+            if (i == Constants.ItemNames.DEATHSTONES.length - 1) {
                 ItemStack output = new ItemStack(ModItems.deathstone, 1, 0);
                 CommonProxy.addShapelessRecipe(output, input);
             } else {

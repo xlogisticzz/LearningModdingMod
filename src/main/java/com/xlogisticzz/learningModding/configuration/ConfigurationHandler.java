@@ -26,18 +26,18 @@ public class ConfigurationHandler {
         // Blocks
         Ids.ORE = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Ore ID's", Ids.ORE_DEFAULT).getInt();
         Ids.STORAGE_BLOCK = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Ore Storage Blocks ID's", Ids.STORAGE_BLOCK_DEFAULT).getInt();
-        Ids.MACHINEBLOCK = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Machine Block ID", Ids.MACHINEBLOCK_DEFAULT).getInt();
+        Ids.MACHINEBLOCK = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Machine Block ID", Ids.MACHINE_BLOCK_DEFAULT).getInt();
         Ids.GLASS_CONNECTED = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Glass Id", Ids.GLASS_CONNECTED_DEFAULT).getInt();
-        Ids.TESTBLOCK = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Test Id", Ids.TESTBLOCK_DEFAULT).getInt();
         Ids.MARKERS = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Marker Id", Ids.MARKERS_DEFAULT).getInt();
         Ids.BOMB = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Bomb Id", Ids.BOMB_DEFAULT).getInt();
-        Ids.SUPERBOMB = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Super Bomb Id", Ids.SUPERBOMB_DEFAULT).getInt();
+        Ids.SUPERBOMB = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Super Bomb Id", Ids.SUPER_BOMB_DEFAULT).getInt();
         Ids.NUMBER = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Numbers Id", Ids.NUMBER_DEFAULT).getInt();
         Ids.CLICKER = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Clicker Id", Ids.CLICKER_DEFAULT).getInt();
         Ids.POISON = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Posion Id", Ids.POISON_DEFAULT).getInt();
         Ids.HEIGHTPARTICLE = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Height Particle Block Id", Ids.HEIGHTPARTICLE_DEFAULT).getInt();
         Ids.NOTE_SEQUENCER = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Note Sequencer Block Id", Ids.NOTE_SEQUENCER_DEFAULT).getInt();
         Ids.CAKE_STORAGE = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Cake Storage Block Id", Ids.CAKE_STORAGE_DEFAULT).getInt();
+        Ids.CUSTOM_FURNACE = configuration.getBlock(Configuration.CATEGORY_BLOCK, "Custom Furnace Block Id", Ids.CUSTOM_FURNACE_DEFAULT).getInt();
 
         // Item IDs
         Ids.ITEMS = configuration.getItem(Configuration.CATEGORY_ITEM, "Mod Items ID", Ids.ITEMS_DEFAULT).getInt() - 256;

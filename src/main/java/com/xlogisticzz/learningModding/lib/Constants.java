@@ -27,41 +27,42 @@ public class Constants {
     public static class BlockNames {
 
         public static final String[] ORES = {"Ruby Ore", "Titanium Ore"};
-        public static final String[] ORESTORAGEBLOCKS = {"Ruby Block", "Titanium Block"};
-        public static final String[] MACHINE_BLOCK_NAME = {"Machine Block", "Machine Block Disabled", "Machine Block Arrow", "Machine Block Arrow Disabled", "Machine Block Border", "Machine Block Border Disabled", "Machine Block Cross", "Machine Block Cross Disabled", "Machine Block Custom", "Machine Block Custom Disabled"};
+        public static final String[] ORE_STORAGE_BLOCKS = {"Ruby Block", "Titanium Block"};
+        public static final String[] MACHINE_BLOCK = {"Machine Block", "Machine Block Disabled", "Machine Block Arrow", "Machine Block Arrow Disabled", "Machine Block Border", "Machine Block Border Disabled", "Machine Block Cross", "Machine Block Cross Disabled", "Machine Block Custom", "Machine Block Custom Disabled"};
         public static final String GLASS_CONNECTED = "Glass Connected";
-        public static final String[] MARKERS_NAME = {"Blue Marker", "Blue Marker Marked", "Brown Marker", "Brown Marker Marked", "Green Marker", "Green Marker Marked", "Grey Marker", "Grey Marker Marked", "Orange Marker", "Orange Marker Marked", "Purple Marker", "Purple Marker Marked", "Red Marker", "Red Marker Marked", "Yellow Marker", "Yellow Marker Marked"};
-        public static final String BOMB_NAME = "Bomb";
-        public static final String SUPER_BOMB_NAME = "Super Bomb";
-        public static final String NUMBER_NAME = "Number Block";
-        public static final String CLICKER_NAME = "Clicker Block";
-        public static final String POISON_NAME = "Block Of Poison";
-        public static final String HEIGHT_PARTICLE_NAME = "Particle Emmiter";
-        public static final String NOTE_SEQUENCER_NAME = "Note Sequencer";
-        public static final String CAKESTORAGE = "Cake Storage";
+        public static final String[] MARKERS = {"Blue Marker", "Blue Marker Marked", "Brown Marker", "Brown Marker Marked", "Green Marker", "Green Marker Marked", "Grey Marker", "Grey Marker Marked", "Orange Marker", "Orange Marker Marked", "Purple Marker", "Purple Marker Marked", "Red Marker", "Red Marker Marked", "Yellow Marker", "Yellow Marker Marked"};
+        public static final String BOMB = "Bomb";
+        public static final String SUPER_BOMB = "Super Bomb";
+        public static final String NUMBER = "Number Block";
+        public static final String CLICKER = "Clicker Block";
+        public static final String POISON = "Block Of Poison";
+        public static final String HEIGHT_PARTICLE = "Particle Emmiter";
+        public static final String NOTE_SEQUENCER = "Note Sequencer";
+        public static final String CAKE_STORAGE = "Cake Storage";
+        public static final String CUSTOM_FURNACE = "Quartz Furnace";
 
     }
 
     public static class ItemNames {
 
-        public static final String[] ITEMS_NAME = {"Ruby", "Titanium Ingot"};
-        public static final String RUBY_PICKAXE_NAME = "Ruby Pickaxe";
-        public static final String RUBY_SPADE_NAME = "Ruby Shovel";
-        public static final String RUBY_SWORD_NAME = "Ruby Sword";
-        public static final String RUBY_AXE_NAME = "Ruby Axe";
-        public static final String RUBY_HOE_NAME = "Ruby Hoe";
-        public static final String RUBY_HELMET_NAME = "Ruby Helmet";
-        public static final String RUBY_CHESTPLATE_NAME = "Ruby Chestplate";
-        public static final String RUBY_LEGGINGS_NAME = "Ruby Leggings";
-        public static final String RUBY_BOOTS_NAME = "Ruby Boots";
-        public static final String RUBY_WAND_NAME = "Ruby Wand";
-        public static final String[] CARD_NAMES = {"Arrow Card", "Border Card", "Cross Card", "Custom Card"};
-        public static final String[] DEATHSTONES_NAMES = {"Deathstone Creeper", "Deathstone Enderman", "Deathstone Pig", "Deathstone Player", "Deathstone Skeleton"};
-        public static final String WAND_NAME = "Wand";
-        public static final String SPAWN_SPACESHIP_NAME = "Spawn Spaceship";
-        public static final String ENTITY_LAUNCHER_NAME = "Entity Launcher";
-        public static final String PIG_CONVERTER_NAME = "Pig Converter";
-        public static final String ENTITY_BLOCK_TELEPORTER_NAME = "Entity Block Teleporter";
+        public static final String[] ITEMS = {"Ruby", "Titanium Ingot"};
+        public static final String RUBY_PICKAXE = "Ruby Pickaxe";
+        public static final String RUBY_SPADE = "Ruby Shovel";
+        public static final String RUBY_SWORD = "Ruby Sword";
+        public static final String RUBY_AXE = "Ruby Axe";
+        public static final String RUBY_HOE = "Ruby Hoe";
+        public static final String RUBY_HELMET = "Ruby Helmet";
+        public static final String RUBY_CHESTPLATE = "Ruby Chestplate";
+        public static final String RUBY_LEGGINGS = "Ruby Leggings";
+        public static final String RUBY_BOOTS = "Ruby Boots";
+        public static final String RUBY_WAND = "Ruby Wand";
+        public static final String[] CARD = {"Arrow Card", "Border Card", "Cross Card", "Custom Card"};
+        public static final String[] DEATHSTONES = {"Deathstone Creeper", "Deathstone Enderman", "Deathstone Pig", "Deathstone Player", "Deathstone Skeleton"};
+        public static final String WAND = "Wand";
+        public static final String SPAWN_SPACESHIP = "Spawn Spaceship";
+        public static final String ENTITY_LAUNCHER = "Entity Launcher";
+        public static final String PIG_CONVERTER = "Pig Converter";
+        public static final String ENTITY_BLOCK_TELEPORTER = "Entity Block Teleporter";
 
     }
 
@@ -104,6 +105,7 @@ public class Constants {
         public static final String NOTE_SEQUENCER = "note_sequencer";
         public static final String CAKE_TOP = "cakebox_top";
         public static final String CAKE_SIDE = "cakebox";
+        public static final String[] CUSTOM_FURNACE = {"furnace_side", "furnace_front", "furnace_front_active", "furnace_top",};
 
 
     }
@@ -128,7 +130,7 @@ public class Constants {
 
         // Blocks
         public static final String ORE = "modOre";
-        public static final String ORESTORAGEBLOCKS = "modOreStorage";
+        public static final String ORE_STORAGE_BLOCKS = "modOreStorage";
         public static final String MACHINE_BLOCK = "machineBlock";
         public static final String GLASS_CONNECTED = "glassConnected";
         public static final String MARKERS = "markers";
@@ -139,7 +141,8 @@ public class Constants {
         public static final String POISON = "poisonBlock";
         public static final String HEIGHT_PARTICLE = "heightParticleBlock";
         public static final String NOTE_SEQUENCER = "noteSequencerBlock";
-        public static final String CAKESTORAGE = "cakeStorage";
+        public static final String CAKE_STORAGE = "cakeStorage";
+        public static final String CUSTOM_FURNACE = "quartzFurnace";
 
 
     }

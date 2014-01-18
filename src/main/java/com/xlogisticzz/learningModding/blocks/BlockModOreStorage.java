@@ -33,7 +33,7 @@ public class BlockModOreStorage extends BlockOreStorage {
         setHardness(3F);
         setResistance(5F);
         setStepSound(Block.soundStoneFootstep);
-        setUnlocalizedName(Constants.UnLocalisedNames.ORESTORAGEBLOCKS);
+        setUnlocalizedName(Constants.UnLocalisedNames.ORE_STORAGE_BLOCKS);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class BlockCakeStorage extends BlockContainer {
     public BlockCakeStorage(int par1) {
         super(par1, Material.cake);
         setResistance(3F);
-        setUnlocalizedName(Constants.UnLocalisedNames.CAKESTORAGE);
+        setUnlocalizedName(Constants.UnLocalisedNames.CAKE_STORAGE);
         setStepSound(Block.soundClothFootstep);
         setHardness(4F);
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);

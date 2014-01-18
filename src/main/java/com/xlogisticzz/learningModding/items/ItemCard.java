@@ -66,7 +66,7 @@ public class ItemCard extends Item {
     @SideOnly(Side.CLIENT)
     public void getSubItems(int id, CreativeTabs tab, List list) {
 
-        for (int i = 0; i < Constants.ItemNames.CARD_NAMES.length; i++) {
+        for (int i = 0; i < Constants.ItemNames.CARD.length; i++) {
             list.add(new ItemStack(id, 1, i));
         }
     }

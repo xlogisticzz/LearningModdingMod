@@ -65,7 +65,7 @@ public class ItemDeathstone extends Item {
     @SideOnly(Side.CLIENT)
     public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
 
-        for (int i = 0; i < Constants.ItemNames.DEATHSTONES_NAMES.length; i++) {
+        for (int i = 0; i < Constants.ItemNames.DEATHSTONES.length; i++) {
             par3List.add(new ItemStack(par1, 1, i));
         }
     }
@@ -76,12 +76,12 @@ public class ItemDeathstone extends Item {
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
     
         /* DAMAGE VALUES START AT 0 */
-        if (par1ItemStack.getItemDamage() == Constants.ItemNames.DEATHSTONES_NAMES.length - 1) {
+        if (par1ItemStack.getItemDamage() == Constants.ItemNames.DEATHSTONES.length - 1) {
 
-            par3List.add("Next Item crafted is " + Constants.ItemNames.DEATHSTONES_NAMES[0]);
+            par3List.add("Next Item crafted is " + Constants.ItemNames.DEATHSTONES[0]);
 
         } else {
-            par3List.add("Next Item crafted is " + Constants.ItemNames.DEATHSTONES_NAMES[par1ItemStack.getItemDamage() + 1]);
+            par3List.add("Next Item crafted is " + Constants.ItemNames.DEATHSTONES[par1ItemStack.getItemDamage() + 1]);
 
         }
     }

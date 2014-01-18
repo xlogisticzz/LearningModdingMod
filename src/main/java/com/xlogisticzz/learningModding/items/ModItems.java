@@ -67,31 +67,31 @@ public class ModItems {
 
     public static void initLang() {
 
-        CommonProxy.registerItem(rubyWand, Constants.ItemNames.RUBY_WAND_NAME);
-        CommonProxy.registerItem(wand, Constants.ItemNames.WAND_NAME);
-        CommonProxy.registerItem(spawnSpaceship, Constants.ItemNames.SPAWN_SPACESHIP_NAME);
-        CommonProxy.registerItem(entityLauncher, Constants.ItemNames.ENTITY_LAUNCHER_NAME);
-        CommonProxy.registerItem(pigConverter, Constants.ItemNames.PIG_CONVERTER_NAME);
-        CommonProxy.registerItem(entityBlockTeleporter, Constants.ItemNames.ENTITY_BLOCK_TELEPORTER_NAME);
-        CommonProxy.registerItem(rubyPickaxe, Constants.ItemNames.RUBY_PICKAXE_NAME);
-        CommonProxy.registerItem(rubySpade, Constants.ItemNames.RUBY_SPADE_NAME);
-        CommonProxy.registerItem(rubySword, Constants.ItemNames.RUBY_SWORD_NAME);
-        CommonProxy.registerItem(rubyAxe, Constants.ItemNames.RUBY_AXE_NAME);
-        CommonProxy.registerItem(rubyHoe, Constants.ItemNames.RUBY_HOE_NAME);
-        CommonProxy.registerItem(rubyHelmet, Constants.ItemNames.RUBY_HELMET_NAME);
-        CommonProxy.registerItem(rubyChestplate, Constants.ItemNames.RUBY_CHESTPLATE_NAME);
-        CommonProxy.registerItem(rubyLeggings, Constants.ItemNames.RUBY_LEGGINGS_NAME);
-        CommonProxy.registerItem(rubyBoots, Constants.ItemNames.RUBY_BOOTS_NAME);
+        CommonProxy.registerItem(rubyWand, Constants.ItemNames.RUBY_WAND);
+        CommonProxy.registerItem(wand, Constants.ItemNames.WAND);
+        CommonProxy.registerItem(spawnSpaceship, Constants.ItemNames.SPAWN_SPACESHIP);
+        CommonProxy.registerItem(entityLauncher, Constants.ItemNames.ENTITY_LAUNCHER);
+        CommonProxy.registerItem(pigConverter, Constants.ItemNames.PIG_CONVERTER);
+        CommonProxy.registerItem(entityBlockTeleporter, Constants.ItemNames.ENTITY_BLOCK_TELEPORTER);
+        CommonProxy.registerItem(rubyPickaxe, Constants.ItemNames.RUBY_PICKAXE);
+        CommonProxy.registerItem(rubySpade, Constants.ItemNames.RUBY_SPADE);
+        CommonProxy.registerItem(rubySword, Constants.ItemNames.RUBY_SWORD);
+        CommonProxy.registerItem(rubyAxe, Constants.ItemNames.RUBY_AXE);
+        CommonProxy.registerItem(rubyHoe, Constants.ItemNames.RUBY_HOE);
+        CommonProxy.registerItem(rubyHelmet, Constants.ItemNames.RUBY_HELMET);
+        CommonProxy.registerItem(rubyChestplate, Constants.ItemNames.RUBY_CHESTPLATE);
+        CommonProxy.registerItem(rubyLeggings, Constants.ItemNames.RUBY_LEGGINGS);
+        CommonProxy.registerItem(rubyBoots, Constants.ItemNames.RUBY_BOOTS);
 
-        for (int i = 0; i < Constants.ItemNames.CARD_NAMES.length; i++) {
-            CommonProxy.registerItem(card, new ItemStack(card, 1, i), Constants.ItemNames.CARD_NAMES[i]);
+        for (int i = 0; i < Constants.ItemNames.CARD.length; i++) {
+            CommonProxy.registerItem(card, new ItemStack(card, 1, i), Constants.ItemNames.CARD[i]);
         }
-        for (int i = 0; i < Constants.ItemNames.ITEMS_NAME.length; i++) {
-            CommonProxy.registerItem(items, new ItemStack(items, 1, i), Constants.ItemNames.ITEMS_NAME[i]);
+        for (int i = 0; i < Constants.ItemNames.ITEMS.length; i++) {
+            CommonProxy.registerItem(items, new ItemStack(items, 1, i), Constants.ItemNames.ITEMS[i]);
         }
 
-        for (int i = 0; i < Constants.ItemNames.DEATHSTONES_NAMES.length; i++) {
-            CommonProxy.registerItem(deathstone, new ItemStack(deathstone, 1, i), Constants.ItemNames.DEATHSTONES_NAMES[i]);
+        for (int i = 0; i < Constants.ItemNames.DEATHSTONES.length; i++) {
+            CommonProxy.registerItem(deathstone, new ItemStack(deathstone, 1, i), Constants.ItemNames.DEATHSTONES[i]);
         }
     }
 }

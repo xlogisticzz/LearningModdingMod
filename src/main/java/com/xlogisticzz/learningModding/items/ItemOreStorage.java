@@ -25,9 +25,9 @@ public class ItemOreStorage extends ItemBlock {
     }
 
     @Override
-    public String getItemDisplayName(ItemStack par1ItemStack) {
+    public String getItemDisplayName(ItemStack itemStack) {
 
-        return Constants.BlockNames.ORESTORAGEBLOCKS[par1ItemStack.getItemDamage()];
+        return Constants.BlockNames.ORE_STORAGE_BLOCKS[itemStack.getItemDamage()];
     }
 
 }

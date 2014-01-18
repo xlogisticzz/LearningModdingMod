@@ -28,6 +28,6 @@ public class ItemMarker extends ItemBlock {
     @Override
     public String getItemDisplayName(ItemStack par1ItemStack) {
 
-        return Constants.BlockNames.MARKERS_NAME[par1ItemStack.getItemDamage()];
+        return Constants.BlockNames.MARKERS[par1ItemStack.getItemDamage()];
     }
 }
