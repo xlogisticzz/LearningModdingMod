@@ -207,8 +207,8 @@ public class BlockCustomFurnace extends BlockContainer {
     public void breakBlock(World world, int x, int y, int z, int oldId, int oldMeta) {
         Random rand = new Random();
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-        if(tileEntity != null && tileEntity instanceof IInventory){
-            IInventory inv = (IInventory)tileEntity;
+        if (tileEntity != null && tileEntity instanceof IInventory) {
+            IInventory inv = (IInventory) tileEntity;
             CommonProxy.dropItemsFromInventoryOnBlockBreak(inv, world, x, y, z, rand);
         }
 

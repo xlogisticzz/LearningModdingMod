@@ -14,7 +14,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -193,8 +192,8 @@ public class BlockMachine extends BlockContainer {
     public void breakBlock(World world, int x, int y, int z, int oldId, int oldMeta) {
         Random rand = new Random();
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-        if(tileEntity != null && tileEntity instanceof IInventory){
-            IInventory inv = (IInventory)tileEntity;
+        if (tileEntity != null && tileEntity instanceof IInventory) {
+            IInventory inv = (IInventory) tileEntity;
             CommonProxy.dropItemsFromInventoryOnBlockBreak(inv, world, x, y, z, rand);
         }
 
