@@ -5,12 +5,11 @@ import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityNumbers;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -24,28 +23,28 @@ import net.minecraft.world.World;
 public class BlockNumber extends BlockContainer {
 
     @SideOnly(Side.CLIENT)
-    private Icon[] icons;
+    private IIcon[] icons;
 
-    protected BlockNumber(int id) {
+    protected BlockNumber() {
 
-        super(id, Material.rock);
+        super(Material.rock);
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
         setHardness(1F);
-        setStepSound(Block.soundStoneFootstep);
-        setUnlocalizedName(Constants.UnLocalisedNames.NUMBER);
+        setStepSound(soundTypeStone);
+        setBlockName(Constants.UnLocalisedNames.NUMBER);
     }
 
     @Override
-    public TileEntity createNewTileEntity(World world) {
+    public TileEntity createNewTileEntity(World world, int meta) {
 
         return new TileEntityNumbers();
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IconRegister register) {
+    public void registerBlockIcons(IIconRegister register) {
 
-        this.icons = new Icon[Constants.Misc.NUMBER_COUNT];
+        this.icons = new IIcon[Constants.Misc.NUMBER_COUNT];
         for (int i = 0; i < this.icons.length; i++) {
             this.icons[i] = register.registerIcon(Constants.Mod.MODID + ":numbers/" + Constants.Icons.NUMBERS[i]);
         }
@@ -53,16 +52,9 @@ public class BlockNumber extends BlockContainer {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side) {
+    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
 
-        TileEntityNumbers tile = (TileEntityNumbers) world.getBlockTileEntity(x, y, z);
+        TileEntityNumbers tile = (TileEntityNumbers) world.getTileEntity(x, y, z);
         return this.icons[tile.getNumber()];
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public Icon getIcon(int side, int meta) {
-
-        return this.icons[0];
     }
 }

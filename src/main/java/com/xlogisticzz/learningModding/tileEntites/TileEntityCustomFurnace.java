@@ -5,14 +5,12 @@ package com.xlogisticzz.learningModding.tileEntites;
 * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
 */
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -110,10 +108,12 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
     }
 
     @Override
-    public void openChest() {}
+    public void openChest() {
+    }
 
     @Override
-    public void closeChest() {}
+    public void closeChest() {
+    }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack itemstack) {

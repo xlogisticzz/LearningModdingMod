@@ -5,20 +5,22 @@ import com.xlogisticzz.learningModding.LearningModdingCreativeTab;
 import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.proxies.CommonProxy;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
-import cpw.mods.fml.common.network.FMLNetworkHandler;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -34,31 +36,32 @@ import java.util.Random;
 public class BlockMachine extends BlockContainer {
 
     @SideOnly(Side.CLIENT)
-    private Icon topIcon;
+    private IIcon topIcon;
     @SideOnly(Side.CLIENT)
-    private Icon bottomIcon;
+    private IIcon bottomIcon;
     @SideOnly(Side.CLIENT)
-    private Icon[] sideIcons;
+    private IIcon[] sideIcons;
     @SideOnly(Side.CLIENT)
-    private Icon disableIcon;
+    private IIcon disableIcon;
 
-    public BlockMachine(int par1) {
+    public BlockMachine() {
 
-        super(par1, Material.iron);
-        this.setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
-        this.setHardness(2.5F);
-        this.setUnlocalizedName(Constants.UnLocalisedNames.MACHINE_BLOCK);
+        super(Material.iron);
+        setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
+        setHardness(2.5F);
+        setBlockName(Constants.UnLocalisedNames.MACHINE_BLOCK);
     }
+
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister IconRegister) {
+    public void registerBlockIcons(IIconRegister IconRegister) {
 
         this.topIcon = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_TOP);
         this.bottomIcon = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_BOTTOM);
         this.disableIcon = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_DISABLED);
 
-        this.sideIcons = new Icon[Constants.Icons.MACHINE_SIDES.length];
+        this.sideIcons = new IIcon[Constants.Icons.MACHINE_SIDES.length];
         for (int i = 0; i < Constants.Icons.MACHINE_SIDES.length; i++) {
             this.sideIcons[i] = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_SIDES[i]);
         }
@@ -69,9 +72,9 @@ public class BlockMachine extends BlockContainer {
         if (world.isAirBlock(x, y, z)) {
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                 ItemStack stack = inventory.getStackInSlot(i);
-                if (stack != null && stack.itemID == Block.gravel.blockID) {
+                if (stack != null && Item.getIdFromItem(stack.getItem()) == Block.getIdFromBlock(Blocks.gravel)) {
                     inventory.decrStackSize(i, 1);
-                    world.setBlock(x, y, z, Block.gravel.blockID);
+                    world.setBlock(x, y, z, Blocks.gravel);
                     return;
                 }
             }
@@ -82,7 +85,7 @@ public class BlockMachine extends BlockContainer {
     public void onEntityWalking(World par1World, int x, int y, int z, Entity par5Entity) {
 
         if (!par1World.isRemote && par1World.getBlockMetadata(x, y, z) % 2 == 0) {
-            TileEntity tileEntity = par1World.getBlockTileEntity(x, y, z);
+            TileEntity tileEntity = par1World.getTileEntity(x, y, z);
             if (tileEntity != null && tileEntity instanceof TileEntityMachine) {
                 TileEntityMachine machine = (TileEntityMachine) tileEntity;
                 spawnGravel(par1World, machine, x, y + 20, z);
@@ -92,11 +95,10 @@ public class BlockMachine extends BlockContainer {
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int id) {
-
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         int meta = world.getBlockMetadata(x, y, z);
         if (!world.isRemote && world.isBlockIndirectlyGettingPowered(x, y, z) && meta % 2 == 0) {
-            TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+            TileEntity tileEntity = world.getTileEntity(x, y, z);
             if (tileEntity != null && tileEntity instanceof TileEntityMachine) {
                 TileEntityMachine machine = (TileEntityMachine) tileEntity;
                 switch (meta / 2) {
@@ -141,7 +143,7 @@ public class BlockMachine extends BlockContainer {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(int side, int metadata) {
+    public IIcon getIcon(int side, int metadata) {
 
         switch (side) {
 
@@ -176,27 +178,28 @@ public class BlockMachine extends BlockContainer {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public void getSubBlocks(int id, CreativeTabs par2CreativeTabs, List par3List) {
+    public void getSubBlocks(Item item, CreativeTabs par2CreativeTabs, List par3List) {
 
         for (int i = 0; i < Constants.Icons.MACHINE_SIDES.length; i++) {
-            par3List.add(new ItemStack(id, 1, i * 2));
+            par3List.add(new ItemStack(item, 1, i * 2));
         }
     }
 
+
     @Override
-    public TileEntity createNewTileEntity(World world) {
+    public TileEntity createNewTileEntity(World world, int meta) {
         return new TileEntityMachine();
     }
 
     @Override
-    public void breakBlock(World world, int x, int y, int z, int oldId, int oldMeta) {
+    public void breakBlock(World world, int x, int y, int z, Block oldBlock, int oldMeta) {
         Random rand = new Random();
-        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (tileEntity != null && tileEntity instanceof IInventory) {
             IInventory inv = (IInventory) tileEntity;
             CommonProxy.dropItemsFromInventoryOnBlockBreak(inv, world, x, y, z, rand);
         }
 
-        super.breakBlock(world, x, y, z, oldId, oldMeta);
+        super.breakBlock(world, x, y, z, oldBlock, oldMeta);
     }
 }

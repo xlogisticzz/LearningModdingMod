@@ -36,77 +36,12 @@ public class CommonProxy {
     public void initRenderers() {
     }
 
-    public String getMinecraftVersion() {
-        return Loader.instance().getMinecraftModContainer().getVersion();
-    }
-
-    public Object getClient() {
-        return null;
-    }
-
-    public World getClientWorld() {
-        return null;
-    }
-
-    public String getCurrentLang() {
-        return null;
-    }
-
-    public void removeEntity(Entity entity) {
-        entity.worldObj.removeEntity(entity);
-    }
-
-    public static void registerBlock(Block block, int meta) {
-        GameRegistry.registerBlock(block, block.getUnlocalizedName().replace("block.", "") + meta);
-    }
-
-    public static void registerBlock(Block block, int meta, Class<? extends ItemBlock> item) {
-        GameRegistry.registerBlock(block, item, block.getUnlocalizedName().replace("tile.", "") + meta);
-    }
-
-    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, String name) {
-        registerBlock(block, meta);
-        addName(block, name);
-        setBlockHarvestLevel(block, meta, toolClassType, harvestLevel);
-    }
-
-
-    public static void registerBlock(Block block, int meta, String toolClassType, int harvestLevel, Class<? extends ItemBlock> item, String name) {
-        registerBlock(block, meta, item);
-        addName(block, name);
-        if (toolClassType != null) {
-            setBlockHarvestLevel(block, meta, toolClassType, harvestLevel);
-        }
-    }
-
-    public static void setBlockHarvestLevel(Block block, int metadata, String toolClass, int harvestLevel) {
-        MinecraftForge.setBlockHarvestLevel(block, metadata, toolClass, harvestLevel);
-    }
-
-    public static void registerItem(Item item, String name) {
-        GameRegistry.registerItem(item, item.getUnlocalizedName().replace("item.", ""), Constants.Mod.MODID);
-        addName(item, name);
-    }
-
-    public static void registerItem(Item item, ItemStack itemStack, String name) {
-        GameRegistry.registerItem(item, item.getUnlocalizedName(itemStack), Constants.Mod.MODID);
-        addName(itemStack, name);
-    }
-
-    public static void registerTileEntity(Class<? extends TileEntity> clas) {
-        GameRegistry.registerTileEntity(clas, clas.getName());
-    }
-
     public static void addShapedRecipe(ItemStack result, Object[] recipe) {
         CraftingManager.getInstance().addRecipe(result, recipe);
     }
 
     public static void addShapelessRecipe(ItemStack result, Object... recipe) {
         CraftingManager.getInstance().addShapelessRecipe(result, recipe);
-    }
-
-    public static void addName(Object obj, String name) {
-        LanguageRegistry.addName(obj, name);
     }
 
     public static void addSmeltingRecipe(int id, int meta, ItemStack itemstack, int xp) {
@@ -131,7 +66,7 @@ public class CommonProxy {
                         }
 
                         itemstack.stackSize -= k1;
-                        EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
+                        EntityItem entityitem = new EntityItem(world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2), new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 
                         if (itemstack.hasTagCompound()) {
                             entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
@@ -146,7 +81,7 @@ public class CommonProxy {
                 }
             }
             //Last Param is never used so is useless. For more info see method in world.class
-            world.func_96440_m(x, y, z, 1);
+            world.func_147453_f(x, y, z, world.getBlock(x,y,z));
         }
     }
 }

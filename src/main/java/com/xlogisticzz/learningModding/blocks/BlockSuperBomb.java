@@ -6,8 +6,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -22,25 +23,25 @@ import java.util.Random;
 
 public class BlockSuperBomb extends Block {
 
-    public BlockSuperBomb(int par1) {
+    public BlockSuperBomb() {
 
-        super(par1, Material.tnt);
-        this.setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
-        this.setHardness(2.4F);
-        this.setStepSound(Block.soundPowderFootstep);
-        this.setUnlocalizedName(Constants.UnLocalisedNames.SUPER_BOMB);
+        super(Material.tnt);
+        setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
+        setHardness(2.4F);
+        setStepSound(soundTypeGrass);
+        setBlockName(Constants.UnLocalisedNames.SUPER_BOMB);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister register) {
+    public void registerBlockIcons(IIconRegister register) {
 
-        this.blockIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.SUPER_BOMB);
+        blockIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.SUPER_BOMB);
 
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int id) {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 
         if (!world.isRemote && world.isBlockIndirectlyGettingPowered(x, y, z)) {
             world.createExplosion(null, x + 0.5, y + 0.5, z + 0.5, 30, true);
@@ -57,18 +58,14 @@ public class BlockSuperBomb extends Block {
 
     @Override
     public boolean onBlockActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer, int side, float offsetX, float offsetY, float offsetZ) {
-
         if (!par1World.isRemote) {
-
             par1World.createExplosion(null, x + 0.5, y + 0.5, z + 0.5, 30, true);
-
         }
         return true;
     }
 
     @Override
-    public int idDropped(int par1, Random par2Random, int par3) {
-
-        return -1;
+    public Item getItemDropped(int meta, Random rand, int fortune) {
+        return null;
     }
 }

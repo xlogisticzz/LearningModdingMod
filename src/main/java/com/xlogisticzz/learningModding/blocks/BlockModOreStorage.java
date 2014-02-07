@@ -5,11 +5,12 @@ import com.xlogisticzz.learningModding.lib.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockOreStorage;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 import java.util.List;
 import java.util.Random;
@@ -21,27 +22,26 @@ import java.util.Random;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 
-public class BlockModOreStorage extends BlockOreStorage {
+public class BlockModOreStorage extends Block {
 
     @SideOnly(Side.CLIENT)
-    private Icon[] icons;
+    private IIcon[] icons;
 
-    public BlockModOreStorage(int par1) {
-
-        super(par1);
+    public BlockModOreStorage() {
+        super(Material.rock);
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
         setHardness(3F);
         setResistance(5F);
-        setStepSound(Block.soundStoneFootstep);
-        setUnlocalizedName(Constants.UnLocalisedNames.ORE_STORAGE_BLOCKS);
+        setStepSound(Block.soundTypeStone);
+        setBlockName(Constants.UnLocalisedNames.ORE_STORAGE_BLOCKS);
     }
 
     @Override
-    public int idDropped(int meta, Random rand, int fortune) {
+    public Item getItemDropped(int meta, Random random, int fortune) {
         switch (meta) {
 
             default:
-                return this.blockID;
+                return Item.getItemFromBlock(this);
         }
     }
 
@@ -50,10 +50,11 @@ public class BlockModOreStorage extends BlockOreStorage {
         return meta;
     }
 
+
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IconRegister par1IconRegister) {
-        icons = new Icon[Constants.Icons.ORE_STORAGE_BLOCKS.length];
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
+        icons = new IIcon[Constants.Icons.ORE_STORAGE_BLOCKS.length];
 
         for (int i = 0; i < Constants.Icons.ORE_STORAGE_BLOCKS.length; i++) {
             icons[i] = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.ORE_STORAGE_BLOCKS[i]);
@@ -61,16 +62,16 @@ public class BlockModOreStorage extends BlockOreStorage {
     }
 
     @Override
-    public Icon getIcon(int side, int meta) {
+    public IIcon getIcon(int side, int meta) {
         return icons[meta];
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public void getSubBlocks(int id, CreativeTabs par2CreativeTabs, List par3List) {
+    public void getSubBlocks(Item item, CreativeTabs par2CreativeTabs, List par3List) {
 
         for (int i = 0; i < Constants.Icons.ORE_STORAGE_BLOCKS.length; i++) {
-            par3List.add(new ItemStack(id, 1, i));
+            par3List.add(new ItemStack(Item.getItemFromBlock(this), 1, i));
         }
     }
 

@@ -26,8 +26,7 @@ public class BlockModOre extends BlockOre {
 
     Icon[] icons;
 
-    public BlockModOre(int par1) {
-        super(par1);
+    public BlockModOre() {
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
         setHardness(3F);
         setResistance(5F);
