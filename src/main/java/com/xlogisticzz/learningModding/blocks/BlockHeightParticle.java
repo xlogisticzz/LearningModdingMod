@@ -7,8 +7,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.util.Icon;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -21,30 +21,27 @@ import java.util.Random;
  */
 public class BlockHeightParticle extends Block {
 
-    public BlockHeightParticle(int par1) {
+    public BlockHeightParticle() {
+        super(Material.rock);
 
-        super(par1, Material.rock);
-
-        this.setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
-        this.setHardness(1F);
-        this.setStepSound(soundStoneFootstep);
-        this.setUnlocalizedName(Constants.UnLocalisedNames.HEIGHT_PARTICLE);
+        setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
+        setHardness(1F);
+        setStepSound(soundTypeStone);
+        setBlockName(Constants.UnLocalisedNames.HEIGHT_PARTICLE);
     }
 
     @SideOnly(Side.CLIENT)
-    public Icon ParticleIcon;
+    public IIcon ParticleIcon;
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister par1IconRegister) {
-
-        this.blockIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.HEIGHT_PARTICLE);
-        this.ParticleIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":particles/" + Constants.Particles.HEIGHT_TEXTURE);
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
+        blockIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.HEIGHT_PARTICLE);
+        ParticleIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":particles/" + Constants.Particles.HEIGHT_TEXTURE);
     }
 
     @Override
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
-
         float particleX = x + rand.nextFloat();
         float particleY = y + rand.nextFloat();
         float particleZ = z + rand.nextFloat();

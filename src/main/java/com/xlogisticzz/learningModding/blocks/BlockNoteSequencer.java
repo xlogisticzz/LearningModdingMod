@@ -8,7 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -20,41 +20,37 @@ import net.minecraft.world.World;
  */
 public class BlockNoteSequencer extends BlockContainer {
 
-    public BlockNoteSequencer(int par1) {
+    public BlockNoteSequencer() {
+        super(Material.circuits);
 
-        super(par1, Material.circuits);
-
-        this.setStepSound(Block.soundMetalFootstep);
-        this.setHardness(3F);
-        this.setUnlocalizedName(Constants.UnLocalisedNames.NOTE_SEQUENCER);
-        this.setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
+        setStepSound(soundTypeMetal);
+        setHardness(3F);
+        setBlockName(Constants.UnLocalisedNames.NOTE_SEQUENCER);
+        setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister par1IconRegister) {
-
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
         this.blockIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.NOTE_SEQUENCER);
     }
 
-    @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int id) {
 
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         if (!world.isRemote) {
             if (world.isBlockIndirectlyGettingPowered(x, y, z)) {
-                TileEntityNoteSequencer tile = (TileEntityNoteSequencer) world.getBlockTileEntity(x, y, z);
+                TileEntityNoteSequencer tile = (TileEntityNoteSequencer) world.getTileEntity(x, y, z);
                 tile.active = true;
             } else {
-                TileEntityNoteSequencer tile = (TileEntityNoteSequencer) world.getBlockTileEntity(x, y, z);
+                TileEntityNoteSequencer tile = (TileEntityNoteSequencer) world.getTileEntity(x, y, z);
                 tile.active = false;
             }
         }
     }
 
     @Override
-    public TileEntity createNewTileEntity(World world) {
-
+    public TileEntity createNewTileEntity(World world, int meta) {
         return new TileEntityNoteSequencer();
     }
-
 }

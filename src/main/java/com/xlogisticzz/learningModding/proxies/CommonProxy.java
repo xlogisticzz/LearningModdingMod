@@ -1,22 +1,17 @@
 package com.xlogisticzz.learningModding.proxies;
 
-import com.xlogisticzz.learningModding.lib.Constants;
-import cpw.mods.fml.common.Loader;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.util.Random;
 
@@ -47,6 +42,14 @@ public class CommonProxy {
     public static void addSmeltingRecipe(int id, int meta, ItemStack itemstack, int xp) {
         FurnaceRecipes.smelting().addSmelting(id, meta, itemstack, xp);
     }
+
+    public static void registerBlock(Block block, int meta, Class<? extends ItemBlock> itemBlock, String name){
+        if (itemBlock == null){
+            itemBlock = ItemBlock.class;
+        }
+        GameRegistry.registerBlock(block, itemBlock, block.getUnlocalizedName().replace("tile.", "") + meta);
+    }
+
 
     public static void dropItemsFromInventoryOnBlockBreak(IInventory inv, World world, int x, int y, int z, Random rand) {
         if (inv != null) {

@@ -13,13 +13,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -32,18 +32,18 @@ public class BlockCustomFurnace extends BlockContainer {
     public String IconLocation = Constants.Mod.MODID + ":" + "furnace/";
 
     @SideOnly(Side.CLIENT)
-    public Icon[] icons;
+    public IIcon[] icons;
 
-    public BlockCustomFurnace(int par1) {
-        super(par1, Material.rock);
-        setStepSound(soundStoneFootstep);
+    public BlockCustomFurnace() {
+        super(Material.rock);
+        setStepSound(soundTypeStone);
         setHardness(0.8F);
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
-        setUnlocalizedName(Constants.UnLocalisedNames.CUSTOM_FURNACE);
+        setBlockName(Constants.UnLocalisedNames.CUSTOM_FURNACE);
     }
 
     @Override
-    public Icon getIcon(int side, int meta) {
+    public IIcon getIcon(int side, int meta) {
         switch (side) {
             case 0:
                 return icons[3];
@@ -52,7 +52,6 @@ public class BlockCustomFurnace extends BlockContainer {
             default:
                 byte active = (isActive(meta));
                 byte sideComp = (byte) (side - 2);
-
                 if (active == 1) {
                     if ((meta - 4) != sideComp) {
                         return icons[0];
@@ -71,9 +70,8 @@ public class BlockCustomFurnace extends BlockContainer {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister iconRegister) {
-        icons = new Icon[Constants.Icons.CUSTOM_FURNACE.length];
-
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        icons = new IIcon[Constants.Icons.CUSTOM_FURNACE.length];
         for (int i = 0; i < icons.length; i++) {
             icons[i] = iconRegister.registerIcon(IconLocation + Constants.Icons.CUSTOM_FURNACE[i]);
         }
@@ -92,25 +90,29 @@ public class BlockCustomFurnace extends BlockContainer {
 
     private void setDefaultDirection(World world, int x, int y, int z) {
         if (!world.isRemote) {
-            int l = world.getBlockId(x, y, z - 1);
-            int i1 = world.getBlockId(x, y, z + 1);
-            int j1 = world.getBlockId(x - 1, y, z);
-            int k1 = world.getBlockId(x + 1, y, z);
+            Block block = world.getBlock(x, y, z - 1);
+            Block block1 = world.getBlock(x, y, z + 1);
+            Block block2 = world.getBlock(x - 1, y, z);
+            Block block3 = world.getBlock(x + 1, y, z);
             byte b0 = 3;
 
-            if (Block.opaqueCubeLookup[l] && !Block.opaqueCubeLookup[i1]) {
+            if (block.func_149730_j() && !block1.func_149730_j())
+            {
                 b0 = 3;
             }
 
-            if (Block.opaqueCubeLookup[i1] && !Block.opaqueCubeLookup[l]) {
+            if (block1.func_149730_j() && !block.func_149730_j())
+            {
                 b0 = 2;
             }
 
-            if (Block.opaqueCubeLookup[j1] && !Block.opaqueCubeLookup[k1]) {
+            if (block2.func_149730_j() && !block3.func_149730_j())
+            {
                 b0 = 5;
             }
 
-            if (Block.opaqueCubeLookup[k1] && !Block.opaqueCubeLookup[j1]) {
+            if (block3.func_149730_j() && !block2.func_149730_j())
+            {
                 b0 = 4;
             }
             byte active = (byte) (isActive(world.getBlockMetadata(x, y, z)) + 1);
@@ -127,7 +129,7 @@ public class BlockCustomFurnace extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World world) {
+    public TileEntity createNewTileEntity(World world, int meta) {
         return new TileEntityCustomFurnace();
     }
 
@@ -204,14 +206,14 @@ public class BlockCustomFurnace extends BlockContainer {
     }
 
     @Override
-    public void breakBlock(World world, int x, int y, int z, int oldId, int oldMeta) {
+    public void breakBlock(World world, int x, int y, int z, Block oldBlock, int oldMeta) {
         Random rand = new Random();
-        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (tileEntity != null && tileEntity instanceof IInventory) {
             IInventory inv = (IInventory) tileEntity;
             CommonProxy.dropItemsFromInventoryOnBlockBreak(inv, world, x, y, z, rand);
         }
 
-        super.breakBlock(world, x, y, z, oldId, oldMeta);
+        super.breakBlock(world, x, y, z, oldBlock, oldMeta);
     }
 }

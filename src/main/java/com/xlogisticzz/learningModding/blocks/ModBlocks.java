@@ -41,11 +41,11 @@ public class ModBlocks {
         GameData.blockRegistry.addObject(Ids.SUPERBOMB, "superBomb", (new BlockSuperBomb()));
         GameData.blockRegistry.addObject(Ids.NUMBER, "numbers", (new BlockNumber()));
         GameData.blockRegistry.addObject(Ids.CLICKER, "clicker", (new BlockClicker()));
-        GameData.blockRegistry.addObject();
-        GameData.blockRegistry.addObject();
-        GameData.blockRegistry.addObject();
-        GameData.blockRegistry.addObject();
-        GameData.blockRegistry.addObject();
+        GameData.blockRegistry.addObject(Ids.POISON, "poison", (new BlockPoison()));
+        GameData.blockRegistry.addObject(Ids.HEIGHTPARTICLE, "heightParticle", (new BlockHeightParticle()));
+        GameData.blockRegistry.addObject(Ids.NOTE_SEQUENCER, "noteSequencer", (new BlockNoteSequencer()));
+        GameData.blockRegistry.addObject(Ids.CAKE_STORAGE, "cakeStorage", (new BlockCakeStorage()));
+        GameData.blockRegistry.addObject(Ids.CUSTOM_FURNACE, "customFurnace" , (new BlockCustomFurnace()));
 
 
     }

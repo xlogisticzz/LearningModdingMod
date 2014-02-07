@@ -7,11 +7,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -24,23 +24,21 @@ import java.util.Random;
  */
 public class BlockPoison extends Block {
 
-    public BlockPoison(int par1) {
+    public BlockPoison() {
+        super(Material.rock);
 
-        super(par1, Material.rock);
-
-        this.setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
-        this.setHardness(1F);
-        this.setStepSound(soundStoneFootstep);
-        this.setUnlocalizedName(Constants.UnLocalisedNames.POISON);
-
+        setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
+        setHardness(1F);
+        setStepSound(soundTypeStone);
+        setBlockName(Constants.UnLocalisedNames.POISON);
     }
 
     @SideOnly(Side.CLIENT)
-    public Icon ParticleIcon;
+    public IIcon ParticleIcon;
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister par1IconRegister) {
+    public void registerBlockIcons(IIconRegister par1IconRegister) {
 
         this.blockIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.POISON);
         this.ParticleIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":particles/" + Constants.Particles.POISON_TEXTURE);
@@ -49,9 +47,7 @@ public class BlockPoison extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
-
         for (int i = 0; i < 4; i++) {
-
             float particleX = x + rand.nextFloat();
             float particleY = y + rand.nextFloat();
             float particleZ = z + rand.nextFloat();
@@ -61,13 +57,11 @@ public class BlockPoison extends Block {
             float particleMotionZ = -0.5F + rand.nextFloat();
 
             Particles.POISON.spawnParticle(world, particleX, particleY, particleZ, particleMotionX, particleMotionY, particleMotionZ);
-
         }
     }
 
     @Override
     public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
-
         if (!par1World.isRemote) {
             par5EntityPlayer.addPotionEffect(new PotionEffect(Potion.poison.id, 40, 1));
         }
