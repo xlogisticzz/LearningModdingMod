@@ -8,6 +8,7 @@ import com.xlogisticzz.learningModding.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,6 +19,7 @@ public class TileEntityMachine extends TileEntity implements IInventory {
 
     private ItemStack[] items;
     public final boolean[] customSetup;
+    private String customName;
 
     public TileEntityMachine() {
         items = new ItemStack[3];
@@ -42,7 +44,7 @@ public class TileEntityMachine extends TileEntity implements IInventory {
                 setInventorySlotContents(i, null);
             } else {
                 stack = stack.splitStack(j);
-                onInventoryChanged();
+                markDirty();
             }
         }
         return stack;
@@ -61,17 +63,17 @@ public class TileEntityMachine extends TileEntity implements IInventory {
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
             itemstack.stackSize = getInventoryStackLimit();
         }
-        onInventoryChanged();
+        markDirty();
     }
 
     @Override
-    public String getInvName() {
-        return "Machine Inventory";
+    public String getInventoryName() {
+        return this.hasCustomInventoryName() ? this.customName : "container.machine";
     }
 
     @Override
-    public boolean isInvNameLocalized() {
-        return false;
+    public boolean hasCustomInventoryName() {
+        return this.customName != null && this.customName.length() > 0;
     }
 
     @Override
@@ -85,26 +87,26 @@ public class TileEntityMachine extends TileEntity implements IInventory {
     }
 
     @Override
-    public void openChest() {
+    public void openInventory() {
     }
 
     @Override
-    public void closeChest() {
+    public void closeInventory() {
     }
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-        return itemstack.itemID == Block.gravel.blockID;
+        return Block.getBlockFromItem(itemstack.getItem()) == Blocks.gravel;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readFromNBT(par1NBTTagCompound);
 
-        NBTTagList items = par1NBTTagCompound.getTagList("Items");
+        NBTTagList items = par1NBTTagCompound.getTagList("Items", 10);
 
         for (int i = 0; i < items.tagCount(); i++) {
-            NBTTagCompound item = (NBTTagCompound) items.tagAt(i);
+            NBTTagCompound item = items.getCompoundTagAt(i);
             int slot = item.getByte("Slot");
 
             if (slot >= 0 && slot < getSizeInventory()) {
@@ -114,6 +116,10 @@ public class TileEntityMachine extends TileEntity implements IInventory {
 
         for (int i = 0; i < customSetup.length; i++) {
             setCustomGravel(i, par1NBTTagCompound.getBoolean("Custom" + i));
+        }
+
+        if (par1NBTTagCompound.hasKey("CustomName", 8)) {
+            this.customName = par1NBTTagCompound.getString("CustomName");
         }
 
     }
@@ -137,6 +143,10 @@ public class TileEntityMachine extends TileEntity implements IInventory {
 
         for (int i = 0; i < customSetup.length; i++) {
             par1NBTTagCompound.setBoolean("Custom" + i, customSetup[i]);
+        }
+
+        if (this.hasCustomInventoryName()) {
+            par1NBTTagCompound.setString("CustomName", this.customName);
         }
     }
 
@@ -198,8 +208,8 @@ public class TileEntityMachine extends TileEntity implements IInventory {
     }
 
     @Override
-    public void onInventoryChanged() {
-        super.onInventoryChanged();
+    public void markDirty() {
+        super.markDirty();
 
         gravel = -1;
     }

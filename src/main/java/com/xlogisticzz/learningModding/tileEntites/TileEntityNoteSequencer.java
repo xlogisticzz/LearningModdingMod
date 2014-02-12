@@ -1,6 +1,5 @@
 package com.xlogisticzz.learningModding.tileEntites;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
@@ -33,18 +32,9 @@ public class TileEntityNoteSequencer extends TileEntity {
                 String currentInst = "note." + music[instrument];
                 float pitch = (float) Math.pow(2.0D, (notePitch - 12) / 12D);
 
-                Minecraft.getMinecraft().sndManager.playSound(currentInst, this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, 1, pitch);
+                worldObj.playSoundEffect(this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, currentInst, 1F, pitch);
+                worldObj.spawnParticle("note", (double) xCoord + 0.5D, (double) yCoord + 1.2D, (double) zCoord + 0.5D, (double) noteNumber / 24.0D, 0.0D, 0.0D);
 
-                /*
-                float particleX = xCoord + worldObj.rand.nextFloat();
-                float particleY = yCoord + worldObj.rand.nextFloat();
-                float particleZ = zCoord + worldObj.rand.nextFloat();
-
-                float particleMotionX = worldObj.rand.nextFloat();
-                float particleMotionY = worldObj.rand.nextFloat();
-                float particleMotionZ = worldObj.rand.nextFloat();
-                Particles.NOTE.spawnParticle(worldObj, particleX, particleY, particleZ, particleMotionX, particleMotionY, particleMotionZ);
-                */
 
                 this.noteNumber = (this.noteNumber + 1) % 120;
                 this.timer = 0;

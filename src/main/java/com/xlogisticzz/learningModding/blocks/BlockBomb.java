@@ -63,7 +63,7 @@ public class BlockBomb extends BlockContainer {
         if (meta > 1) {
             return null;
         }
-            return super.getItemDropped(meta, random, fortune);
+        return super.getItemDropped(meta, random, fortune);
     }
 
     @Override

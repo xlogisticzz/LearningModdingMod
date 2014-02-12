@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 public class GuiHandler implements IGuiHandler {
 
     public GuiHandler() {
-        NetworkRegistry.registerGuiHandler(LearningModding.instance, this);
+        NetworkRegistry.INSTANCE.registerGuiHandler(LearningModding.instance, this);
     }
 
     @Override

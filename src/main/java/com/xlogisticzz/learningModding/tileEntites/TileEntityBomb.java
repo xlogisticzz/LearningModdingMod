@@ -74,9 +74,9 @@ public class TileEntityBomb extends TileEntity {
     private void spread(int x, int y, int z) {
 
         if (this.worldObj.isAirBlock(x, y, z)) {
-            this.worldObj.setBlock(x, y, z, ModBlocks.bomb.blockID);
+            this.worldObj.setBlock(x, y, z, ModBlocks.bomb);
 
-            TileEntityBomb bomb = (TileEntityBomb) this.worldObj.getBlockTileEntity(x, y, z);
+            TileEntityBomb bomb = (TileEntityBomb) this.worldObj.getTileEntity(x, y, z);
             bomb.spreadLevel = this.spreadLevel + 1;
             bomb.activated = true;
         }

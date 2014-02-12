@@ -6,8 +6,9 @@ package com.xlogisticzz.learningModding.tileEntites;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -20,6 +21,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     private int timer;
     private int delay;
     private int buffer;
+    private String customName;
 
     public TileEntityCakeStorage() {
         items = new ItemStack[10];
@@ -43,10 +45,10 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
         super.readFromNBT(par1NBTTagCompound);
 
-        NBTTagList items = par1NBTTagCompound.getTagList("Items");
+        NBTTagList items = par1NBTTagCompound.getTagList("Items", 10);
 
         for (int i = 0; i < items.tagCount(); i++) {
-            NBTTagCompound item = (NBTTagCompound) items.tagAt(i);
+            NBTTagCompound item = items.getCompoundTagAt(i);
             int slot = item.getByte("Slot");
 
             if (slot >= 0 && slot < getSizeInventory()) {
@@ -57,6 +59,9 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         buffer = par1NBTTagCompound.getByte("Buffer");
         timer = par1NBTTagCompound.getByte("Timer");
 
+        if (par1NBTTagCompound.hasKey("CustomName", 8)) {
+            this.customName = par1NBTTagCompound.getString("CustomName");
+        }
     }
 
     @Override
@@ -78,6 +83,10 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         par1NBTTagCompound.setByte("currentDir", currentDir);
         par1NBTTagCompound.setByte("Timer", (byte) timer);
         par1NBTTagCompound.setByte("Buffer", (byte) buffer);
+
+        if (this.hasCustomInventoryName()) {
+            par1NBTTagCompound.setString("CustomName", this.customName);
+        }
     }
 
 
@@ -99,7 +108,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
                 setInventorySlotContents(i, null);
             } else {
                 stack = stack.splitStack(i);
-                onInventoryChanged();
+                markDirty();
             }
         }
         return stack;
@@ -118,18 +127,19 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
             itemstack.stackSize = getInventoryStackLimit();
         }
-        onInventoryChanged();
+        markDirty();
     }
 
     @Override
-    public String getInvName() {
-        return "Cake Storage";
+    public String getInventoryName() {
+        return this.hasCustomInventoryName() ? this.customName : "container.cakeStorage";
     }
 
     @Override
-    public boolean isInvNameLocalized() {
-        return false;
+    public boolean hasCustomInventoryName() {
+        return this.customName != null && this.customName.length() > 0;
     }
+
 
     @Override
     public int getInventoryStackLimit() {
@@ -142,18 +152,18 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     @Override
-    public void openChest() {
+    public void openInventory() {
     }
 
     @Override
-    public void closeChest() {
+    public void closeInventory() {
     }
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-        if (itemstack.itemID == Block.cake.blockID) {
+        if (Block.getBlockFromItem(itemstack.getItem()) == Blocks.cake) {
             return true;
-        } else return itemstack.itemID == Item.cake.itemID;
+        } else return itemstack.getItem() == Items.cake;
     }
 
     public void reciveButtonEvent(byte buttonId) {
@@ -199,8 +209,8 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     @Override
-    public void onInventoryChanged() {
-        super.onInventoryChanged();
+    public void markDirty() {
+        super.markDirty();
 
         cake = -1;
         updateBuffer();
@@ -245,32 +255,32 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         } else {
             switch (getCurrentDir()) {
                 case 0:
-                    if (worldObj.setBlock(xCoord, yCoord + 1, zCoord, Block.cake.blockID, meta, 2)) {
+                    if (worldObj.setBlock(xCoord, yCoord + 1, zCoord, Blocks.cake, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 1:
-                    if (worldObj.setBlock(xCoord, yCoord - 1, zCoord, Block.cake.blockID, meta, 2)) {
+                    if (worldObj.setBlock(xCoord, yCoord - 1, zCoord, Blocks.cake, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 2:
-                    if (worldObj.setBlock(xCoord, yCoord, zCoord - 1, Block.cake.blockID, meta, 2)) {
+                    if (worldObj.setBlock(xCoord, yCoord, zCoord - 1, Blocks.cake, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 3:
-                    if (worldObj.setBlock(xCoord, yCoord, zCoord + 1, Block.cake.blockID, meta, 2)) {
+                    if (worldObj.setBlock(xCoord, yCoord, zCoord + 1, Blocks.cake, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 4:
-                    if (worldObj.setBlock(xCoord + 1, yCoord, zCoord, Block.cake.blockID, meta, 2)) {
+                    if (worldObj.setBlock(xCoord + 1, yCoord, zCoord, Blocks.cake, meta, 2)) {
                         state = true;
                     }
                     break;
                 case 5:
-                    if (worldObj.setBlock(xCoord - 1, yCoord, zCoord, Block.cake.blockID, meta, 2)) {
+                    if (worldObj.setBlock(xCoord - 1, yCoord, zCoord, Blocks.cake, meta, 2)) {
                         state = true;
                     }
                     break;
@@ -297,32 +307,32 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         //System.out.println("checking" + getCurrentDir());
         switch (getCurrentDir()) {
             case 0:
-                if (worldObj.getBlockId(xCoord, yCoord + 1, zCoord) == 0) {
+                if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord)) {
                     return true;
                 }
                 break;
             case 1:
-                if (worldObj.getBlockId(xCoord, yCoord - 1, zCoord) == 0) {
+                if (worldObj.isAirBlock(xCoord, yCoord - 1, zCoord)) {
                     return true;
                 }
                 break;
             case 2:
-                if (worldObj.getBlockId(xCoord, yCoord, zCoord - 1) == 0) {
+                if (worldObj.isAirBlock(xCoord, yCoord, zCoord - 1)) {
                     return true;
                 }
                 break;
             case 3:
-                if (worldObj.getBlockId(xCoord, yCoord, zCoord + 1) == 0) {
+                if (worldObj.isAirBlock(xCoord, yCoord, zCoord + 1)) {
                     return true;
                 }
                 break;
             case 4:
-                if (worldObj.getBlockId(xCoord + 1, yCoord, zCoord) == 0) {
+                if (worldObj.isAirBlock(xCoord + 1, yCoord, zCoord)) {
                     return true;
                 }
                 break;
             case 5:
-                if (worldObj.getBlockId(xCoord - 1, yCoord, zCoord) == 0) {
+                if (worldObj.isAirBlock(xCoord - 1, yCoord, zCoord)) {
                     return true;
                 }
                 break;
@@ -330,37 +340,34 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         return false;
     }
 
-    public int getBlockIdAtCurrentPos() {
-        int id = 0;
+    public Block getBlockAtCurrentPos() {
+        Block block = Blocks.air;
 
         if (isAirInCurrentDir()) {
-            return id;
+            return block;
         } else {
             switch (getCurrentDir()) {
                 case 0:
-                    id = worldObj.getBlockId(xCoord, yCoord + 1, zCoord);
+                    block = worldObj.getBlock(xCoord, yCoord + 1, zCoord);
                     break;
                 case 1:
-                    id = worldObj.getBlockId(xCoord, yCoord - 1, zCoord);
-
+                    block = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
                     break;
                 case 2:
-                    id = worldObj.getBlockId(xCoord, yCoord, zCoord - 1);
-
+                    block = worldObj.getBlock(xCoord, yCoord, zCoord - 1);
                     break;
                 case 3:
-                    id = worldObj.getBlockId(xCoord, yCoord, zCoord + 1);
+                    block = worldObj.getBlock(xCoord, yCoord, zCoord + 1);
                     break;
                 case 4:
-                    id = worldObj.getBlockId(xCoord + 1, yCoord, zCoord);
-
+                    block = worldObj.getBlock(xCoord + 1, yCoord, zCoord);
                     break;
                 case 5:
-                    id = worldObj.getBlockId(xCoord - 1, yCoord, zCoord);
+                    block = worldObj.getBlock(xCoord - 1, yCoord, zCoord);
                     break;
 
             }
-            return id;
+            return block;
         }
     }
 
@@ -418,7 +425,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             int missing = 0;
             if (isAirInCurrentDir()) {
                 missing = 6;
-            } else if (getBlockIdAtCurrentPos() == Block.cake.blockID) {
+            } else if (getBlockAtCurrentPos() == Blocks.cake) {
                 missing = getMetaAtCurrentPos();
             }
 

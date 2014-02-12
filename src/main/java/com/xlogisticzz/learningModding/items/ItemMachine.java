@@ -26,7 +26,7 @@ public class ItemMachine extends ItemBlock {
     }
 
     @Override
-    public String getItemDisplayName(ItemStack par1ItemStack) {
+    public String get(ItemStack par1ItemStack) {
 
         return Constants.BlockNames.MACHINE_BLOCK[par1ItemStack.getItemDamage()];
     }

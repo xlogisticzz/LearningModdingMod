@@ -1,9 +1,11 @@
 package com.xlogisticzz.learningModding.blocks;
 
-import com.xlogisticzz.learningModding.LearningModdingCreativeTab;
-import com.xlogisticzz.learningModding.lib.Constants;
-import com.xlogisticzz.learningModding.lib.Ids;
-import cpw.mods.fml.common.registry.GameData;
+import com.xlogisticzz.learningModding.items.ItemMachine;
+import com.xlogisticzz.learningModding.items.ItemMarker;
+import com.xlogisticzz.learningModding.items.ItemOre;
+import com.xlogisticzz.learningModding.items.ItemOreStorage;
+import com.xlogisticzz.learningModding.tileEntites.*;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 
 /**
@@ -15,38 +17,43 @@ import net.minecraft.block.Block;
 
 public class ModBlocks {
 
-    public static Block ores = GameData.blockRegistry.getObjectById(Ids.ORE);
-    public static Block orestorageblocks = GameData.blockRegistry.getObjectById(Ids.STORAGE_BLOCK);
-    public static Block machineblock = GameData.blockRegistry.getObjectById(Ids.MACHINEBLOCK);
-    public static Block glassConnected = GameData.blockRegistry.getObjectById(Ids.GLASS_CONNECTED);
-    public static Block markerBlock = GameData.blockRegistry.getObjectById(Ids.MARKERS);
-    public static Block bomb = GameData.blockRegistry.getObjectById(Ids.BOMB);
-    public static Block superBomb = GameData.blockRegistry.getObjectById(Ids.SUPERBOMB);
-    public static Block numbers = GameData.blockRegistry.getObjectById(Ids.NUMBER);
-    public static Block clicker = GameData.blockRegistry.getObjectById(Ids.CLICKER);
-    public static Block poisonBlock = GameData.blockRegistry.getObjectById(Ids.POISON);
-    public static Block particleBlock = GameData.blockRegistry.getObjectById(Ids.HEIGHTPARTICLE);
-    public static Block noteSequencer = GameData.blockRegistry.getObjectById(Ids.NOTE_SEQUENCER);
-    public static Block cakeStorage = GameData.blockRegistry.getObjectById(Ids.CAKE_STORAGE);
-    public static Block customFurnace = GameData.blockRegistry.getObjectById(Ids.CUSTOM_FURNACE);
+    public static Block ores = new BlockModOre();
+    public static Block orestorageblocks = new BlockModOreStorage();
+    public static Block machineblock = new BlockMachine();
+    public static Block glassConnected = new BlockGlassConnected();
+    public static Block markerBlock = new BlockMarker();
+    public static Block bomb = new BlockBomb();
+    public static Block superBomb = new BlockSuperBomb();
+    public static Block numbers = new BlockNumber();
+    public static Block clicker = new BlockClicker();
+    public static Block poisonBlock = new BlockPoison();
+    public static Block particleBlock = new BlockHeightParticle();
+    public static Block noteSequencer = new BlockNoteSequencer();
+    public static Block cakeStorage = new BlockCakeStorage();
+    public static Block customFurnace = new BlockCustomFurnace();
 
-    public static void init() {
+    public void init() {
+        GameRegistry.registerBlock(ores, ItemOre.class, "ores");
+        GameRegistry.registerBlock(orestorageblocks, ItemOreStorage.class, "oreStorageBlocks");
+        GameRegistry.registerBlock(machineblock, ItemMachine.class, "machineBlock");
+        GameRegistry.registerBlock(glassConnected, "connectedGlass");
+        GameRegistry.registerBlock(markerBlock, ItemMarker.class, "marker");
+        GameRegistry.registerBlock(bomb, "bomb");
+        GameRegistry.registerBlock(superBomb, "superBomb");
+        GameRegistry.registerBlock(numbers, "numbers");
+        GameRegistry.registerBlock(clicker, "clicker");
+        GameRegistry.registerBlock(poisonBlock, "poisonBlock");
+        GameRegistry.registerBlock(particleBlock, "particleBlock");
+        GameRegistry.registerBlock(noteSequencer, "noteSequencer");
+        GameRegistry.registerBlock(cakeStorage, "cakeStorage");
+        GameRegistry.registerBlock(customFurnace, "customFurnace");
 
-        GameData.blockRegistry.addObject(Ids.ORE, "ores",(new BlockModOre()));
-        GameData.blockRegistry.addObject(Ids.STORAGE_BLOCK, "oreStorage", (new BlockModOreStorage()));
-        GameData.blockRegistry.addObject(Ids.MACHINEBLOCK, "machineBlock", (new BlockMachine()));
-        GameData.blockRegistry.addObject(Ids.GLASS_CONNECTED, "glassConnected", (new BlockGlassConnected()));
-        GameData.blockRegistry.addObject(Ids.MARKERS, "markers", (new BlockMarker()));
-        GameData.blockRegistry.addObject(Ids.BOMB, "bomb", (new BlockBomb()));
-        GameData.blockRegistry.addObject(Ids.SUPERBOMB, "superBomb", (new BlockSuperBomb()));
-        GameData.blockRegistry.addObject(Ids.NUMBER, "numbers", (new BlockNumber()));
-        GameData.blockRegistry.addObject(Ids.CLICKER, "clicker", (new BlockClicker()));
-        GameData.blockRegistry.addObject(Ids.POISON, "poison", (new BlockPoison()));
-        GameData.blockRegistry.addObject(Ids.HEIGHTPARTICLE, "heightParticle", (new BlockHeightParticle()));
-        GameData.blockRegistry.addObject(Ids.NOTE_SEQUENCER, "noteSequencer", (new BlockNoteSequencer()));
-        GameData.blockRegistry.addObject(Ids.CAKE_STORAGE, "cakeStorage", (new BlockCakeStorage()));
-        GameData.blockRegistry.addObject(Ids.CUSTOM_FURNACE, "customFurnace" , (new BlockCustomFurnace()));
-
-
+        GameRegistry.registerTileEntity(TileEntityMachine.class, "tileMachine");
+        GameRegistry.registerTileEntity(TileEntityBomb.class, "tileBomb");
+        GameRegistry.registerTileEntity(TileEntityNumbers.class, "tileNumber");
+        GameRegistry.registerTileEntity(TileEntityClicker.class, "tileClicker");
+        GameRegistry.registerTileEntity(TileEntityNoteSequencer.class, "tileNoteSequencer");
+        GameRegistry.registerTileEntity(TileEntityCakeStorage.class, "tileCakeStorage");
+        GameRegistry.registerTileEntity(TileEntityCustomFurnace.class, "tileCustomFurnace");
     }
 }

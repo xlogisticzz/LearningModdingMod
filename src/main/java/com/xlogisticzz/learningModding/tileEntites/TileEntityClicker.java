@@ -27,57 +27,61 @@ public class TileEntityClicker extends TileEntity {
             this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 0, 3);
         }
 
-        switch (this.clickOffset) {
-            case -7:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 0, 3);
-                break;
-            case -6:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 1, 3);
-                break;
-            case -5:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 2, 3);
-                break;
-            case -4:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 3, 3);
-                break;
-            case -3:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 4, 3);
-                break;
-            case -2:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 5, 3);
-                break;
-            case -1:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 6, 3);
-                break;
-            case 0:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 7, 3);
-                break;
-            case 1:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 8, 3);
-                break;
-            case 2:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 9, 3);
-                break;
-            case 3:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 10, 3);
-                break;
-            case 4:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 11, 3);
-                break;
-            case 5:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 12, 3);
-                break;
-            case 6:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 13, 3);
-                break;
-            case 7:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 14, 3);
-                break;
-            case 8:
-                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 15, 3);
-                break;
+//      TODO see if this works and remove if un need
+        this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 7 + clickOffset, 3);
 
-        }
+
+//        switch (this.clickOffset) {
+//            case -7:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 0, 3);
+//                break;
+//            case -6:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 1, 3);
+//                break;
+//            case -5:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 2, 3);
+//                break;
+//            case -4:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 3, 3);
+//                break;
+//            case -3:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 4, 3);
+//                break;
+//            case -2:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 5, 3);
+//                break;
+//            case -1:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 6, 3);
+//                break;
+//            case 0:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 7, 3);
+//                break;
+//            case 1:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 8, 3);
+//                break;
+//            case 2:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 9, 3);
+//                break;
+//            case 3:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 10, 3);
+//                break;
+//            case 4:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 11, 3);
+//                break;
+//            case 5:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 12, 3);
+//                break;
+//            case 6:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 13, 3);
+//                break;
+//            case 7:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 14, 3);
+//                break;
+//            case 8:
+//                this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 15, 3);
+//                break;
+//
+//        }
 
     }
 

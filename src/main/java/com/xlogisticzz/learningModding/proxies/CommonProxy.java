@@ -2,7 +2,6 @@ package com.xlogisticzz.learningModding.proxies;
 
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -43,8 +42,8 @@ public class CommonProxy {
         FurnaceRecipes.smelting().addSmelting(id, meta, itemstack, xp);
     }
 
-    public static void registerBlock(Block block, int meta, Class<? extends ItemBlock> itemBlock, String name){
-        if (itemBlock == null){
+    public static void registerBlock(Block block, int meta, Class<? extends ItemBlock> itemBlock, String name) {
+        if (itemBlock == null) {
             itemBlock = ItemBlock.class;
         }
         GameRegistry.registerBlock(block, itemBlock, block.getUnlocalizedName().replace("tile.", "") + meta);
@@ -84,7 +83,7 @@ public class CommonProxy {
                 }
             }
             //Last Param is never used so is useless. For more info see method in world.class
-            world.func_147453_f(x, y, z, world.getBlock(x,y,z));
+            world.func_147453_f(x, y, z, world.getBlock(x, y, z));
         }
     }
 }

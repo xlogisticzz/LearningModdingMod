@@ -1,7 +1,7 @@
 package com.xlogisticzz.learningModding.tileEntites;
 
+import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import com.xlogisticzz.learningModding.lib.Constants;
-import com.xlogisticzz.learningModding.lib.Ids;
 import net.minecraft.tileentity.TileEntity;
 
 /**
@@ -21,7 +21,7 @@ public class TileEntityNumbers extends TileEntity {
 
         if (!this.worldObj.isRemote && ++this.tick == 20) {
             this.number = (this.number + 1) % Constants.Misc.NUMBER_COUNT;
-            this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, Ids.NUMBER, 1, this.number);
+            this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, ModBlocks.numbers, 1, this.number);
             this.tick = 0;
         }
     }
@@ -31,7 +31,7 @@ public class TileEntityNumbers extends TileEntity {
 
         if (this.worldObj.isRemote && id == 1) {
             this.number = value;
-            this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }
         return true;
     }

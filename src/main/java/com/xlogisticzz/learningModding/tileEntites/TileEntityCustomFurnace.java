@@ -8,8 +8,8 @@ package com.xlogisticzz.learningModding.tileEntites;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,6 +27,7 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
     public int furnaceBurnTime;
     public int currentItemBurnTime;
     public int furnaceCookTime;
+    private String customName;
 
     public TileEntityCustomFurnace() {
         items = new ItemStack[3];
@@ -44,7 +45,7 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
 
     @Override
     public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
-        return side != 0 || slot != 1 || itemstack.itemID == Item.bucketEmpty.itemID;
+        return side != 0 || slot != 1 || itemstack.getItem() == Items.bucket;
     }
 
     @Override
@@ -65,7 +66,7 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
                 setInventorySlotContents(slot, null);
             } else {
                 stack = stack.splitStack(amount);
-                onInventoryChanged();
+                markDirty();
             }
         }
         return stack;
@@ -84,17 +85,17 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
             itemstack.stackSize = getInventoryStackLimit();
         }
-        onInventoryChanged();
+        markDirty();
     }
 
     @Override
-    public String getInvName() {
-        return "Quartz Furnace";
+    public String getInventoryName() {
+        return this.hasCustomInventoryName() ? this.customName : "container.customFurnace";
     }
 
     @Override
-    public boolean isInvNameLocalized() {
-        return false;
+    public boolean hasCustomInventoryName() {
+        return this.customName != null && this.customName.length() > 0;
     }
 
     @Override
@@ -108,11 +109,11 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
     }
 
     @Override
-    public void openChest() {
+    public void openInventory() {
     }
 
     @Override
-    public void closeChest() {
+    public void closeInventory() {
     }
 
     @Override
@@ -136,14 +137,18 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
         compound.setTag("Items", items);
         compound.setShort("BurnTime", (short) this.furnaceBurnTime);
         compound.setShort("CookTime", (short) this.furnaceCookTime);
+
+        if (this.hasCustomInventoryName()) {
+            compound.setString("CustomName", this.customName);
+        }
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        NBTTagList items = compound.getTagList("Items");
+        NBTTagList items = compound.getTagList("Items", 10);
         for (int i = 0; i < items.tagCount(); i++) {
-            NBTTagCompound item = (NBTTagCompound) items.tagAt(i);
+            NBTTagCompound item = items.getCompoundTagAt(i);
             int slot = item.getByte("Slot");
             if (slot >= 0 && slot < getSizeInventory()) {
                 setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
@@ -152,6 +157,10 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
         this.furnaceBurnTime = compound.getShort("BurnTime");
         this.furnaceCookTime = compound.getShort("CookTime");
         this.currentItemBurnTime = TileEntityFurnace.getItemBurnTime(this.items[1]);
+
+        if (compound.hasKey("CustomName", 8)) {
+            this.customName = compound.getString("CustomName");
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -185,7 +194,7 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
                     if (items[1] != null) {
                         --items[1].stackSize;
                         if (items[1].stackSize == 0) {
-                            items[1] = items[1].getItem().getContainerItemStack(items[1]);
+                            items[1] = items[1].getItem().getContainerItem(items[1]);
                         }
                     }
                 }
@@ -211,7 +220,7 @@ public class TileEntityCustomFurnace extends TileEntity implements ISidedInvento
             }
         }
         if (flag1) {
-            onInventoryChanged();
+            markDirty();
         }
     }
 
