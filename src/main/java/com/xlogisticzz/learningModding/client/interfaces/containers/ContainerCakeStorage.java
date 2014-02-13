@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
@@ -63,7 +64,7 @@ public class ContainerCakeStorage extends Container {
                 if (!mergeItemStack(stack, 0, 36, false)) {
                     return null;
                 }
-            } else if (stack.itemID != Item.cake.itemID || !mergeItemStack(stack, 36, 36 + tile.getSizeInventory(), false)) {
+            } else if (stack.getItem() != Items.cake || !mergeItemStack(stack, 36, 36 + tile.getSizeInventory(), false)) {
                 return null;
             }
 

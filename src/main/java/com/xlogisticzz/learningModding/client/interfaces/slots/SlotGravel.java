@@ -5,6 +5,7 @@ package com.xlogisticzz.learningModding.client.interfaces.slots;
 */
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,6 @@ public class SlotGravel extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack par1ItemStack) {
-        return par1ItemStack.itemID == Block.gravel.blockID;
+        return Block.getBlockFromItem(par1ItemStack.getItem()) == Blocks.gravel;
     }
 }

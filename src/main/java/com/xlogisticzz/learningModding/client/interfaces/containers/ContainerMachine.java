@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
@@ -60,7 +61,7 @@ public class ContainerMachine extends Container {
                 if (!mergeItemStack(stack, 0, 36, false)) {
                     return null;
                 }
-            } else if (stack.itemID != Block.gravel.blockID || !mergeItemStack(stack, 36, 36 + entityMachine.getSizeInventory(), false)) {
+            } else if (Block.getBlockFromItem(stack.getItem()) != Blocks.gravel || !mergeItemStack(stack, 36, 36 + entityMachine.getSizeInventory(), false)) {
                 return null;
             }
 

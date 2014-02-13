@@ -44,8 +44,8 @@ public class EntityBomb extends Entity {
 
         if (!this.worldObj.isRemote) {
             if (this.worldObj.isAirBlock((int) this.posX, (int) this.posY, (int) this.posZ) && !this.worldObj.isAirBlock((int) this.posX, (int) this.posY - 1, (int) this.posZ)) {
-                this.worldObj.setBlock((int) this.posX, (int) this.posY, (int) this.posZ, ModBlocks.bomb.blockID);
-                TileEntityBomb tile = (TileEntityBomb) this.worldObj.getBlockTileEntity((int) this.posX, (int) this.posY, (int) this.posZ);
+                this.worldObj.setBlock((int) this.posX, (int) this.posY, (int) this.posZ, ModBlocks.bomb);
+                TileEntityBomb tile = (TileEntityBomb) this.worldObj.getTileEntity((int) this.posX, (int) this.posY, (int) this.posZ);
                 tile.setActive();
                 this.setDead();
 

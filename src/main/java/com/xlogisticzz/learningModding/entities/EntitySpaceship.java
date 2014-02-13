@@ -1,15 +1,16 @@
 package com.xlogisticzz.learningModding.entities;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
 import com.xlogisticzz.learningModding.LearningModding;
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
-import com.xlogisticzz.learningModding.client.keyBinds.SpaceshipInventoryKeyBind;
 import com.xlogisticzz.learningModding.client.sounds.Sounds;
 import com.xlogisticzz.learningModding.network.PacketHandler;
-import cpw.mods.fml.common.network.FMLNetworkHandler;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -18,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 
 /**
@@ -30,6 +32,7 @@ import net.minecraft.world.World;
 public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnData, IInventory {
 
     private boolean charged;
+    private String customName;
 
     public EntitySpaceship(World world) {
 
@@ -124,18 +127,18 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
     private boolean lastPressedBombState;
 
     private void sendInfo() {
-        boolean bombState = Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed;
+        boolean bombState = Minecraft.getMinecraft().gameSettings.keyBindAttack.isPressed();
         if (bombState && !this.lastPressedBombState && this.charged && this.riddenByEntity == Minecraft.getMinecraft().thePlayer) {
             boolean hasAmmo = false;
             for (int i = 0; i < getSizeInventory(); i++) {
                 ItemStack stack = getStackInSlot(i);
-                if (stack != null && stack.itemID == ModBlocks.bomb.blockID) {
+                if (stack != null && Block.getBlockFromItem(stack.getItem()) == ModBlocks.bomb) {
                     hasAmmo = true;
                     break;
                 }
             }
             if (!hasAmmo) {
-                Minecraft.getMinecraft().thePlayer.addChatMessage("You don't have enough ammo left");
+                Minecraft.getMinecraft().thePlayer.sendChatMessage("You don't have enough ammo left");
                 Sounds.OUT_OF_AMMO.play(this.posX, this.posY, this.posZ, 1, 0);
             } else {
                 PacketHandler.sendShipPacket(this, 0);
@@ -143,8 +146,7 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
         }
         this.lastPressedBombState = bombState;
 
-        if (SpaceshipInventoryKeyBind.keyPressed) {
-            SpaceshipInventoryKeyBind.keyPressed = false;
+        if (GameSettings.isKeyDown(LearningModding.dropBomb)) {
             if (this.charged && this.riddenByEntity == Minecraft.getMinecraft().thePlayer) {
                 PacketHandler.sendShipPacket(this, 1);
             }
@@ -156,15 +158,19 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
 
         this.charged = compound.getBoolean("charged");
 
-        NBTTagList items = compound.getTagList("Items");
+        NBTTagList items = compound.getTagList("Items", 10);
 
         for (int i = 0; i < items.tagCount(); i++) {
-            NBTTagCompound item = (NBTTagCompound) items.tagAt(i);
+            NBTTagCompound item = (NBTTagCompound) items.getCompoundTagAt(i);
             int slot = item.getByte("Slot");
 
             if (slot >= 0 && slot < getSizeInventory()) {
                 setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
             }
+        }
+
+        if (compound.hasKey("CustomName", 8)) {
+            this.customName = compound.getString("CustomName");
         }
     }
 
@@ -185,24 +191,30 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
             }
         }
         compound.setTag("Items", items);
+
+        if (this.hasCustomInventoryName()) {
+            compound.setString("CustomName", this.customName);
+        }
+    }
+
+
+    @Override
+    public void writeSpawnData(ByteBuf buffer) {
+        buffer.writeBoolean(this.charged);
+
     }
 
     @Override
-    public void writeSpawnData(ByteArrayDataOutput data) {
-
-        data.writeBoolean(this.charged);
+    public void readSpawnData(ByteBuf additionalData) {
+        this.charged = additionalData.readBoolean();
     }
 
-    @Override
-    public void readSpawnData(ByteArrayDataInput data) {
 
-        this.charged = data.readBoolean();
-    }
 
     public void dropBomb() {
         for (int i = 0; i < getSizeInventory(); i++) {
             ItemStack stack = getStackInSlot(i);
-            if (stack != null && stack.itemID == ModBlocks.bomb.blockID) {
+            if (stack != null && Block.getBlockFromItem(stack.getItem()) == ModBlocks.bomb) {
                 decrStackSize(i, 1);
                 EntityBomb bomb = new EntityBomb(this.worldObj);
 
@@ -254,7 +266,7 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
                 setInventorySlotContents(i, null);
             } else {
                 stack = stack.splitStack(j);
-                onInventoryChanged();
+                markDirty();
             }
         }
         return stack;
@@ -273,17 +285,17 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
             itemstack.stackSize = getInventoryStackLimit();
         }
-        onInventoryChanged();
+        markDirty();
     }
 
     @Override
-    public String getInvName() {
-        return "Ship Inventory";
+    public String getInventoryName() {
+        return this.hasCustomInventoryName() ? this.customName : "container.cakeStorage";
     }
 
     @Override
-    public boolean isInvNameLocalized() {
-        return false;
+    public boolean hasCustomInventoryName() {
+        return this.customName != null && this.customName.length() > 0;
     }
 
     @Override
@@ -297,27 +309,26 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
     }
 
     @Override
-    public void openChest() {
+    public void openInventory() {
     }
 
     @Override
-    public void closeChest() {
+    public void closeInventory() {
     }
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-        return itemstack.itemID == ModBlocks.bomb.blockID;
+        return Block.getBlockFromItem(itemstack.getItem()) == ModBlocks.bomb;
     }
 
     @Override
-    public void onInventoryChanged() {
+    public void markDirty() {
         if (worldObj != null) {
             worldObj.updateEntity(this);
         }
     }
 
-
-    public void openInventory() {
+    public void openShipInventory() {
         if (this.riddenByEntity instanceof EntityPlayer) {
             FMLNetworkHandler.openGui((EntityPlayer) this.riddenByEntity, LearningModding.instance, 2, worldObj, (int) posX, (int) posY, (int) posZ);
         }

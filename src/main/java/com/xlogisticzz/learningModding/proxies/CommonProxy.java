@@ -38,15 +38,8 @@ public class CommonProxy {
         CraftingManager.getInstance().addShapelessRecipe(result, recipe);
     }
 
-    public static void addSmeltingRecipe(int id, int meta, ItemStack itemstack, int xp) {
-        FurnaceRecipes.smelting().addSmelting(id, meta, itemstack, xp);
-    }
-
-    public static void registerBlock(Block block, int meta, Class<? extends ItemBlock> itemBlock, String name) {
-        if (itemBlock == null) {
-            itemBlock = ItemBlock.class;
-        }
-        GameRegistry.registerBlock(block, itemBlock, block.getUnlocalizedName().replace("tile.", "") + meta);
+    public static void addSmeltingRecipe(ItemStack input, ItemStack result, int xp) {
+        FurnaceRecipes.smelting().func_151394_a(input, result, xp);
     }
 
 

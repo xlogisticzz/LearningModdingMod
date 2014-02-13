@@ -16,6 +16,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
@@ -75,9 +76,8 @@ public class GuiCakeStorage extends GuiContainer {
         Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 
         if (!cakeStorage.isAirInCurrentDir()) {
-            int id = cakeStorage.getBlockIdAtCurrentPos();
-            Block block = Block.blocksList[id];
-            if (block.blockID != 0) {
+            Block block = cakeStorage.getBlockAtCurrentPos();
+            if (block != null) {
                 drawTexturedModelRectFromIcon(guiLeft + 90, guiTop + 60, block.getIcon(1, 0), 16, 16);
             }
         }
@@ -87,13 +87,12 @@ public class GuiCakeStorage extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        fontRenderer.drawString("Cake Storage", 8, 6, 0x404040);
+        fontRendererObj.drawString("Cake Storage", 8, 6, 0x404040);
 
         if (!cakeStorage.isAirInCurrentDir()) {
-            int id = cakeStorage.getBlockIdAtCurrentPos();
-            Block block = Block.blocksList[id];
+            Block block = cakeStorage.getBlockAtCurrentPos();
             String str = "Cannot place Cake " + cakeStorage.getCurrentTextDir().toLowerCase() + " as the block is occupied by " + block.getLocalizedName();
-            fontRenderer.drawSplitString(str, 70, 84, 100, 0x404040);
+            fontRendererObj.drawSplitString(str, 70, 84, 100, 0x404040);
         }
     }
 

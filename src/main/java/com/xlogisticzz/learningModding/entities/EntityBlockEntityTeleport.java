@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.util.EnumMovingObjectType;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -42,7 +42,7 @@ public class EntityBlockEntityTeleport extends EntityThrowable {
     protected void onImpact(MovingObjectPosition position) {
 
         if (!this.worldObj.isRemote) {
-            if (position.entityHit != null && position.typeOfHit == EnumMovingObjectType.ENTITY) {
+            if (position.entityHit != null && position.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
                 Entity entity = position.entityHit;
 
                 entity.setPosition(this.launchX, this.launchY + 1, this.launchZ);
@@ -51,10 +51,10 @@ public class EntityBlockEntityTeleport extends EntityThrowable {
                 int hitY = position.blockY;
                 int hitZ = position.blockZ;
 
-                int hitBlock = this.worldObj.getBlockId(hitX, hitY, hitZ);
-                if (!(Block.blocksList[hitBlock] == Block.bedrock)) {
-                    this.worldObj.setBlock(hitX, hitY, hitZ, 0);
-                    Block.blocksList[hitBlock].dropBlockAsItem(this.worldObj, this.launchX, this.launchY + 1, this.launchZ, this.worldObj.getBlockMetadata(hitX, hitY, hitZ), 0);
+                Block hitBlock = this.worldObj.getBlock(hitX, hitY, hitZ);
+                if (!(hitBlock == Blocks.bedrock)) {
+                    this.worldObj.setBlock(hitX, hitY, hitZ, Blocks.air);
+                    hitBlock.dropBlockAsItem(this.worldObj, this.launchX, this.launchY + 1, this.launchZ, this.worldObj.getBlockMetadata(hitX, hitY, hitZ), 0);
                 }
             }
             this.setDead();

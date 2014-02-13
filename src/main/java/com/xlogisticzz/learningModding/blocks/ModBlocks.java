@@ -26,13 +26,13 @@ public class ModBlocks {
     public static Block superBomb = new BlockSuperBomb();
     public static Block numbers = new BlockNumber();
     public static Block clicker = new BlockClicker();
-    public static Block poisonBlock = new BlockPoison();
-    public static Block particleBlock = new BlockHeightParticle();
+    public static BlockPoison poisonBlock = new BlockPoison();
+    public static BlockHeightParticle particleBlock = new BlockHeightParticle();
     public static Block noteSequencer = new BlockNoteSequencer();
     public static Block cakeStorage = new BlockCakeStorage();
     public static Block customFurnace = new BlockCustomFurnace();
 
-    public void init() {
+    public static void init() {
         GameRegistry.registerBlock(ores, ItemOre.class, "ores");
         GameRegistry.registerBlock(orestorageblocks, ItemOreStorage.class, "oreStorageBlocks");
         GameRegistry.registerBlock(machineblock, ItemMachine.class, "machineBlock");

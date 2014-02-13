@@ -5,6 +5,7 @@ package com.xlogisticzz.learningModding.client.interfaces.slots;
 */
 
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,6 @@ public class SlotBomb extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack par1ItemStack) {
-        return par1ItemStack.itemID == ModBlocks.bomb.blockID;
+        return Block.getBlockFromItem(par1ItemStack.getItem()) == ModBlocks.bomb;
     }
 }

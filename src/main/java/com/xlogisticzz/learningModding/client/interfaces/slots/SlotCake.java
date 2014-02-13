@@ -5,6 +5,8 @@ package com.xlogisticzz.learningModding.client.interfaces.slots;
 */
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
@@ -19,9 +21,9 @@ public class SlotCake extends Slot {
     @Override
     public boolean isItemValid(ItemStack par1ItemStack) {
 
-        if (par1ItemStack.itemID == Block.cake.blockID) {
+        if (Block.getBlockFromItem(par1ItemStack.getItem()) == Blocks.cake) {
             return true;
-        } else return par1ItemStack.itemID == Item.cake.itemID;
+        } else return par1ItemStack.getItem() == Items.cake;
     }
 
 }

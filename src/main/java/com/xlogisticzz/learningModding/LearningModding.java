@@ -43,6 +43,8 @@ public class LearningModding {
     @SidedProxy(clientSide = Constants.Proxies.CLIENT, serverSide = Constants.Proxies.COMMON)
     public static CommonProxy proxy;
 
+    public static KeyBinding dropBomb;
+
     /* PreInitialization */
     @EventHandler
     public void PreInt(FMLPreInitializationEvent event) {
@@ -61,11 +63,10 @@ public class LearningModding {
     @EventHandler
     public void load(FMLInitializationEvent event) {
 
-
-        ClientRegistry.registerKeyBinding(new KeyBinding("SpaceShip Inventory", Keyboard.KEY_F, "Learning Modding"));
+        dropBomb = new KeyBinding("SpaceShip Inventory", Keyboard.KEY_F, "Learning Modding");
+        ClientRegistry.registerKeyBinding(dropBomb);
 
         ModEntities.init();
-        ModBlocks.initInfo();
         Recipies.initVanilla();
         ModEntities.initInfo();
         new WorldGenerationHandler();

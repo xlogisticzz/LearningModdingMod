@@ -50,7 +50,7 @@ public class GuiMachine extends GuiContainer {
         Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-        int meta = entityMachine.worldObj.getBlockMetadata(entityMachine.xCoord, entityMachine.yCoord, entityMachine.zCoord);
+        int meta = entityMachine.getWorldObj().getBlockMetadata(entityMachine.xCoord, entityMachine.yCoord, entityMachine.zCoord);
         int type = meta / 2;
 
         if (type != 0) {
@@ -93,9 +93,9 @@ public class GuiMachine extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int y) {
-        fontRenderer.drawString("Silly Machine", 8, 6, 0x404040);
+        fontRendererObj.drawString("Silly Machine", 8, 6, 0x404040);
 
-        int type = entityMachine.worldObj.getBlockMetadata(entityMachine.xCoord, entityMachine.yCoord, entityMachine.zCoord) / 2;
+        int type = entityMachine.getWorldObj().getBlockMetadata(entityMachine.xCoord, entityMachine.yCoord, entityMachine.zCoord) / 2;
 
         String str;
         boolean invalid = true;
@@ -119,7 +119,7 @@ public class GuiMachine extends GuiContainer {
         }
 
         int color = invalid ? 0xD30000 : 0x404040;
-        fontRenderer.drawSplitString(str, 45, 44, 100, color);
+        fontRendererObj.drawSplitString(str, 45, 44, 100, color);
     }
 
     private static final String ENABLE_TEXT = "Enable";
