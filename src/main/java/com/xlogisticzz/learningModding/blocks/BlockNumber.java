@@ -25,7 +25,7 @@ public class BlockNumber extends BlockContainer {
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;
 
-    protected BlockNumber() {
+    public BlockNumber() {
 
         super(Material.rock);
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
@@ -36,7 +36,6 @@ public class BlockNumber extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
-
         return new TileEntityNumbers();
     }
 
@@ -44,17 +43,16 @@ public class BlockNumber extends BlockContainer {
     @Override
     public void registerBlockIcons(IIconRegister register) {
 
-        this.icons = new IIcon[Constants.Misc.NUMBER_COUNT];
+        icons = new IIcon[Constants.Misc.NUMBER_COUNT];
         for (int i = 0; i < this.icons.length; i++) {
-            this.icons[i] = register.registerIcon(Constants.Mod.MODID + ":numbers/" + Constants.Icons.NUMBERS[i]);
+            icons[i] = register.registerIcon(Constants.Mod.MODID + ":numbers/" + Constants.Icons.NUMBERS[i]);
         }
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
-
         TileEntityNumbers tile = (TileEntityNumbers) world.getTileEntity(x, y, z);
-        return this.icons[tile.getNumber()];
+        return icons[tile.getNumber()];
     }
 }

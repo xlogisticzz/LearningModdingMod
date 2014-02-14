@@ -1,6 +1,5 @@
 package com.xlogisticzz.learningModding.client.particles;
 
-import com.xlogisticzz.learningModding.blocks.BlockHeightParticle;
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.world.World;

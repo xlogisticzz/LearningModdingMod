@@ -24,9 +24,9 @@ import net.minecraft.world.World;
 public class BlockClicker extends BlockContainer {
 
     @SideOnly(Side.CLIENT)
-    public IIcon clicker;
+    private IIcon clicker;
     @SideOnly(Side.CLIENT)
-    public IIcon clickerLinked;
+    private IIcon clickerLinked;
 
     public BlockClicker() {
         super(Material.iron);
@@ -66,9 +66,8 @@ public class BlockClicker extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister register) {
-        this.clicker = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.CLICKER);
-        this.clickerLinked = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.CLICKER_LINKED);
-
+        clicker = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.CLICKER);
+        clickerLinked = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.CLICKER_LINKED);
     }
 
     @Override

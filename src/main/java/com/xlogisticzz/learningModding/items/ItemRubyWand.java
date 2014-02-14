@@ -5,12 +5,12 @@ import com.xlogisticzz.learningModding.client.sounds.Sounds;
 import com.xlogisticzz.learningModding.lib.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 import java.util.List;
 
@@ -24,26 +24,23 @@ import java.util.List;
 public class ItemRubyWand extends Item {
 
     @SideOnly(Side.CLIENT)
-    private Icon chargedIcon;
+    private IIcon chargedIcon;
 
-    public ItemRubyWand(int id) {
-
-        super(id);
+    public ItemRubyWand() {
+        super();
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
         setMaxStackSize(1);
         setUnlocalizedName(Constants.UnLocalisedNames.RUBY_WAND);
-        this.setFull3D();
+        setFull3D();
     }
 
     @Override
     public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase target) {
-
         if (!target.worldObj.isRemote) {
             target.motionY = 2;
             if (isCharged(itemstack.getItemDamage())) {
                 target.motionX = (target.posX - player.posX) * 2;
                 target.motionZ = (target.posZ - player.posZ) * 2;
-
                 itemstack.setItemDamage(0);
                 Sounds.WAND_USE.play(target.posX, target.posY, target.posZ, 1, 3);
             } else {
@@ -58,19 +55,16 @@ public class ItemRubyWand extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister register) {
-
-        this.itemIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.RUBY_WAND);
-        this.chargedIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.RUBY_WAND_CHARGED);
+    public void registerIcons(IIconRegister register) {
+        itemIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.RUBY_WAND);
+        chargedIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.RUBY_WAND_CHARGED);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemstack, EntityPlayer player, List info, boolean useExtraInfo) {
-
         switch (itemstack.getItemDamage()) {
-
             case 1:
                 info.add("This wand is 20% charged");
                 break;
@@ -91,17 +85,15 @@ public class ItemRubyWand extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamage(int dmg) {
-
+    public IIcon getIconFromDamage(int dmg) {
         if (isCharged(dmg)) {
-            return this.chargedIcon;
+            return chargedIcon;
         } else {
-            return this.itemIcon;
+            return itemIcon;
         }
     }
 
     private boolean isCharged(int dmg) {
-
         return dmg >= 5;
     }
 }

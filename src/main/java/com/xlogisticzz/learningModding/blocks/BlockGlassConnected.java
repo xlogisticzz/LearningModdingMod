@@ -19,10 +19,10 @@ import net.minecraft.world.IBlockAccess;
 
 public class BlockGlassConnected extends Block {
 
+    @SideOnly(Side.CLIENT)
     private IIcon[] icons;
 
     public BlockGlassConnected() {
-
         super(Material.glass);
         setStepSound(soundTypeGlass);
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
@@ -32,19 +32,16 @@ public class BlockGlassConnected extends Block {
 
     @Override
     public boolean isOpaqueCube() {
-
         return false;
     }
 
     @Override
     public boolean renderAsNormalBlock() {
-
         return false;
     }
 
     @Override
     public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
-
         int id = Block.getIdFromBlock(par1IBlockAccess.getBlock(par2, par3, par4));
         return id == getIdFromBlock(this) ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
     }
@@ -52,16 +49,13 @@ public class BlockGlassConnected extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister par1IconRegister) {
-
-        this.icons = new IIcon[Constants.Icons.GLASS_CONNECTED.length];
-
+        icons = new IIcon[Constants.Icons.GLASS_CONNECTED.length];
         for (int i = 0; i < Constants.Icons.GLASS_CONNECTED.length; i++) {
-            this.icons[i] = par1IconRegister.registerIcon(Constants.Mod.MODID + ":glass/png/" + Constants.Icons.GLASS_CONNECTED[i]);
+            icons[i] = par1IconRegister.registerIcon(Constants.Mod.MODID + ":glass/png/" + Constants.Icons.GLASS_CONNECTED[i]);
         }
     }
 
     public boolean shouldConnect(int par1) {
-
         return par1 == getIdFromBlock(this);
     }
 
@@ -71,11 +65,8 @@ public class BlockGlassConnected extends Block {
 
     @Override
     public IIcon getIcon(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
-
         boolean isOpenUp = false, isOpenDown = false, isOpenLeft = false, isOpenRight = false;
-
         switch (par5) {
-
             // bottom
             case 0:
                 if (shouldConnect(getIdFromBlock(par1IBlockAccess.getBlock(par2, par3, par4 - 1)))) {
@@ -169,38 +160,37 @@ public class BlockGlassConnected extends Block {
 
         }
         if (isOpenDown && isOpenUp && isOpenLeft && isOpenRight) {
-            return this.icons[15];
+            return icons[15];
         } else if (isOpenUp && isOpenLeft && isOpenRight) {
-            return this.icons[14];
+            return icons[14];
         } else if (isOpenUp && isOpenDown && isOpenRight) {
-            return this.icons[13];
+            return icons[13];
         } else if (isOpenUp && isOpenDown && isOpenLeft) {
-            return this.icons[12];
+            return icons[12];
         } else if (isOpenDown && isOpenLeft && isOpenRight) {
-            return this.icons[11];
+            return icons[11];
         } else if (isOpenUp && isOpenRight) {
-            return this.icons[10];
+            return icons[10];
         } else if (isOpenUp && isOpenLeft) {
-            return this.icons[9];
+            return icons[9];
         } else if (isOpenUp && isOpenDown) {
-            return this.icons[8];
+            return icons[8];
         } else if (isOpenLeft && isOpenRight) {
-            return this.icons[7];
+            return icons[7];
         } else if (isOpenDown && isOpenRight) {
-            return this.icons[6];
+            return icons[6];
         } else if (isOpenDown && isOpenLeft) {
-            return this.icons[5];
+            return icons[5];
         } else if (isOpenUp) {
-            return this.icons[4];
+            return icons[4];
         } else if (isOpenRight) {
-            return this.icons[3];
+            return icons[3];
         } else if (isOpenLeft) {
-            return this.icons[2];
+            return icons[2];
         } else if (isOpenDown) {
-            return this.icons[1];
+            return icons[1];
         } else {
-            return this.icons[0];
+            return icons[0];
         }
     }
-
 }

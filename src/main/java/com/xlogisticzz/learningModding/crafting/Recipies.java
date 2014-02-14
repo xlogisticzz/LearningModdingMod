@@ -4,10 +4,8 @@ import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import com.xlogisticzz.learningModding.items.ModItems;
 import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.proxies.CommonProxy;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -22,7 +20,7 @@ public class Recipies {
     public static void initVanilla() {
     
         /* Register Furnace Recipies */
-        CommonProxy.addSmeltingRecipe(new ItemStack(ModBlocks.ores,1,1), new ItemStack(ModItems.items, 1, 1), 10);
+        CommonProxy.addSmeltingRecipe(new ItemStack(ModBlocks.ores, 1, 1), new ItemStack(ModItems.items, 1, 1), 10);
         /* Register Block Recipies */
         CommonProxy.addShapedRecipe(new ItemStack(ModBlocks.orestorageblocks, 1, 0), new Object[]{"XXX", "XXX", "XXX", 'X', new ItemStack(ModItems.items, 1, 0)});
         CommonProxy.addShapedRecipe(new ItemStack(ModBlocks.orestorageblocks, 1, 1), new Object[]{"XXX", "XXX", "XXX", 'X', new ItemStack(ModItems.items, 1, 0)});
@@ -47,9 +45,9 @@ public class Recipies {
         CommonProxy.addShapedRecipe(new ItemStack(ModItems.rubyBoots), new Object[]{"   ", "X X", "X X", 'X', new ItemStack(ModItems.items, 1, 0)});
         CommonProxy.addShapedRecipe(new ItemStack(ModItems.rubyBoots), new Object[]{"X X", "X X", "   ", 'X', new ItemStack(ModItems.items, 1, 0)});
 
-        for (int i = 0; i < Constants.ItemNames.DEATHSTONES.length; i++) {
+        for (int i = 0; i < Constants.Icons.DEATHSTONES_ICONS.length; i++) {
             ItemStack input = new ItemStack(ModItems.deathstone, 1, i);
-            if (i == Constants.ItemNames.DEATHSTONES.length - 1) {
+            if (i == Constants.Icons.DEATHSTONES_ICONS.length - 1) {
                 ItemStack output = new ItemStack(ModItems.deathstone, 1, 0);
                 CommonProxy.addShapelessRecipe(output, input);
             } else {

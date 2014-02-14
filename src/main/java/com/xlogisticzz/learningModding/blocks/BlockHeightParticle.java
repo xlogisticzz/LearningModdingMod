@@ -23,7 +23,6 @@ public class BlockHeightParticle extends Block {
 
     public BlockHeightParticle() {
         super(Material.rock);
-
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
         setHardness(1F);
         setStepSound(soundTypeStone);
@@ -45,7 +44,6 @@ public class BlockHeightParticle extends Block {
         float particleX = x + rand.nextFloat();
         float particleY = y + rand.nextFloat();
         float particleZ = z + rand.nextFloat();
-
         float particleMotionX = -0.5F + rand.nextFloat();
         float particleMotionY = rand.nextFloat();
         float particleMotionZ = -0.5F + rand.nextFloat();

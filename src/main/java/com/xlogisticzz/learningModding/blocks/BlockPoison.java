@@ -39,9 +39,8 @@ public class BlockPoison extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister par1IconRegister) {
-
-        this.blockIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.POISON);
-        this.ParticleIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":particles/" + Constants.Particles.POISON_TEXTURE);
+        blockIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.POISON);
+        ParticleIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":particles/" + Constants.Particles.POISON_TEXTURE);
     }
 
     @Override
@@ -51,7 +50,6 @@ public class BlockPoison extends Block {
             float particleX = x + rand.nextFloat();
             float particleY = y + rand.nextFloat();
             float particleZ = z + rand.nextFloat();
-
             float particleMotionX = -0.5F + rand.nextFloat();
             float particleMotionY = -0.5F + rand.nextFloat();
             float particleMotionZ = -0.5F + rand.nextFloat();

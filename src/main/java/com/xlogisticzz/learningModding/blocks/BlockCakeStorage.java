@@ -45,7 +45,6 @@ public class BlockCakeStorage extends BlockContainer {
     public void registerBlockIcons(IIconRegister par1IconRegister) {
         topIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.CAKE_TOP);
         sideIcon = par1IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.CAKE_SIDE);
-
     }
 
     @Override
@@ -78,7 +77,6 @@ public class BlockCakeStorage extends BlockContainer {
             IInventory inv = (IInventory) tileEntity;
             CommonProxy.dropItemsFromInventoryOnBlockBreak(inv, world, x, y, z, rand);
         }
-
         super.breakBlock(world, x, y, z, oldBlock, oldMeta);
     }
 }

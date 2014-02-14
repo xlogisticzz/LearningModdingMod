@@ -39,7 +39,6 @@ public class BlockModOreStorage extends Block {
     @Override
     public Item getItemDropped(int meta, Random random, int fortune) {
         switch (meta) {
-
             default:
                 return Item.getItemFromBlock(this);
         }
@@ -69,7 +68,6 @@ public class BlockModOreStorage extends Block {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void getSubBlocks(Item item, CreativeTabs par2CreativeTabs, List par3List) {
-
         for (int i = 0; i < Constants.Icons.ORE_STORAGE_BLOCKS.length; i++) {
             par3List.add(new ItemStack(Item.getItemFromBlock(this), 1, i));
         }

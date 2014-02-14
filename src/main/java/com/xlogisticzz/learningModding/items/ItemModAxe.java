@@ -1,11 +1,10 @@
 package com.xlogisticzz.learningModding.items;
 
+import com.xlogisticzz.learningModding.LearningModdingCreativeTab;
 import com.xlogisticzz.learningModding.lib.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemAxe;
 
 /**
@@ -17,23 +16,21 @@ import net.minecraft.item.ItemAxe;
 
 public class ItemModAxe extends ItemAxe {
 
-    public String name;
+    private String textureName;
 
-    public ItemModAxe(int par1, EnumToolMaterial par2EnumToolMaterial, CreativeTabs par3, int par4, String par5, String par6) {
+    public ItemModAxe(ToolMaterial toolMaterial, String unlocalisedName, String texture, int maxDamage) {
 
-        super(par1, par2EnumToolMaterial);
-        this.setCreativeTab(par3);
-        this.setMaxDamage(par4);
-        this.setMaxStackSize(1);
-        this.setUnlocalizedName(par5);
-        this.name = par6;
+        super(toolMaterial);
+        setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
+        setMaxDamage(maxDamage);
+        setMaxStackSize(1);
+        setUnlocalizedName(unlocalisedName);
+        textureName = texture;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister reg) {
-
-        this.itemIcon = reg.registerIcon(Constants.Mod.MODID + ":" + this.name);
-
+    public void registerIcons(IIconRegister reg) {
+        itemIcon = reg.registerIcon(Constants.Mod.MODID + ":" + textureName);
     }
 }

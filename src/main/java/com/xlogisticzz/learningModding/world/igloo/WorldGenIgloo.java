@@ -1,6 +1,7 @@
 package com.xlogisticzz.learningModding.world.igloo;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -17,17 +18,17 @@ import java.util.Random;
  */
 public class WorldGenIgloo extends WorldGenerator {
 
-    public List<Integer> whitelist = getListOnArray(2, 3, 80, 79, 78);
+    public List<Block> whitelist = getListOnArray(Blocks.grass, Blocks.dirt, Blocks.snow, Blocks.ice, Blocks.snow_layer);
     public int xDim = 12;
     public int yDim = 5;
     public int zDim = 11;
     public int solids = 80;
     public int nonsolids = 60;
 
-    public List<Integer> getListOnArray(int... ints) {
+    public List<Block> getListOnArray(Block... ints) {
 
-        List<Integer> intList = new ArrayList<Integer>();
-        for (int i : ints) {
+        List<Block> intList = new ArrayList<Block>();
+        for (Block i : ints) {
             intList.add(i);
         }
         return intList;
@@ -40,11 +41,11 @@ public class WorldGenIgloo extends WorldGenerator {
         if (biome == BiomeGenBase.iceMountains || biome == BiomeGenBase.icePlains || biome == BiomeGenBase.taiga || biome == BiomeGenBase.frozenOcean || biome == BiomeGenBase.frozenRiver) {
             for (int i = 0; i < this.xDim; ++i) {
                 for (int k = 0; k < this.zDim; ++k) {
-                    if (world.getBlockId(x + i, y - 1, z + k) != 0 && this.whitelist.contains(world.getBlockId(x + i, y - 1, z + k)) && !Block.blocksList[world.getBlockId(x + i, y - 1, z + k)].blockMaterial.isReplaceable()) {
+                    if (world.getBlock(x + i, y - 1, z + k) != Blocks.air && this.whitelist.contains(world.getBlock(x + i, y - 1, z + k)) && !(world.getBlock(x + i, y - 1, z + k).getMaterial().isReplaceable())) {
                         solidBlocksInPlatform++;
                     }
                     for (int j = 0; j < this.yDim; ++j) {
-                        if (world.isAirBlock(x + i, y + j, z + k) || Block.blocksList[world.getBlockId(x + i, y + j, z + k)].blockMaterial.isReplaceable()) {
+                        if (world.isAirBlock(x + i, y + j, z + k) || world.getBlock(x + i, y + j, z + k).getMaterial().isReplaceable()) {
                             freeBlocksInSpace++;
                         }
                     }

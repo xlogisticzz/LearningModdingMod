@@ -1,12 +1,11 @@
 package com.xlogisticzz.learningModding.items;
 
+import com.xlogisticzz.learningModding.LearningModdingCreativeTab;
 import com.xlogisticzz.learningModding.lib.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
@@ -22,13 +21,11 @@ public class ItemModArmor extends ItemArmor {
     public String texturePath = Constants.Mod.MODID + ":";
     public String iconPath = Constants.Mod.MODID + ":";
 
-    public ItemModArmor(int par1, EnumArmorMaterial par2EnumArmorMaterial, int par3, int par4, String type, CreativeTabs par5) {
-
-        super(par1, par2EnumArmorMaterial, par3, par4);
-
-        this.setMaxStackSize(1);
-        this.setCreativeTab(par5);
-        this.SetArmorType(type.toLowerCase(), par4);
+    public ItemModArmor(ArmorMaterial material, int renderIndex, int armorType, String type) {
+        super(material, renderIndex, armorType);
+        setMaxStackSize(1);
+        setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
+        SetArmorType(type, armorType);
     }
 
     // 0 = helmet
@@ -36,41 +33,38 @@ public class ItemModArmor extends ItemArmor {
     // 2 = leggings
     // 3 = boots
     private void SetArmorType(String type, int par4) {
-
         switch (par4) {
             case 0:
-                this.setUnlocalizedName(type + "Helmet");
-                this.texturePath += type + "_layer_1.png";
-                this.iconPath += type + "_helmet";
+                setUnlocalizedName(type + "Helmet");
+                texturePath += type + "_layer_1.png";
+                iconPath += type + "_helmet";
                 break;
             case 1:
-                this.setUnlocalizedName(type + "Chest");
-                this.texturePath += type + "_layer_1.png";
-                this.iconPath += type + "_chestplate";
+                setUnlocalizedName(type + "Chest");
+                texturePath += type + "_layer_1.png";
+                iconPath += type + "_chestplate";
                 break;
             case 2:
-                this.setUnlocalizedName(type + "Leggings");
-                this.texturePath += type + "_layer_2.png";
-                this.iconPath += type + "_leggings";
+                setUnlocalizedName(type + "Leggings");
+                texturePath += type + "_layer_2.png";
+                iconPath += type + "_leggings";
                 break;
             case 3:
-                this.setUnlocalizedName(type + "Boots");
-                this.texturePath += type + "_layer_1.png";
-                this.iconPath += type + "_boots";
+                setUnlocalizedName(type + "Boots");
+                texturePath += type + "_layer_1.png";
+                iconPath += type + "_boots";
                 break;
         }
     }
 
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, int layer) {
-
-        return this.texturePath;
+    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+        return texturePath;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister reg) {
-
-        this.itemIcon = reg.registerIcon(this.iconPath);
+    public void registerIcons(IIconRegister reg) {
+        itemIcon = reg.registerIcon(iconPath);
     }
 }

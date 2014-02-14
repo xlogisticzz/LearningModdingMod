@@ -45,25 +45,22 @@ public class BlockMachine extends BlockContainer {
     private IIcon disableIcon;
 
     public BlockMachine() {
-
         super(Material.iron);
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
         setHardness(2.5F);
         setBlockName(Constants.UnLocalisedNames.MACHINE_BLOCK);
     }
 
-
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister IconRegister) {
+        topIcon = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_TOP);
+        bottomIcon = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_BOTTOM);
+        disableIcon = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_DISABLED);
 
-        this.topIcon = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_TOP);
-        this.bottomIcon = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_BOTTOM);
-        this.disableIcon = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_DISABLED);
-
-        this.sideIcons = new IIcon[Constants.Icons.MACHINE_SIDES.length];
+        sideIcons = new IIcon[Constants.Icons.MACHINE_SIDES.length];
         for (int i = 0; i < Constants.Icons.MACHINE_SIDES.length; i++) {
-            this.sideIcons[i] = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_SIDES[i]);
+            sideIcons[i] = IconRegister.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.MACHINE_SIDES[i]);
         }
 
     }
@@ -83,7 +80,6 @@ public class BlockMachine extends BlockContainer {
 
     @Override
     public void onEntityWalking(World par1World, int x, int y, int z, Entity par5Entity) {
-
         if (!par1World.isRemote && par1World.getBlockMetadata(x, y, z) % 2 == 0) {
             TileEntity tileEntity = par1World.getTileEntity(x, y, z);
             if (tileEntity != null && tileEntity instanceof TileEntityMachine) {
@@ -133,7 +129,6 @@ public class BlockMachine extends BlockContainer {
                                 spawnGravel(world, machine, dropX, y + 20, dropZ);
                             }
                         }
-
                         break;
                 }
             }
@@ -144,20 +139,14 @@ public class BlockMachine extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int metadata) {
-
         switch (side) {
-
             case 0:
-                return this.bottomIcon;
-
+                return bottomIcon;
             case 1:
-                return metadata % 2 == 1 ? this.disableIcon : this.topIcon;
-
+                return metadata % 2 == 1 ? disableIcon : topIcon;
             default:
-                return this.sideIcons[metadata / 2];
-
+                return sideIcons[metadata / 2];
         }
-
     }
 
     @Override
@@ -172,14 +161,12 @@ public class BlockMachine extends BlockContainer {
 
     @Override
     public int damageDropped(int metadata) {
-
         return metadata;
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void getSubBlocks(Item item, CreativeTabs par2CreativeTabs, List par3List) {
-
         for (int i = 0; i < Constants.Icons.MACHINE_SIDES.length; i++) {
             par3List.add(new ItemStack(item, 1, i * 2));
         }
@@ -199,7 +186,6 @@ public class BlockMachine extends BlockContainer {
             IInventory inv = (IInventory) tileEntity;
             CommonProxy.dropItemsFromInventoryOnBlockBreak(inv, world, x, y, z, rand);
         }
-
         super.breakBlock(world, x, y, z, oldBlock, oldMeta);
     }
 }

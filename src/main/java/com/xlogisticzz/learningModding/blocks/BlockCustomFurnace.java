@@ -29,10 +29,10 @@ import java.util.Random;
 public class BlockCustomFurnace extends BlockContainer {
 
     @SideOnly(Side.CLIENT)
-    public String IconLocation = Constants.Mod.MODID + ":" + "furnace/";
+    private String IconLocation = Constants.Mod.MODID + ":" + "furnace/";
 
     @SideOnly(Side.CLIENT)
-    public IIcon[] icons;
+    private IIcon[] icons;
 
     public BlockCustomFurnace() {
         super(Material.rock);
@@ -209,7 +209,6 @@ public class BlockCustomFurnace extends BlockContainer {
             IInventory inv = (IInventory) tileEntity;
             CommonProxy.dropItemsFromInventoryOnBlockBreak(inv, world, x, y, z, rand);
         }
-
         super.breakBlock(world, x, y, z, oldBlock, oldMeta);
     }
 }

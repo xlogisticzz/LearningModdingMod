@@ -1,11 +1,10 @@
 package com.xlogisticzz.learningModding.items;
 
+import com.xlogisticzz.learningModding.LearningModdingCreativeTab;
 import com.xlogisticzz.learningModding.lib.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemPickaxe;
 
 /**
@@ -17,26 +16,21 @@ import net.minecraft.item.ItemPickaxe;
 
 public class ItemModPickaxe extends ItemPickaxe {
 
-    public String name;
+    private String textureName;
 
-    public ItemModPickaxe(int par1, EnumToolMaterial par2EnumToolMaterial, float par3, float par4, CreativeTabs par5, String par6, String par7, int par8) {
-
-        super(par1, par2EnumToolMaterial);
-        this.damageVsEntity = par3;
-        this.efficiencyOnProperMaterial = par4;
-        this.setCreativeTab(par5);
-        this.setMaxStackSize(1);
-        this.setUnlocalizedName(par6);
-        this.name = par7;
-        this.setMaxDamage(par8);
+    public ItemModPickaxe(ToolMaterial toolMaterial, float efficencyOnMaterial, String name, String texture, int maxDamage) {
+        super(toolMaterial);
+        efficiencyOnProperMaterial = efficencyOnMaterial;
+        setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
+        setMaxStackSize(1);
+        setUnlocalizedName(name);
+        textureName = texture;
+        setMaxDamage(maxDamage);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister reg) {
-
-        this.itemIcon = reg.registerIcon(Constants.Mod.MODID + ":" + this.name);
-
+    public void registerIcons(IIconRegister reg) {
+        itemIcon = reg.registerIcon(Constants.Mod.MODID + ":" + textureName);
     }
-
 }

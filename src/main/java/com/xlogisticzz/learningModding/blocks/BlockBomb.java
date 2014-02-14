@@ -28,7 +28,6 @@ public class BlockBomb extends BlockContainer {
     private IIcon idleIcon;
 
     public BlockBomb() {
-
         super(Material.tnt);
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
         setHardness(2.4F);
@@ -39,27 +38,23 @@ public class BlockBomb extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister register) {
-
-        this.blockIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.BOMB);
-        this.idleIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.BOMB_IDLE);
-
+        blockIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.BOMB);
+        idleIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.BOMB_IDLE);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIcon(int side, int metadata) {
-
         if (metadata < 3) {
-            return this.blockIcon;
+            return blockIcon;
         } else {
-            return this.idleIcon;
+            return idleIcon;
         }
     }
 
 
     @Override
     public Item getItemDropped(int meta, Random random, int fortune) {
-
         if (meta > 1) {
             return null;
         }
@@ -68,8 +63,6 @@ public class BlockBomb extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
-
         return new TileEntityBomb();
     }
-
 }

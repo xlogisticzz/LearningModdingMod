@@ -5,7 +5,7 @@ import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.world.igloo.WorldGenIgloo;
 import cpw.mods.fml.common.IWorldGenerator;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -27,8 +27,8 @@ public class WorldGenerationHandler implements IWorldGenerator {
     public WorldGenerationHandler() {
 
         GameRegistry.registerWorldGenerator(this, 3);
-        this.rubyGen = new WorldGenMinable(ModBlocks.ores.blockID, 0, Constants.WorldGen.RUBY_WORLD_GEN_AMOUNT, Block.stone.blockID);
-        this.titaniumGen = new WorldGenMinable(ModBlocks.ores.blockID, 1, Constants.WorldGen.TITANIUM_WORLD_GEN_AMOUNT, Block.stone.blockID);
+        this.rubyGen = new WorldGenMinable(ModBlocks.ores, 0, Constants.WorldGen.RUBY_WORLD_GEN_AMOUNT, Blocks.stone);
+        this.titaniumGen = new WorldGenMinable(ModBlocks.ores, 1, Constants.WorldGen.TITANIUM_WORLD_GEN_AMOUNT, Blocks.stone);
     }
 
     public void generateStandardOre(Random rand, int chunkX, int chunkZ, World world, int iterations, WorldGenerator gen, int lowestY, int highestY) {

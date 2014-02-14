@@ -35,14 +35,11 @@ public class BlockSuperBomb extends Block {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister register) {
-
         blockIcon = register.registerIcon(Constants.Mod.MODID + ":" + Constants.Icons.SUPER_BOMB);
-
     }
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-
         if (!world.isRemote && world.isBlockIndirectlyGettingPowered(x, y, z)) {
             world.createExplosion(null, x + 0.5, y + 0.5, z + 0.5, 30, true);
         }
@@ -50,7 +47,6 @@ public class BlockSuperBomb extends Block {
 
     @Override
     public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion par5Explosion) {
-
         if (!world.isRemote) {
             world.createExplosion(null, x + 0.5, y + 0.5, z + 0.5, 30, true);
         }

@@ -1,7 +1,6 @@
 package com.xlogisticzz.learningModding.configuration;
 
 import com.xlogisticzz.learningModding.lib.Constants;
-import com.xlogisticzz.learningModding.lib.Ids;
 import net.minecraftforge.common.Configuration;
 
 import java.io.File;

@@ -1,5 +1,6 @@
 package com.xlogisticzz.learningModding.items;
 
+import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import com.xlogisticzz.learningModding.lib.Constants;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -13,21 +14,18 @@ import net.minecraft.item.ItemStack;
 
 public class ItemMachine extends ItemBlock {
 
-    public ItemMachine(int id) {
-
-        super(id);
-        this.setHasSubtypes(true);
+    public ItemMachine() {
+        super(ModBlocks.machineblock);
+        setHasSubtypes(true);
     }
 
     @Override
     public int getMetadata(int dammage) {
-
         return dammage;
     }
 
     @Override
-    public String get(ItemStack par1ItemStack) {
-
-        return Constants.BlockNames.MACHINE_BLOCK[par1ItemStack.getItemDamage()];
+    public String getUnlocalizedName(ItemStack stack) {
+        return Constants.UnLocalisedNames.MACHINE_BLOCK + stack.getItemDamage();
     }
 }

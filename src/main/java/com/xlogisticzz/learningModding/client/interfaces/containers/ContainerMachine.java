@@ -24,7 +24,7 @@ public class ContainerMachine extends Container {
     TileEntityMachine entityMachine;
 
     public ContainerMachine(InventoryPlayer inventoryPlayer, TileEntityMachine entityMachine) {
-        this.entityMachine = entityMachine;
+        entityMachine = entityMachine;
 
         // Player Hotbar
         for (int x = 0; x < 9; x++) {

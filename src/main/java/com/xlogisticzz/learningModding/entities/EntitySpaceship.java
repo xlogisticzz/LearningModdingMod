@@ -10,7 +10,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -19,7 +18,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 
 /**
@@ -208,7 +206,6 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
     public void readSpawnData(ByteBuf additionalData) {
         this.charged = additionalData.readBoolean();
     }
-
 
 
     public void dropBomb() {
