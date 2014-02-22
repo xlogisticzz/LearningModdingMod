@@ -30,7 +30,6 @@ public class ModBlocks {
     public static BlockHeightParticle particleBlock = new BlockHeightParticle();
     public static Block noteSequencer = new BlockNoteSequencer();
     public static Block cakeStorage = new BlockCakeStorage();
-    public static Block customFurnace = new BlockCustomFurnace();
 
     public static void init() {
         GameRegistry.registerBlock(ores, ItemOre.class, "ores");
@@ -46,7 +45,6 @@ public class ModBlocks {
         GameRegistry.registerBlock(particleBlock, "particleBlock");
         GameRegistry.registerBlock(noteSequencer, "noteSequencer");
         GameRegistry.registerBlock(cakeStorage, "cakeStorage");
-        GameRegistry.registerBlock(customFurnace, "customFurnace");
 
         GameRegistry.registerTileEntity(TileEntityMachine.class, "tileMachine");
         GameRegistry.registerTileEntity(TileEntityBomb.class, "tileBomb");
@@ -54,6 +52,5 @@ public class ModBlocks {
         GameRegistry.registerTileEntity(TileEntityClicker.class, "tileClicker");
         GameRegistry.registerTileEntity(TileEntityNoteSequencer.class, "tileNoteSequencer");
         GameRegistry.registerTileEntity(TileEntityCakeStorage.class, "tileCakeStorage");
-        GameRegistry.registerTileEntity(TileEntityCustomFurnace.class, "tileCustomFurnace");
     }
 }
