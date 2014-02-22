@@ -1,7 +1,7 @@
 package com.xlogisticzz.learningModding.items;
 
 import com.xlogisticzz.learningModding.LearningModdingCreativeTab;
-import com.xlogisticzz.learningModding.client.sounds.Sounds;
+import com.xlogisticzz.learningModding.client.sounds.SoundHandler;
 import com.xlogisticzz.learningModding.lib.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -42,10 +42,10 @@ public class ItemRubyWand extends Item {
                 target.motionX = (target.posX - player.posX) * 2;
                 target.motionZ = (target.posZ - player.posZ) * 2;
                 itemstack.setItemDamage(0);
-                Sounds.WAND_USE.play(target.posX, target.posY, target.posZ, 1, 3);
+                SoundHandler.playOnEntity(player, "wand", 1, 3);
             } else {
                 itemstack.setItemDamage(itemstack.getItemDamage() + 1);
-                Sounds.WAND_USE.play(target.posX, target.posY, target.posZ, 1, 0);
+                SoundHandler.playOnEntity(player, "wand", 1, 0);
             }
 
         }

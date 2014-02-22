@@ -1,30 +1,20 @@
 package com.xlogisticzz.learningModding.client.sounds;
+/*
+* @author xLoGisTicZz
+* @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+*/
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraftforge.client.event.sound.SoundLoadEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
+import com.xlogisticzz.learningModding.lib.Constants;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
 
-@SideOnly(Side.CLIENT)
 public class SoundHandler {
 
-    public SoundHandler() {
-
-        MinecraftForge.EVENT_BUS.register(this);
+    public static void playOnEntity(Entity entity, String soundName, float volume, float pitch){
+        entity.worldObj.playSoundAtEntity(entity, (Constants.Mod.MODID + soundName), volume , pitch);
     }
 
-    @ForgeSubscribe
-    public void onSoundsLoad(SoundLoadEvent event) {
-
-        for (Sounds sound : Sounds.values()) {
-            addSound(event, sound);
-        }
+    public static void playSoundInWorld(World world, double x, double y, double z, String soundName, float volume, float pitch, Boolean loudness){
+        world.playSound(x,y,z,(Constants.Mod.MODID + soundName), volume, pitch, loudness);
     }
-
-    private void addSound(SoundLoadEvent event, Sounds sound) {
-
-        event.manager.addSound(Sounds.SOUNDS_LOCATION + ":" + sound.getName() + ".ogg");
-    }
-
 }

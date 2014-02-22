@@ -1,0 +1,29 @@
+{
+    "beep": {
+        "category": "player",
+        "sounds": [
+            "beep"
+        ]
+    },
+    
+    "wand": {
+        "category": "player",
+        "sounds": [
+            "wand"
+        ]
+    },
+    
+    "emptyClick": {
+        "category": "player",
+        "sounds": [
+            "emptyclick"
+        ]
+    },
+    
+    "bombFall": {
+        "category": "player",
+        "sounds": [
+            "bombfall"
+        ]
+    }
+}

@@ -1,7 +1,7 @@
 package com.xlogisticzz.learningModding.tileEntites;
 
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
-import com.xlogisticzz.learningModding.client.sounds.Sounds;
+import com.xlogisticzz.learningModding.client.sounds.SoundHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
@@ -59,7 +59,7 @@ public class TileEntityBomb extends TileEntity {
                 spread(this.xCoord, this.yCoord, this.zCoord + 1);
                 spread(this.xCoord, this.yCoord, this.zCoord - 1);
                 this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 3, 3);
-                Sounds.BOMB_SPREAD.play(this.xCoord, this.yCoord, this.zCoord, 1, 0);
+                SoundHandler.playSoundInWorld(worldObj, (double)xCoord, (double)yCoord, (double)zCoord,"beep", 1 ,0 ,true );
             } else if (this.timer == SPREAD_TIME * (this.spreadLevel - SPREAD_LEVELS)) {
                 this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 3, 3);
                 this.worldObj.createExplosion(null, this.xCoord + 0.5, this.yCoord + 0.5, this.zCoord + 0.5, 4, true);

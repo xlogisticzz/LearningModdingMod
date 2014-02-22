@@ -1,7 +1,6 @@
 package com.xlogisticzz.learningModding.proxies;
 
 import com.xlogisticzz.learningModding.client.RenderSpaceship;
-import com.xlogisticzz.learningModding.client.sounds.SoundHandler;
 import com.xlogisticzz.learningModding.entities.EntityBlockEntityTeleport;
 import com.xlogisticzz.learningModding.entities.EntityPigConverter;
 import com.xlogisticzz.learningModding.entities.EntitySpaceship;
@@ -21,7 +20,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void initSounds() {
 
-        new SoundHandler();
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.xlogisticzz.learningModding.entities;
 
 import com.xlogisticzz.learningModding.LearningModding;
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
-import com.xlogisticzz.learningModding.client.sounds.Sounds;
+import com.xlogisticzz.learningModding.client.sounds.SoundHandler;
 import com.xlogisticzz.learningModding.network.PacketHandler;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
@@ -137,7 +137,7 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
             }
             if (!hasAmmo) {
                 Minecraft.getMinecraft().thePlayer.sendChatMessage("You don't have enough ammo left");
-                Sounds.OUT_OF_AMMO.play(this.posX, this.posY, this.posZ, 1, 0);
+                SoundHandler.playOnEntity(this, "emptyClick", 1, 0);
             } else {
                 PacketHandler.sendShipPacket(this, 0);
             }
@@ -220,7 +220,7 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
                 bomb.posZ = this.posZ;
 
                 this.worldObj.spawnEntityInWorld(bomb);
-                Sounds.BOMB_DROP.play(this.posX, this.posY, this.posZ, 1, 0);
+                SoundHandler.playOnEntity(this, "bombFall", 1, 0);
                 break;
             }
         }
