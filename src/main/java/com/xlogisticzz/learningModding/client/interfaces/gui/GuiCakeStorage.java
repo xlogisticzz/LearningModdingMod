@@ -6,7 +6,6 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerCakeStorage;
 import com.xlogisticzz.learningModding.lib.Constants;
-import com.xlogisticzz.learningModding.network.PacketHandler;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -115,7 +114,7 @@ public class GuiCakeStorage extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        PacketHandler.sendCakeButtonPacket((byte) par1GuiButton.id);
+       //TODO sendCakeButtonPacket((byte) par1GuiButton.id);
         if (par1GuiButton.id == 0) {
             par1GuiButton.enabled = false;
         } else if (par1GuiButton.id == 1) {

@@ -7,7 +7,6 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerMachine;
 import com.xlogisticzz.learningModding.lib.Constants;
-import com.xlogisticzz.learningModding.network.PacketHandler;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -139,7 +138,7 @@ public class GuiMachine extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        PacketHandler.sendMachineButtonPacket((byte) par1GuiButton.id);
+        //TODO sendMachineButtonPacket((byte) par1GuiButton.id);
         if (par1GuiButton.id == 0) {
             par1GuiButton.displayString = par1GuiButton.displayString.equals(DISABLE_TEXT) ? ENABLE_TEXT : DISABLE_TEXT;
         } else if (par1GuiButton.id == 1) {
@@ -155,7 +154,7 @@ public class GuiMachine extends GuiContainer {
             GuiRectangle rect = rectangles[i];
 
             if (rect.inRect(this, x, y)) {
-                PacketHandler.sendMachineButtonPacket((byte) (2 + i));
+                //TODO sendMachineButtonPacket((byte) (2 + i));
                 currentDragMode = entityMachine.customSetup[i];
                 entityMachine.setCustomGravel(i, !currentDragMode);
                 break;
@@ -173,7 +172,7 @@ public class GuiMachine extends GuiContainer {
             GuiRectangle rect = rectangles[i];
 
             if (entityMachine.customSetup[i] == currentDragMode && rect.inRect(this, x, y)) {
-                PacketHandler.sendMachineButtonPacket((byte) (2 + i));
+                //TODO sendMachineButtonPacket((byte) (2 + i));
                 entityMachine.setCustomGravel(i, !currentDragMode);
                 break;
             }

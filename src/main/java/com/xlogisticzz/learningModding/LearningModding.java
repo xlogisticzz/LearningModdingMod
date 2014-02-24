@@ -8,6 +8,7 @@ import com.xlogisticzz.learningModding.dispenser.DispenserBehaviourBlockEntityTe
 import com.xlogisticzz.learningModding.entities.ModEntities;
 import com.xlogisticzz.learningModding.items.ModItems;
 import com.xlogisticzz.learningModding.lib.Constants;
+import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.proxies.CommonProxy;
 import com.xlogisticzz.learningModding.world.WorldGenerationHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -44,6 +45,7 @@ public class LearningModding {
     public static CommonProxy proxy;
 
     public static KeyBinding dropBomb;
+    public static final PacketPipeline packetPipeline = new PacketPipeline();
 
     /* PreInitialization */
     @EventHandler
@@ -65,6 +67,7 @@ public class LearningModding {
 
         dropBomb = new KeyBinding("SpaceShip Inventory", Keyboard.KEY_F, "Learning Modding");
         ClientRegistry.registerKeyBinding(dropBomb);
+        packetPipeline.initialize();
 
         ModEntities.init();
         Recipies.initVanilla();
@@ -81,7 +84,7 @@ public class LearningModding {
     /* PostInitialization */
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
+        packetPipeline.postInitialise();
     }
 
     /* When the server starts */

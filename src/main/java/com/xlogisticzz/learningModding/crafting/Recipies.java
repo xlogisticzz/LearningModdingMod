@@ -26,7 +26,6 @@ public class Recipies {
         CommonProxy.addShapedRecipe(new ItemStack(ModBlocks.orestorageblocks, 1, 1), new Object[]{"XXX", "XXX", "XXX", 'X', new ItemStack(ModItems.items, 1, 0)});
         CommonProxy.addShapelessRecipe(new ItemStack(ModItems.items, 9, 0), new ItemStack(ModBlocks.orestorageblocks, 1, 0));
         CommonProxy.addShapelessRecipe(new ItemStack(ModItems.items, 9, 1), new ItemStack(ModBlocks.orestorageblocks, 1, 1));
-        CommonProxy.addShapedRecipe(new ItemStack(ModBlocks.customFurnace, 1, 0), new Object[]{"XXX", "XFX", "XXX", 'X', new ItemStack(Blocks.quartz_block, 1, 0), 'F', new ItemStack(Blocks.furnace, 1, 0)});
 
         /* Register Item Recipies */
         CommonProxy.addShapedRecipe(new ItemStack(ModItems.wand), new Object[]{"  X", " / ", " / ", 'X', new ItemStack(ModItems.items, 1, 0), '/', Items.stick});

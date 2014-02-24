@@ -27,6 +27,10 @@ public class CommonProxy {
     public void initRenderers() {
     }
 
+    public World getClientWorld() {
+        return null;
+    }
+
     public static void addShapedRecipe(ItemStack result, Object[] recipe) {
         CraftingManager.getInstance().addRecipe(result, recipe);
     }

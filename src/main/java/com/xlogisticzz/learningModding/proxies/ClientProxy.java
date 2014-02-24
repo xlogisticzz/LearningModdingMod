@@ -5,8 +5,10 @@ import com.xlogisticzz.learningModding.entities.EntityBlockEntityTeleport;
 import com.xlogisticzz.learningModding.entities.EntityPigConverter;
 import com.xlogisticzz.learningModding.entities.EntitySpaceship;
 import com.xlogisticzz.learningModding.items.ModItems;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.world.World;
 
 /**
  * Learning Modding Mod
@@ -29,5 +31,10 @@ public class ClientProxy extends CommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityPigConverter.class, new RenderSnowball(ModItems.pigConverter));
         RenderingRegistry.registerEntityRenderingHandler(EntityBlockEntityTeleport.class, new RenderSnowball(ModItems.entityBlockTeleporter));
 
+    }
+
+    @Override
+    public World getClientWorld() {
+        return FMLClientHandler.instance().getClient().theWorld;
     }
 }
