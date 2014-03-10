@@ -68,6 +68,7 @@ public class LearningModding {
         dropBomb = new KeyBinding("SpaceShip Inventory", Keyboard.KEY_F, "Learning Modding");
         ClientRegistry.registerKeyBinding(dropBomb);
         packetPipeline.initialize();
+        packetPipeline.registerPackets();
 
         ModEntities.init();
         Recipies.initVanilla();

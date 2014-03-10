@@ -33,7 +33,7 @@ public class ItemModItem extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack itemstack) {
-        return Constants.UnLocalisedNames.ITEMS + itemstack.getItemDamage();
+        return "item." + Constants.UnLocalisedNames.ITEMS + itemstack.getItemDamage();
     }
 
     @Override

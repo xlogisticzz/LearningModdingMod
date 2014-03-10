@@ -86,9 +86,10 @@ public class ContainerMachine extends Container {
     @Override
     public void addCraftingToCrafters(ICrafting par1ICrafting) {
         super.addCraftingToCrafters(par1ICrafting);
-
-        for (int i = 0; i < entityMachine.customSetup.length; i++) {
-            par1ICrafting.sendProgressBarUpdate(this, i, entityMachine.customSetup[i] ? 1 : 0);
+        if(entityMachine.getBlockMetadata() /2 == 4){
+            for (int i = 0; i < entityMachine.customSetup.length; i++) {
+                par1ICrafting.sendProgressBarUpdate(this, i, entityMachine.customSetup[i] ? 1 : 0);
+            }
         }
     }
 
@@ -105,9 +106,11 @@ public class ContainerMachine extends Container {
         super.detectAndSendChanges();
 
         for (Object player : crafters) {
-            for (int i = 0; i < entityMachine.customSetup.length; i++) {
-                if (entityMachine.customSetup[i] != olddata[i]) {
-                    ((ICrafting) player).sendProgressBarUpdate(this, i, entityMachine.customSetup[i] ? 1 : 0);
+            if(entityMachine.getBlockMetadata() /2 == 4){
+                for (int i = 0; i < entityMachine.customSetup.length; i++) {
+                    if (entityMachine.customSetup[i] != olddata[i]) {
+                        ((ICrafting) player).sendProgressBarUpdate(this, i, entityMachine.customSetup[i] ? 1 : 0);
+                    }
                 }
             }
         }

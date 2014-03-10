@@ -22,6 +22,7 @@ public class GuiSpaceship extends GuiContainer {
         ySize = 218;
     }
 
+    //TODO CREATE GUI TEXTURE AND UPDATE HERE
     private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/cake.png");
 
     @Override

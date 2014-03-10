@@ -2,6 +2,7 @@ package com.xlogisticzz.learningModding.items;
 
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import com.xlogisticzz.learningModding.lib.Constants;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
@@ -14,7 +15,7 @@ import net.minecraft.item.ItemStack;
 
 public class ItemMachine extends ItemBlock {
 
-    public ItemMachine() {
+    public ItemMachine(Block block) {
         super(ModBlocks.machineblock);
         setHasSubtypes(true);
     }
@@ -26,6 +27,6 @@ public class ItemMachine extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return Constants.UnLocalisedNames.MACHINE_BLOCK + stack.getItemDamage();
+        return "tile." + Constants.UnLocalisedNames.MACHINE_BLOCK + stack.getItemDamage();
     }
 }

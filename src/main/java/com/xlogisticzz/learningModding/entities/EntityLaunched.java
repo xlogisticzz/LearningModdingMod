@@ -45,7 +45,7 @@ public class EntityLaunched extends Entity {
         this.startPosY = (int) y;
         this.goingUp = true;
 
-        this.setPosition(x, y, z);
+        this.setPosition(x + 0.5, y, z + 0.5);
     }
 
     @Override

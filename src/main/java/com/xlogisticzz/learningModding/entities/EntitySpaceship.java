@@ -3,6 +3,8 @@ package com.xlogisticzz.learningModding.entities;
 import com.xlogisticzz.learningModding.LearningModding;
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import com.xlogisticzz.learningModding.client.sounds.SoundHandler;
+import com.xlogisticzz.learningModding.network.PacketPipeline;
+import com.xlogisticzz.learningModding.network.PacketSpaceShipInventory;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;
@@ -145,7 +147,7 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
 
         if (GameSettings.isKeyDown(LearningModding.dropBomb)) {
             if (this.charged && this.riddenByEntity == Minecraft.getMinecraft().thePlayer) {
-                //TODO sendShipPacket(this, 1);
+                PacketPipeline.sendToServer(new PacketSpaceShipInventory((int) posX, (int) posY, (int) posZ));
             }
         }
     }

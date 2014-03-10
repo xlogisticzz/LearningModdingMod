@@ -6,12 +6,13 @@ package com.xlogisticzz.learningModding.items;
 
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import com.xlogisticzz.learningModding.lib.Constants;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class ItemOre extends ItemBlock {
 
-    public ItemOre() {
+    public ItemOre(Block block) {
         super(ModBlocks.ores);
         setHasSubtypes(true);
     }
@@ -23,6 +24,6 @@ public class ItemOre extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack par1ItemStack) {
-        return Constants.UnLocalisedNames.ORE + par1ItemStack.getItemDamage();
+        return "tile." + Constants.UnLocalisedNames.ORE + par1ItemStack.getItemDamage();
     }
 }

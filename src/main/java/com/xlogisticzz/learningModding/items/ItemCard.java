@@ -35,7 +35,7 @@ public class ItemCard extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack itemstack) {
-        return Constants.UnLocalisedNames.CARD + itemstack.getItemDamage();
+        return "item." + Constants.UnLocalisedNames.CARD + itemstack.getItemDamage();
     }
 
     @Override

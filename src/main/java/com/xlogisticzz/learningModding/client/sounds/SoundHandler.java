@@ -14,7 +14,7 @@ public class SoundHandler {
         entity.worldObj.playSoundAtEntity(entity, (Constants.Mod.MODID + soundName), volume , pitch);
     }
 
-    public static void playSoundInWorld(World world, double x, double y, double z, String soundName, float volume, float pitch, Boolean loudness){
-        world.playSound(x,y,z,(Constants.Mod.MODID + soundName), volume, pitch, loudness);
+    public static void playSoundInWorld(World world, double x, double y, double z, String soundName, float volume, float pitch){
+        world.playSoundEffect(x,y,z,(Constants.Mod.MODID + soundName), volume, pitch);
     }
 }

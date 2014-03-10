@@ -40,7 +40,7 @@ public class ItemDeathstone extends Item {
     @Override
     public String getUnlocalizedName(ItemStack par1ItemStack) {
 
-        return Constants.UnLocalisedNames.DEATHSTONE + par1ItemStack.getItemDamage();
+        return "item." + Constants.UnLocalisedNames.DEATHSTONE + par1ItemStack.getItemDamage();
     }
 
     @Override

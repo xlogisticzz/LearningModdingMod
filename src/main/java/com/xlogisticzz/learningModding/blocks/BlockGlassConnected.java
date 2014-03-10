@@ -59,10 +59,13 @@ public class BlockGlassConnected extends Block {
         return par1 == getIdFromBlock(this);
     }
 
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        return icons[0];
+    }
+
     // Args: iBlockAccess, x, y, z, side(0 == bottom, 1 == top , 2 == north , 3
     // == south , 4 == west, 5 == east)
-
-
     @Override
     public IIcon getIcon(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
         boolean isOpenUp = false, isOpenDown = false, isOpenLeft = false, isOpenRight = false;

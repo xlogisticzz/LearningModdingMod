@@ -55,4 +55,9 @@ public class BlockNumber extends BlockContainer {
         TileEntityNumbers tile = (TileEntityNumbers) world.getTileEntity(x, y, z);
         return icons[tile.getNumber()];
     }
+
+    @Override
+    public IIcon getIcon(int side, int meta) {
+        return icons[0];
+    }
 }

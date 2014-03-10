@@ -28,7 +28,7 @@ import java.util.*;
 @ChannelHandler.Sharable
 public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, PacketLearningModding> {
 
-    private EnumMap<Side, FMLEmbeddedChannel> channels;
+    private static EnumMap<Side, FMLEmbeddedChannel> channels;
     private LinkedList<Class<? extends PacketLearningModding>> packets = new LinkedList<Class<? extends PacketLearningModding>>();
     private boolean isPostInit = false;
 
@@ -57,6 +57,10 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
 
         packets.add(clas);
         return true;
+    }
+
+    public void registerPackets(){
+        registerPacket(PacketSpaceShipInventory.class);
     }
 
     @Override
@@ -185,7 +189,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
      *
      * @param message The message to send
      */
-    public void sendToServer(PacketLearningModding message) {
+    public static void sendToServer(PacketLearningModding message) {
         channels.get(Side.CLIENT).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.TOSERVER);
         channels.get(Side.CLIENT).writeAndFlush(message);
     }
