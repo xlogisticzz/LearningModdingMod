@@ -15,7 +15,8 @@ public class PacketMachineGui extends PacketLearningModding {
 
     private int id;
 
-    public PacketMachineGui() {}
+    public PacketMachineGui() {
+    }
 
     public PacketMachineGui(int id) {
         this.id = id;
@@ -41,7 +42,7 @@ public class PacketMachineGui extends PacketLearningModding {
         Container container = player.openContainer;
         if (container != null && container instanceof ContainerMachine) {
             TileEntityMachine machine = ((ContainerMachine) container).getMachine();
-            machine.reciveButtonEvent((byte)id);
+            machine.reciveButtonEvent((byte) id);
         }
     }
 }

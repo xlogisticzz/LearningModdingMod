@@ -33,6 +33,8 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
 
     private boolean charged;
     private String customName;
+    private boolean lastPressedBombState;
+    private ItemStack[] items;
 
     public EntitySpaceship(World world) {
 
@@ -124,8 +126,6 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
 
     }
 
-    private boolean lastPressedBombState;
-
     private void sendInfo() {
         boolean bombState = Minecraft.getMinecraft().gameSettings.keyBindAttack.isPressed();
         if (bombState && !this.lastPressedBombState && this.charged && this.riddenByEntity == Minecraft.getMinecraft().thePlayer) {
@@ -197,7 +197,6 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
         }
     }
 
-
     @Override
     public void writeSpawnData(ByteBuf buffer) {
         buffer.writeBoolean(this.charged);
@@ -208,7 +207,6 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
     public void readSpawnData(ByteBuf additionalData) {
         this.charged = additionalData.readBoolean();
     }
-
 
     public void dropBomb() {
         for (int i = 0; i < getSizeInventory(); i++) {
@@ -244,8 +242,6 @@ public class EntitySpaceship extends Entity implements IEntityAdditionalSpawnDat
         }
         return false;
     }
-
-    private ItemStack[] items;
 
     @Override
     public int getSizeInventory() {

@@ -22,7 +22,8 @@ public class SlotCake extends Slot {
 
         if (Block.getBlockFromItem(par1ItemStack.getItem()) == Blocks.cake) {
             return true;
-        } else return par1ItemStack.getItem() == Items.cake;
+        } else
+            return par1ItemStack.getItem() == Items.cake;
     }
 
 }

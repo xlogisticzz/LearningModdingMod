@@ -36,21 +36,20 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
      * Register your packet with the pipeline. Discriminators are automatically set.
      *
      * @param clas the class to register
-     *
      * @return whether registration was successful. Failure may occur if 256 packets have been registered or if the registry already contains this packet
      */
-    public boolean registerPacket(Class<? extends PacketLearningModding> clas){
-        if(packets.size() > 256){
+    public boolean registerPacket(Class<? extends PacketLearningModding> clas) {
+        if (packets.size() > 256) {
             //TODO LOG
             return false;
         }
 
-        if(packets.contains(clas)){
+        if (packets.contains(clas)) {
             //TODO LOG
             return false;
         }
 
-        if(isPostInit){
+        if (isPostInit) {
             //TODO LOG
             return false;
         }
@@ -59,7 +58,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
         return true;
     }
 
-    public void registerPackets(){
+    public void registerPackets() {
         registerPacket(PacketSpaceShipInventory.class);
         registerPacket(PacketMachineGui.class);
         registerPacket(PacketSpaceshipBomb.class);
@@ -69,8 +68,8 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
     protected void encode(ChannelHandlerContext ctx, PacketLearningModding msg, List<Object> out) throws Exception {
         ByteBuf buf = Unpooled.buffer();
         Class<? extends PacketLearningModding> clas = msg.getClass();
-        if(!packets.contains(msg.getClass())){
-            throw  new NullPointerException("No packet registered for " + msg.getClass().getCanonicalName());
+        if (!packets.contains(msg.getClass())) {
+            throw new NullPointerException("No packet registered for " + msg.getClass().getCanonicalName());
         }
 
         byte discriminator = (byte) packets.indexOf(clas);
@@ -116,7 +115,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
         return Minecraft.getMinecraft().thePlayer;
     }
 
-    public void initialize(){
+    public void initialize() {
         channels = NetworkRegistry.INSTANCE.newChannel(Constants.Mod.MODID, this);
     }
 

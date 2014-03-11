@@ -20,7 +20,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;

@@ -18,7 +18,8 @@ public class PacketSpaceshipBomb extends PacketLearningModding {
         this.id = id;
     }
 
-    public PacketSpaceshipBomb(){}
+    public PacketSpaceshipBomb() {
+    }
 
     @Override
     public void encodeInto(ChannelHandlerContext ctx, ByteBuf buf) {

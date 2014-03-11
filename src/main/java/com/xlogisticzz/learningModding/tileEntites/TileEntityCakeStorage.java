@@ -163,7 +163,8 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
         if (Block.getBlockFromItem(itemstack.getItem()) == Blocks.cake) {
             return true;
-        } else return itemstack.getItem() == Items.cake;
+        } else
+            return itemstack.getItem() == Items.cake;
     }
 
     public void reciveButtonEvent(byte buttonId) {
