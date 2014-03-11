@@ -34,10 +34,10 @@ public class ContainerSpaceship extends Container {
 
         //Block Slots
         for (int x = 0; x < 5; x++) {
-            addSlotToContainer(new SlotBomb(spaceship, x, 44 + 18 * x, 53));
+            addSlotToContainer(new SlotBomb(spaceship, x, 8 + 18 * x, 17));
         }
         for (int x = 0; x < 5; x++) {
-            addSlotToContainer(new SlotBomb(spaceship, x + 5, 44 + 18 * x, 71));
+            addSlotToContainer(new SlotBomb(spaceship, x + 5, 8 + 18 * x, 35));
         }
 
     }

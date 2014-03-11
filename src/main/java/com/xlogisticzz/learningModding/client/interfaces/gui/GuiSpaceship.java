@@ -23,7 +23,7 @@ public class GuiSpaceship extends GuiContainer {
     }
 
     //TODO CREATE GUI TEXTURE AND UPDATE HERE
-    private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/cake.png");
+    private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/spaceship.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
@@ -31,5 +31,10 @@ public class GuiSpaceship extends GuiContainer {
         GL11.glColor4f(1, 1, 1, 1);
         Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+        fontRendererObj.drawString("Space Ship", 8, 6, 0x404040);
     }
 }

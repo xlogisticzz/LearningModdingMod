@@ -114,7 +114,7 @@ public class GuiMachine extends GuiContainer {
                 invalid = false;
             }
 
-            str = "Requires " + count + " anvils per drop";
+            str = "Requires " + count + " gravel blocks per drop";
         }
 
         int color = invalid ? 0xD30000 : 0x404040;

@@ -78,8 +78,6 @@ public class LearningModding {
 
         BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.entityBlockTeleporter, new DispenserBehaviourBlockEntityTeleport());
 
-        LanguageRegistry.instance().addStringLocalization("itemGroup.tabLearningModding", "en_US", "Learning Modding");
-
     }
 
     /* PostInitialization */
