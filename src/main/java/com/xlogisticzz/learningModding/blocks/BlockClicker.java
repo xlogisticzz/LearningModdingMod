@@ -39,7 +39,13 @@ public class BlockClicker extends BlockContainer {
     @Override
     public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
         TileEntityClicker tile = (TileEntityClicker) world.getTileEntity(x, y, z);
-        tile.attackButton(true);
+        tile.increment(true);
+    }
+
+    @Override
+    public void onBlockAdded(World world, int x, int y, int z) {
+        super.onBlockAdded(world, x, y, z);
+        world.setBlockMetadataWithNotify(x, y, z, 7, 3);
     }
 
     @Override
@@ -48,7 +54,7 @@ public class BlockClicker extends BlockContainer {
     }
 
     @Override
-    public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int x, int y, int z, int side) {
+        public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int x, int y, int z, int side) {
         return par1IBlockAccess.getBlockMetadata(x, y, z);
     }
 
@@ -58,7 +64,7 @@ public class BlockClicker extends BlockContainer {
             return false;
         } else {
             TileEntityClicker tile = (TileEntityClicker) world.getTileEntity(x, y, z);
-            tile.attackButton(false);
+            tile.increment(false);
             return true;
         }
     }
