@@ -142,7 +142,6 @@ public class Constants {
         public static final String HEIGHT_PARTICLE = "heightParticleBlock";
         public static final String NOTE_SEQUENCER = "noteSequencerBlock";
         public static final String CAKE_STORAGE = "cakeStorage";
-        public static final String CUSTOM_FURNACE = "quartzFurnace";
 
 
     }

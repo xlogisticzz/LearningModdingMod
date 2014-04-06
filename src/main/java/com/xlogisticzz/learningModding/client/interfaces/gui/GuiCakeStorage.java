@@ -6,7 +6,10 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerCakeStorage;
 import com.xlogisticzz.learningModding.lib.Constants;
+import com.xlogisticzz.learningModding.network.PacketCakeButton;
+import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
+import com.xlogisticzz.learningModding.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -85,7 +88,8 @@ public class GuiCakeStorage extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        fontRendererObj.drawString("Cake Storage", 8, 6, 0x404040);
+        String title = StringUtils.localize("tile.cakeStorage.name");
+        fontRendererObj.drawString(title, 8, 6, 0x404040);
 
         if (!cakeStorage.isAirInCurrentDir()) {
             Block block = cakeStorage.getBlockAtCurrentPos();
@@ -101,20 +105,26 @@ public class GuiCakeStorage extends GuiContainer {
         super.initGui();
         buttonList.clear();
 
-        place = new GuiButton(0, guiLeft + 5, guiTop + 82, 60, 20, "Place Cake");
+        String placeName = StringUtils.localize("tile.cakeStorage.button.place");
+
+        place = new GuiButton(0, guiLeft + 5, guiTop + 82, 60, 20, placeName);
         place.enabled = cakeStorage.isAirInCurrentDir();
         buttonList.add(place);
 
-        GuiButton changeDir = new GuiButton(1, guiLeft + 5, guiTop + 58, 60, 20, "Change Dir");
+        String dirName = StringUtils.localize("tile.cakeStorage.button.changeDir");
+
+        GuiButton changeDir = new GuiButton(1, guiLeft + 5, guiTop + 58, 60, 20, dirName);
         buttonList.add(changeDir);
 
-        buttonList.add(new GuiButton(2, guiLeft + 5, guiTop + 106, 50, 20, "Dispense"));
+        String dispenseName = StringUtils.localize("tile.cakeStorage.button.dispense");
+
+        buttonList.add(new GuiButton(2, guiLeft + 5, guiTop + 106, 50, 20, dispenseName));
 
     }
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        //TODO sendCakeButtonPacket((byte) par1GuiButton.id);
+        PacketPipeline.sendToServer(new PacketCakeButton(par1GuiButton.id));
         if (par1GuiButton.id == 0) {
             par1GuiButton.enabled = false;
         } else if (par1GuiButton.id == 1) {

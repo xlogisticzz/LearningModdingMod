@@ -10,6 +10,7 @@ import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.network.PacketMachineGui;
 import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
+import com.xlogisticzz.learningModding.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -94,7 +95,8 @@ public class GuiMachine extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int y) {
-        fontRendererObj.drawString("Silly Machine", 8, 6, 0x404040);
+        String title = StringUtils.localize("tile.machineBlock.name");
+        fontRendererObj.drawString(title, 8, 6, 0x404040);
 
         int type = entityMachine.getWorldObj().getBlockMetadata(entityMachine.xCoord, entityMachine.yCoord, entityMachine.zCoord) / 2;
 
@@ -123,8 +125,8 @@ public class GuiMachine extends GuiContainer {
         fontRendererObj.drawSplitString(str, 45, 44, 100, color);
     }
 
-    private static final String ENABLE_TEXT = "Enable";
-    private static final String DISABLE_TEXT = "Disable";
+    private static final String ENABLE_TEXT = StringUtils.localize("tile.machineBlock.button.enable");
+    private static final String DISABLE_TEXT = StringUtils.localize("tile.machineBlock.button.disable");
 
     @Override
     public void initGui() {
@@ -133,7 +135,8 @@ public class GuiMachine extends GuiContainer {
 
         buttonList.add(new GuiButton(0, guiLeft + 80, guiTop + 14, 48, 20, entityMachine.getBlockMetadata() % 2 == 0 ? DISABLE_TEXT : ENABLE_TEXT));
 
-        GuiButton clear = new GuiButton(1, guiLeft + 130, guiTop + 14, 40, 20, "Clear");
+        String clearName = StringUtils.localize("tile.machineBlock.button.clear");
+        GuiButton clear = new GuiButton(1, guiLeft + 130, guiTop + 14, 40, 20, clearName);
         clear.enabled = entityMachine.getBlockMetadata() / 2 != 0;
         buttonList.add(clear);
     }

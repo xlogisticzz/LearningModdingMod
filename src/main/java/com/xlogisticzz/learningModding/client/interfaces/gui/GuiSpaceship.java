@@ -7,6 +7,7 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerSpaceship;
 import com.xlogisticzz.learningModding.entities.EntitySpaceship;
 import com.xlogisticzz.learningModding.lib.Constants;
+import com.xlogisticzz.learningModding.utils.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -35,6 +36,7 @@ public class GuiSpaceship extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        fontRendererObj.drawString("Space Ship", 8, 6, 0x404040);
+        String title = StringUtils.localize("entity.learningModdingMod:EntitySpaceship.name");
+        fontRendererObj.drawString(title, 8, 6, 0x404040);
     }
 }

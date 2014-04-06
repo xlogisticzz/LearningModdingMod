@@ -1,1 +1,4 @@
-item.modItems.name =
+
+tile.cakeStorage.button.place=Place cake
+tile.cakeStorage.button.changeDir=Change Dir
+tile.cakeStorage.button.dispense=Dispense
