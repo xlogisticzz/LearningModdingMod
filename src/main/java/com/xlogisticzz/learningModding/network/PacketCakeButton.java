@@ -17,22 +17,30 @@ import net.minecraft.inventory.Container;
 public class PacketCakeButton extends PacketLearningModding{
 
     private int id;
+    private boolean isShifted;
+    private boolean isControl;
 
     public PacketCakeButton() {
     }
 
-    public PacketCakeButton(int id) {
+    public PacketCakeButton(int id, boolean isShifted, boolean isControl) {
         this.id = id;
+        this.isShifted = isShifted;
+        this.isControl = isControl;
     }
 
     @Override
     public void encodeInto(ChannelHandlerContext ctx, ByteBuf buf) {
         buf.writeInt(id);
+        buf.writeBoolean(isShifted);
+        buf.writeBoolean(isControl);
     }
 
     @Override
     public void decodeInto(ChannelHandlerContext ctx, ByteBuf buf) {
         id = buf.readInt();
+        isShifted = buf.readBoolean();
+        isControl = buf.readBoolean();
     }
 
     @Override
@@ -45,7 +53,7 @@ public class PacketCakeButton extends PacketLearningModding{
         Container container = player.openContainer;
         if (container != null && container instanceof ContainerCakeStorage) {
             TileEntityCakeStorage cakeStorage = ((ContainerCakeStorage) container).getTile();
-            cakeStorage.reciveButtonEvent((byte) id);
+            cakeStorage.reciveButtonEvent((byte) id, isShifted, isControl);
         }
     }
 }

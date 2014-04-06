@@ -1,4 +1,6 @@
-
-tile.cakeStorage.button.place=Place cake
 tile.cakeStorage.button.changeDir=Change Dir
 tile.cakeStorage.button.dispense=Dispense
+
+tile.machineBlock.button.enable=Enable
+tile.machineBlock.button.disable=Disable
+tile.machineBlock.button.clear=Clear

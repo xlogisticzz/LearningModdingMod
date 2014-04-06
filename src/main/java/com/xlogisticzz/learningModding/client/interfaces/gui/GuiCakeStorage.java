@@ -51,12 +51,12 @@ public class GuiCakeStorage extends GuiContainer {
             drawTexturedModalRect(guiLeft + 100, guiTop + 17 + 34 - barHeight, srcX, srcY, 7, barHeight);
         }
 
-        int timerWidth = cakeStorage.getTimer();
-        if (timerWidth > 0) {
+        double timerWidth = ((double)cakeStorage.getTimer()/ (double)cakeStorage.getTimerMax()) * 48;
+        if (timerWidth >= 0 && timerWidth <= 48) {
             int srcX = xSize + 10;
             int srcY = 0;
 
-            drawTexturedModalRect(guiLeft + 119, guiTop + 44, srcX, srcY, timerWidth, 7);
+            drawTexturedModalRect(guiLeft + 119, guiTop + 44, srcX, srcY, (int)timerWidth, 7);
         }
 
         filled = cakeStorage.getBuffer() / 6F;
@@ -96,20 +96,17 @@ public class GuiCakeStorage extends GuiContainer {
             String str = "Cannot place Cake " + cakeStorage.getCurrentTextDir().toLowerCase() + " as the block is occupied by " + block.getLocalizedName();
             fontRendererObj.drawSplitString(str, 70, 84, 100, 0x404040);
         }
+
+        fontRendererObj.drawString(Double.toString(((double)cakeStorage.getTimerMax()* 5)/20), 130, 20, 0x404040);
+        fontRendererObj.drawString("secs", 130, 30, 0x404040);
     }
 
-    private GuiButton place;
+    private GuiButton dispense;
 
     @Override
     public void initGui() {
         super.initGui();
         buttonList.clear();
-
-        String placeName = StringUtils.localize("tile.cakeStorage.button.place");
-
-        place = new GuiButton(0, guiLeft + 5, guiTop + 82, 60, 20, placeName);
-        place.enabled = cakeStorage.isAirInCurrentDir();
-        buttonList.add(place);
 
         String dirName = StringUtils.localize("tile.cakeStorage.button.changeDir");
 
@@ -117,24 +114,32 @@ public class GuiCakeStorage extends GuiContainer {
         buttonList.add(changeDir);
 
         String dispenseName = StringUtils.localize("tile.cakeStorage.button.dispense");
+        dispense = new GuiButton(0, guiLeft + 5, guiTop + 82, 50, 20, dispenseName);
+        buttonList.add(dispense);
 
-        buttonList.add(new GuiButton(2, guiLeft + 5, guiTop + 106, 50, 20, dispenseName));
+        buttonList.add(new GuiButton(2, guiLeft + 114, guiTop + 16, 12, 20, "<"));
+        buttonList.add(new GuiButton(3, guiLeft + 158, guiTop + 16, 12, 20, ">"));
+
 
     }
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        PacketPipeline.sendToServer(new PacketCakeButton(par1GuiButton.id));
+        PacketPipeline.sendToServer(new PacketCakeButton(par1GuiButton.id, isShiftKeyDown(), isCtrlKeyDown()));
         if (par1GuiButton.id == 0) {
             par1GuiButton.enabled = false;
         } else if (par1GuiButton.id == 1) {
             par1GuiButton.enabled = true;
             cakeStorage.increaseDir();
             if (cakeStorage.isAirInCurrentDir()) {
-                place.enabled = true;
+                dispense.enabled = true;
             } else {
-                place.enabled = false;
+                dispense.enabled = false;
             }
+        } else if (par1GuiButton.id == 2){
+            cakeStorage.decreaseMaxTime(isShiftKeyDown(), isCtrlKeyDown());
+        } else if (par1GuiButton.id == 3){
+            cakeStorage.increaseMaxTime(isShiftKeyDown(), isCtrlKeyDown());
         }
     }
 }

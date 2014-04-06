@@ -21,6 +21,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     private int timer;
     private int delay;
     private int buffer;
+    private int timerMax = 48;
     private String customName;
 
     public TileEntityCakeStorage() {
@@ -32,13 +33,46 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     public void updateEntity() {
         if (!worldObj.isRemote) {
             if (++delay == 5) {
-                if (++timer == 48) {
+                if (++timer >= timerMax) {
                     dispenseCake();
                     timer = 0;
                 }
                 delay = 0;
             }
         }
+    }
+
+    public int getTimerMax() {
+        return timerMax;
+    }
+    public void decreaseMaxTime(boolean isShifted, boolean isControl){
+        if(isControl){
+            setTimerMax(getTimerMax() - 64);
+            return;
+        }
+        if(isShifted){
+            setTimerMax(getTimerMax() - 16);
+        }
+        setTimerMax(getTimerMax() - 1);
+    }
+
+    public void increaseMaxTime(boolean isShifted, boolean isControl){
+        if(isControl){
+            setTimerMax(getTimerMax() + 64);
+            return;
+        }
+        if(isShifted){
+            setTimerMax(getTimerMax() + 16);
+        }
+        setTimerMax(getTimerMax() + 1);
+    }
+
+    public void setTimerMax(int timerMax) {
+        if(timerMax < 1) {
+            this.timerMax = 1;
+            return;
+        }
+        this.timerMax = timerMax;
     }
 
     @Override
@@ -58,6 +92,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         currentDir = par1NBTTagCompound.getByte("currentDir");
         buffer = par1NBTTagCompound.getByte("Buffer");
         timer = par1NBTTagCompound.getByte("Timer");
+        timerMax = par1NBTTagCompound.getInteger("TimerMax");
 
         if (par1NBTTagCompound.hasKey("CustomName", 8)) {
             this.customName = par1NBTTagCompound.getString("CustomName");
@@ -83,6 +118,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         par1NBTTagCompound.setByte("currentDir", currentDir);
         par1NBTTagCompound.setByte("Timer", (byte) timer);
         par1NBTTagCompound.setByte("Buffer", (byte) buffer);
+        par1NBTTagCompound.setInteger("TimerMax", timerMax);
 
         if (this.hasCustomInventoryName()) {
             par1NBTTagCompound.setString("CustomName", this.customName);
@@ -167,25 +203,22 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             return itemstack.getItem() == Items.cake;
     }
 
-    public void reciveButtonEvent(byte buttonId) {
+    public void reciveButtonEvent(byte buttonId, boolean isShifted, boolean isControl) {
         switch (buttonId) {
             case 0:
                 if (getCake() > 0) {
-                    if (placeCakeInCurrentDir(true, 0)) {
-                        removeCake();
-                    }
-
-
+                    dispenseCake();
                 }
                 break;
-
             case 1:
                 increaseDir();
                 System.out.println("incresaed dir to  " + getCurrentDir());
                 break;
-
             case 2:
-                dispenseCake();
+                decreaseMaxTime(isShifted, isControl);
+                break;
+            case 3:
+                increaseMaxTime(isShifted, isControl);
                 break;
         }
     }
@@ -305,7 +338,6 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     public boolean isAirInCurrentDir() {
-        //System.out.println("checking" + getCurrentDir());
         switch (getCurrentDir()) {
             case 0:
                 if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord)) {
