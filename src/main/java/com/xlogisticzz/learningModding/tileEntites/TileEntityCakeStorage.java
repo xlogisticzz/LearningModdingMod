@@ -21,6 +21,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     private int timer;
     private int delay;
     private int buffer;
+    private int bufferMax = 6;
     private int timerMax = 48;
     private String customName;
 
@@ -73,6 +74,39 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             return;
         }
         this.timerMax = timerMax;
+    }
+
+    public void decreaseMaxBuffer(boolean isShifted, boolean isControl){
+        if(isControl){
+            setBufferMax(getBufferMax() - 64);
+            return;
+        }
+        if(isShifted){
+            setBufferMax(getBufferMax() - 16);
+        }
+        setBufferMax(getBufferMax() - 1);
+    }
+
+    public void increaseMaxBuffer(boolean isShifted, boolean isControl){
+        if(isControl){
+            setBufferMax(getBufferMax() + 64);
+            return;
+        }
+        if(isShifted){
+            setBufferMax(getBufferMax() + 16);
+        }
+        setBufferMax(getBufferMax() + 1);
+    }
+
+    public int getBufferMax() {
+        return bufferMax;
+    }
+
+    public void setBufferMax(int bufferMax) {
+        if(bufferMax < 1){
+            this.bufferMax = 1;
+        }
+        this.bufferMax = bufferMax;
     }
 
     @Override
@@ -219,6 +253,12 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
                 break;
             case 3:
                 increaseMaxTime(isShifted, isControl);
+                break;
+            case 4:
+                decreaseMaxBuffer(isShifted, isControl);
+                break;
+            case 5:
+                increaseMaxBuffer(isShifted, isControl);
                 break;
         }
     }

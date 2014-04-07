@@ -114,11 +114,14 @@ public class GuiCakeStorage extends GuiContainer {
         buttonList.add(changeDir);
 
         String dispenseName = StringUtils.localize("tile.cakeStorage.button.dispense");
-        dispense = new GuiButton(0, guiLeft + 5, guiTop + 82, 50, 20, dispenseName);
+        dispense = new GuiButton(0, guiLeft + 5, guiTop + 82, 60, 20, dispenseName);
         buttonList.add(dispense);
 
         buttonList.add(new GuiButton(2, guiLeft + 114, guiTop + 16, 12, 20, "<"));
         buttonList.add(new GuiButton(3, guiLeft + 158, guiTop + 16, 12, 20, ">"));
+
+        buttonList.add(new GuiButton(4, guiLeft + 5, guiTop + 106, 12, 20, "<"));
+        buttonList.add(new GuiButton(5, guiLeft + 53, guiTop + 106, 12, 20, ">"));
 
 
     }
@@ -140,6 +143,10 @@ public class GuiCakeStorage extends GuiContainer {
             cakeStorage.decreaseMaxTime(isShiftKeyDown(), isCtrlKeyDown());
         } else if (par1GuiButton.id == 3){
             cakeStorage.increaseMaxTime(isShiftKeyDown(), isCtrlKeyDown());
+        }else if (par1GuiButton.id == 4){
+            cakeStorage.decreaseMaxBuffer(isShiftKeyDown(), isCtrlKeyDown());
+        } else if (par1GuiButton.id == 5){
+            cakeStorage.increaseMaxBuffer(isShiftKeyDown(), isCtrlKeyDown());
         }
     }
 }
