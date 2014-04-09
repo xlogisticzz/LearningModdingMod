@@ -9,6 +9,7 @@ import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.network.PacketCakeButton;
 import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
+import com.xlogisticzz.learningModding.utils.GuiUtils;
 import com.xlogisticzz.learningModding.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -59,7 +60,7 @@ public class GuiCakeStorage extends GuiContainer {
             drawTexturedModalRect(guiLeft + 119, guiTop + 44, srcX, srcY, (int)timerWidth, 7);
         }
 
-        filled = cakeStorage.getBuffer() / 6F;
+        filled = cakeStorage.getBuffer() / (float) cakeStorage.getBufferMax();
         barHeight = (int) (filled * 34);
         if (barHeight > 0) {
             int srcX = xSize + 7;
@@ -97,6 +98,9 @@ public class GuiCakeStorage extends GuiContainer {
             fontRendererObj.drawSplitString(str, 70, 84, 100, 0x404040);
         }
 
+        fontRendererObj.drawString("Buffer", 19, 106, 0x404040);
+        GuiUtils.drawCenteredString(fontRendererObj, Integer.toString(cakeStorage.getBufferMax()), 35, 116, 0x404040);
+
         fontRendererObj.drawString(Double.toString(((double)cakeStorage.getTimerMax()* 5)/20), 130, 20, 0x404040);
         fontRendererObj.drawString("secs", 130, 30, 0x404040);
     }
@@ -115,6 +119,8 @@ public class GuiCakeStorage extends GuiContainer {
 
         String dispenseName = StringUtils.localize("tile.cakeStorage.button.dispense");
         dispense = new GuiButton(0, guiLeft + 5, guiTop + 82, 60, 20, dispenseName);
+        dispense.enabled = cakeStorage.isAirInCurrentDir();
+
         buttonList.add(dispense);
 
         buttonList.add(new GuiButton(2, guiLeft + 114, guiTop + 16, 12, 20, "<"));

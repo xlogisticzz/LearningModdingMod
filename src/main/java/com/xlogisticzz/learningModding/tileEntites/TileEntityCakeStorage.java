@@ -35,6 +35,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         if (!worldObj.isRemote) {
             if (++delay == 5) {
                 if (++timer >= timerMax) {
+                    updateBuffer();
                     dispenseCake();
                     timer = 0;
                 }
@@ -53,6 +54,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         }
         if(isShifted){
             setTimerMax(getTimerMax() - 16);
+            return;
         }
         setTimerMax(getTimerMax() - 1);
     }
@@ -64,6 +66,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         }
         if(isShifted){
             setTimerMax(getTimerMax() + 16);
+            return;
         }
         setTimerMax(getTimerMax() + 1);
     }
@@ -83,6 +86,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         }
         if(isShifted){
             setBufferMax(getBufferMax() - 16);
+            return;
         }
         setBufferMax(getBufferMax() - 1);
     }
@@ -94,6 +98,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         }
         if(isShifted){
             setBufferMax(getBufferMax() + 16);
+            return;
         }
         setBufferMax(getBufferMax() + 1);
     }
@@ -103,8 +108,13 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     public void setBufferMax(int bufferMax) {
+        if(bufferMax < getBuffer()){
+            this.bufferMax = getBuffer();
+            return;
+        }
         if(bufferMax < 1){
             this.bufferMax = 1;
+            return;
         }
         this.bufferMax = bufferMax;
     }
@@ -127,6 +137,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         buffer = par1NBTTagCompound.getByte("Buffer");
         timer = par1NBTTagCompound.getByte("Timer");
         timerMax = par1NBTTagCompound.getInteger("TimerMax");
+        bufferMax = par1NBTTagCompound.getInteger("BufferMax");
 
         if (par1NBTTagCompound.hasKey("CustomName", 8)) {
             this.customName = par1NBTTagCompound.getString("CustomName");
@@ -153,6 +164,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         par1NBTTagCompound.setByte("Timer", (byte) timer);
         par1NBTTagCompound.setByte("Buffer", (byte) buffer);
         par1NBTTagCompound.setInteger("TimerMax", timerMax);
+        par1NBTTagCompound.setInteger("BufferMax", bufferMax);
 
         if (this.hasCustomInventoryName()) {
             par1NBTTagCompound.setString("CustomName", this.customName);
@@ -378,39 +390,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     public boolean isAirInCurrentDir() {
-        switch (getCurrentDir()) {
-            case 0:
-                if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord)) {
-                    return true;
-                }
-                break;
-            case 1:
-                if (worldObj.isAirBlock(xCoord, yCoord - 1, zCoord)) {
-                    return true;
-                }
-                break;
-            case 2:
-                if (worldObj.isAirBlock(xCoord, yCoord, zCoord - 1)) {
-                    return true;
-                }
-                break;
-            case 3:
-                if (worldObj.isAirBlock(xCoord, yCoord, zCoord + 1)) {
-                    return true;
-                }
-                break;
-            case 4:
-                if (worldObj.isAirBlock(xCoord + 1, yCoord, zCoord)) {
-                    return true;
-                }
-                break;
-            case 5:
-                if (worldObj.isAirBlock(xCoord - 1, yCoord, zCoord)) {
-                    return true;
-                }
-                break;
-        }
-        return false;
+        return getBlockAtCurrentPos() == Blocks.air;
     }
 
     public Block getBlockAtCurrentPos() {
@@ -529,9 +509,26 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     private void updateBuffer() {
-        if (getCake() > 0 && buffer == 0) {
-            buffer = 6;
-            removeCake();
+        if(getCake() == 0){
+            return;
         }
+        int empty = getBufferMax() - getBuffer();
+        double emptyCakes = Math.floor(empty/ 6D);
+        System.out.print(emptyCakes);
+        if(getCake() < emptyCakes){
+            buffer = buffer + (getCake() * 6);
+            for(int i = 0; i < getCake(); i++){
+               removeCake();
+            }
+        }
+        if(emptyCakes > 0){
+            double fill = Math.min(getCake(), emptyCakes);
+            for(int i = 0; i < fill; i++){
+                removeCake();
+            }
+            buffer = buffer + (int)(fill * 6);
+        }
+
+
     }
 }
