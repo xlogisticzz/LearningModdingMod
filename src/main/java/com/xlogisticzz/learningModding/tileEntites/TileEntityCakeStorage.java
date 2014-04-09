@@ -47,24 +47,25 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     public int getTimerMax() {
         return timerMax;
     }
-    public void decreaseMaxTime(boolean isShifted, boolean isControl){
-        if(isControl){
+
+    public void decreaseMaxTime(boolean isShifted, boolean isControl) {
+        if (isControl) {
             setTimerMax(getTimerMax() - 64);
             return;
         }
-        if(isShifted){
+        if (isShifted) {
             setTimerMax(getTimerMax() - 16);
             return;
         }
         setTimerMax(getTimerMax() - 1);
     }
 
-    public void increaseMaxTime(boolean isShifted, boolean isControl){
-        if(isControl){
+    public void increaseMaxTime(boolean isShifted, boolean isControl) {
+        if (isControl) {
             setTimerMax(getTimerMax() + 64);
             return;
         }
-        if(isShifted){
+        if (isShifted) {
             setTimerMax(getTimerMax() + 16);
             return;
         }
@@ -72,31 +73,31 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     public void setTimerMax(int timerMax) {
-        if(timerMax < 1) {
+        if (timerMax < 1) {
             this.timerMax = 1;
             return;
         }
         this.timerMax = timerMax;
     }
 
-    public void decreaseMaxBuffer(boolean isShifted, boolean isControl){
-        if(isControl){
+    public void decreaseMaxBuffer(boolean isShifted, boolean isControl) {
+        if (isControl) {
             setBufferMax(getBufferMax() - 64);
             return;
         }
-        if(isShifted){
+        if (isShifted) {
             setBufferMax(getBufferMax() - 16);
             return;
         }
         setBufferMax(getBufferMax() - 1);
     }
 
-    public void increaseMaxBuffer(boolean isShifted, boolean isControl){
-        if(isControl){
+    public void increaseMaxBuffer(boolean isShifted, boolean isControl) {
+        if (isControl) {
             setBufferMax(getBufferMax() + 64);
             return;
         }
-        if(isShifted){
+        if (isShifted) {
             setBufferMax(getBufferMax() + 16);
             return;
         }
@@ -108,11 +109,11 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     public void setBufferMax(int bufferMax) {
-        if(bufferMax < getBuffer()){
+        if (bufferMax < getBuffer()) {
             this.bufferMax = getBuffer();
             return;
         }
-        if(bufferMax < 1){
+        if (bufferMax < 1) {
             this.bufferMax = 1;
             return;
         }
@@ -395,33 +396,29 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
 
     public Block getBlockAtCurrentPos() {
         Block block = Blocks.air;
+        switch (getCurrentDir()) {
+            case 0:
+                block = worldObj.getBlock(xCoord, yCoord + 1, zCoord);
+                break;
+            case 1:
+                block = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
+                break;
+            case 2:
+                block = worldObj.getBlock(xCoord, yCoord, zCoord - 1);
+                break;
+            case 3:
+                block = worldObj.getBlock(xCoord, yCoord, zCoord + 1);
+                break;
+            case 4:
+                block = worldObj.getBlock(xCoord + 1, yCoord, zCoord);
+                break;
+            case 5:
+                block = worldObj.getBlock(xCoord - 1, yCoord, zCoord);
+                break;
 
-        if (isAirInCurrentDir()) {
-            return block;
-        } else {
-            switch (getCurrentDir()) {
-                case 0:
-                    block = worldObj.getBlock(xCoord, yCoord + 1, zCoord);
-                    break;
-                case 1:
-                    block = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-                    break;
-                case 2:
-                    block = worldObj.getBlock(xCoord, yCoord, zCoord - 1);
-                    break;
-                case 3:
-                    block = worldObj.getBlock(xCoord, yCoord, zCoord + 1);
-                    break;
-                case 4:
-                    block = worldObj.getBlock(xCoord + 1, yCoord, zCoord);
-                    break;
-                case 5:
-                    block = worldObj.getBlock(xCoord - 1, yCoord, zCoord);
-                    break;
-
-            }
-            return block;
         }
+        return block;
+
     }
 
     public int getMetaAtCurrentPos() {
@@ -509,24 +506,24 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     }
 
     private void updateBuffer() {
-        if(getCake() == 0){
+        if (getCake() == 0) {
             return;
         }
         int empty = getBufferMax() - getBuffer();
-        double emptyCakes = Math.floor(empty/ 6D);
+        double emptyCakes = Math.floor(empty / 6D);
         System.out.print(emptyCakes);
-        if(getCake() < emptyCakes){
+        if (getCake() < emptyCakes) {
             buffer = buffer + (getCake() * 6);
-            for(int i = 0; i < getCake(); i++){
-               removeCake();
-            }
-        }
-        if(emptyCakes > 0){
-            double fill = Math.min(getCake(), emptyCakes);
-            for(int i = 0; i < fill; i++){
+            for (int i = 0; i < getCake(); i++) {
                 removeCake();
             }
-            buffer = buffer + (int)(fill * 6);
+        }
+        if (emptyCakes > 0) {
+            double fill = Math.min(getCake(), emptyCakes);
+            for (int i = 0; i < fill; i++) {
+                removeCake();
+            }
+            buffer = buffer + (int) (fill * 6);
         }
 
 

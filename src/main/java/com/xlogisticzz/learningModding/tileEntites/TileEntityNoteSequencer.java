@@ -32,7 +32,6 @@ public class TileEntityNoteSequencer extends TileEntity {
                 worldObj.spawnParticle("note", (double) xCoord + 0.5D, (double) yCoord + 1.2D, (double) zCoord + 0.5D, 0.0D, 0.1D, 0.0D);
 
 
-
                 noteNumber = (noteNumber + 1) % 120;
                 timer = 0;
 

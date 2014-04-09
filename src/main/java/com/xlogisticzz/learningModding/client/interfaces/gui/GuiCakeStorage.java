@@ -52,12 +52,12 @@ public class GuiCakeStorage extends GuiContainer {
             drawTexturedModalRect(guiLeft + 100, guiTop + 17 + 34 - barHeight, srcX, srcY, 7, barHeight);
         }
 
-        double timerWidth = ((double)cakeStorage.getTimer()/ (double)cakeStorage.getTimerMax()) * 48;
+        double timerWidth = ((double) cakeStorage.getTimer() / (double) cakeStorage.getTimerMax()) * 48;
         if (timerWidth >= 0 && timerWidth <= 48) {
             int srcX = xSize + 10;
             int srcY = 0;
 
-            drawTexturedModalRect(guiLeft + 119, guiTop + 44, srcX, srcY, (int)timerWidth, 7);
+            drawTexturedModalRect(guiLeft + 119, guiTop + 44, srcX, srcY, (int) timerWidth, 7);
         }
 
         filled = cakeStorage.getBuffer() / (float) cakeStorage.getBufferMax();
@@ -100,9 +100,8 @@ public class GuiCakeStorage extends GuiContainer {
 
         fontRendererObj.drawString("Buffer", 19, 106, 0x404040);
         GuiUtils.drawCenteredString(fontRendererObj, Integer.toString(cakeStorage.getBufferMax()), 35, 116, 0x404040);
-
-        fontRendererObj.drawString(Double.toString(((double)cakeStorage.getTimerMax()* 5)/20), 130, 20, 0x404040);
-        fontRendererObj.drawString("secs", 130, 30, 0x404040);
+        GuiUtils.drawCenteredString(fontRendererObj, Double.toString(((double) cakeStorage.getTimerMax() * 5) / 20), 143, 20, 0x404040);
+        GuiUtils.drawCenteredString(fontRendererObj, "secs", 143, 30, 0x404040);
     }
 
     private GuiButton dispense;
@@ -124,7 +123,7 @@ public class GuiCakeStorage extends GuiContainer {
         buttonList.add(dispense);
 
         buttonList.add(new GuiButton(2, guiLeft + 114, guiTop + 16, 12, 20, "<"));
-        buttonList.add(new GuiButton(3, guiLeft + 158, guiTop + 16, 12, 20, ">"));
+        buttonList.add(new GuiButton(3, guiLeft + 160, guiTop + 16, 12, 20, ">"));
 
         buttonList.add(new GuiButton(4, guiLeft + 5, guiTop + 106, 12, 20, "<"));
         buttonList.add(new GuiButton(5, guiLeft + 53, guiTop + 106, 12, 20, ">"));
@@ -145,13 +144,13 @@ public class GuiCakeStorage extends GuiContainer {
             } else {
                 dispense.enabled = false;
             }
-        } else if (par1GuiButton.id == 2){
+        } else if (par1GuiButton.id == 2) {
             cakeStorage.decreaseMaxTime(isShiftKeyDown(), isCtrlKeyDown());
-        } else if (par1GuiButton.id == 3){
+        } else if (par1GuiButton.id == 3) {
             cakeStorage.increaseMaxTime(isShiftKeyDown(), isCtrlKeyDown());
-        }else if (par1GuiButton.id == 4){
+        } else if (par1GuiButton.id == 4) {
             cakeStorage.decreaseMaxBuffer(isShiftKeyDown(), isCtrlKeyDown());
-        } else if (par1GuiButton.id == 5){
+        } else if (par1GuiButton.id == 5) {
             cakeStorage.increaseMaxBuffer(isShiftKeyDown(), isCtrlKeyDown());
         }
     }

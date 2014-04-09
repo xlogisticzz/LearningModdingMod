@@ -9,7 +9,7 @@ import net.minecraft.client.gui.FontRenderer;
 
 public class GuiUtils {
 
-    public static void drawCenteredString(FontRenderer fontRenderer, String string, int x, int y, int colour){
-        fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2 , y, colour);
+    public static void drawCenteredString(FontRenderer fontRenderer, String string, int x, int y, int colour) {
+        fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2, y, colour);
     }
 }

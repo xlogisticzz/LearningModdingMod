@@ -54,7 +54,7 @@ public class BlockClicker extends BlockContainer {
     }
 
     @Override
-        public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int x, int y, int z, int side) {
+    public int isProvidingWeakPower(IBlockAccess par1IBlockAccess, int x, int y, int z, int side) {
         return par1IBlockAccess.getBlockMetadata(x, y, z);
     }
 

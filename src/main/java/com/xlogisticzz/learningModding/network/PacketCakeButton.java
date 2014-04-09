@@ -1,9 +1,7 @@
 package com.xlogisticzz.learningModding.network;
 
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerCakeStorage;
-import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerMachine;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
-import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +12,7 @@ import net.minecraft.inventory.Container;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 
-public class PacketCakeButton extends PacketLearningModding{
+public class PacketCakeButton extends PacketLearningModding {
 
     private int id;
     private boolean isShifted;

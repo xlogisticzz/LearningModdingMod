@@ -24,7 +24,7 @@ public class TileEntityClicker extends TileEntity {
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 15, 3);
         } else if (this.clickOffset <= -7) {
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 3);
-        }else{
+        } else {
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 7 + clickOffset, 3);
         }
     }
