@@ -24,6 +24,9 @@ import java.util.Random;
  */
 public class BlockPoison extends Block {
 
+    @SideOnly(Side.CLIENT)
+    public IIcon ParticleIcon;
+
     public BlockPoison() {
         super(Material.rock);
 
@@ -32,9 +35,6 @@ public class BlockPoison extends Block {
         setStepSound(soundTypeStone);
         setBlockName(Constants.UnLocalisedNames.POISON);
     }
-
-    @SideOnly(Side.CLIENT)
-    public IIcon ParticleIcon;
 
     @Override
     @SideOnly(Side.CLIENT)

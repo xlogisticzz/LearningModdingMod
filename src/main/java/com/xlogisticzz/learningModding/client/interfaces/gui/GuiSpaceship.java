@@ -16,15 +16,15 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiSpaceship extends GuiContainer {
 
+    //TODO CREATE GUI TEXTURE AND UPDATE HERE
+    private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/spaceship.png");
+
     public GuiSpaceship(InventoryPlayer inventoryPlayer, EntitySpaceship spaceship) {
         super(new ContainerSpaceship(inventoryPlayer, spaceship));
 
         xSize = 176;
         ySize = 218;
     }
-
-    //TODO CREATE GUI TEXTURE AND UPDATE HERE
-    private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/spaceship.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {

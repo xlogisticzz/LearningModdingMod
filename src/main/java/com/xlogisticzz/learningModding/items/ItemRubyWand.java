@@ -32,6 +32,7 @@ public class ItemRubyWand extends Item {
         setMaxStackSize(1);
         setUnlocalizedName(Constants.UnLocalisedNames.RUBY_WAND);
         setFull3D();
+        setMaxDamage(6);
     }
 
     @Override
@@ -47,9 +48,7 @@ public class ItemRubyWand extends Item {
                 itemstack.setItemDamage(itemstack.getItemDamage() + 1);
                 SoundHandler.playOnEntity(player, "wand", 1, 0);
             }
-
         }
-
         return false;
     }
 

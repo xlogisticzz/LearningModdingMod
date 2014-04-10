@@ -36,16 +36,14 @@ import java.io.File;
 @Mod(modid = Constants.Mod.MODID, name = Constants.Mod.MODID, version = Constants.Mod.VERSION)
 public class LearningModding {
 
+    public static final PacketPipeline packetPipeline = new PacketPipeline();
     /* Mod instance */
     @Instance(Constants.Mod.MODID)
     public static LearningModding instance;
-
     /* Says where the client and server 'proxy' code is loaded. */
     @SidedProxy(clientSide = Constants.Proxies.CLIENT, serverSide = Constants.Proxies.COMMON)
     public static CommonProxy proxy;
-
     public static KeyBinding dropBomb;
-    public static final PacketPipeline packetPipeline = new PacketPipeline();
 
     /* PreInitialization */
     @EventHandler

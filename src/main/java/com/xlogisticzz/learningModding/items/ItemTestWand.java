@@ -34,14 +34,14 @@ public class ItemTestWand extends Item {
 
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        ChatComponentText component = new ChatComponentText("Block type: " + world.getBlock(x,y,z).getLocalizedName() + " Meta: " + world.getBlockMetadata(x,y,z) + " X:  " + x + " Y: " + y + " Z: " + z + " HitX: " + hitX + " HitY: " + hitY + " HitZ: " + hitZ);
+        ChatComponentText component = new ChatComponentText("Block type: " + world.getBlock(x, y, z).getLocalizedName() + " Meta: " + world.getBlockMetadata(x, y, z) + " X:  " + x + " Y: " + y + " Z: " + z + " HitX: " + hitX + " HitY: " + hitY + " HitZ: " + hitZ);
         player.addChatComponentMessage(component);
         return true;
     }
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase livingBase) {
-        if(livingBase.getHeldItem() == null){
+        if (livingBase.getHeldItem() == null) {
             ChatComponentText component = new ChatComponentText("ID: " + livingBase.getEntityId() + " Name: " + livingBase.getCommandSenderName() + " Age: " + livingBase.getAge() + " Potion Effects: " + livingBase.getActivePotionEffects() + " Current Health: " + livingBase.getHealth() + " Max Health: " + livingBase.getMaxHealth());
             player.addChatComponentMessage(component);
             return true;

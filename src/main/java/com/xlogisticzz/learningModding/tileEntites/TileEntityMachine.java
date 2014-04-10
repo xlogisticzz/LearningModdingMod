@@ -17,9 +17,11 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityMachine extends TileEntity implements IInventory {
 
-    private ItemStack[] items;
     public final boolean[] customSetup;
+    private ItemStack[] items;
     private String customName;
+    private int gravel = -1;
+    private int customGravel = 0;
 
     public TileEntityMachine() {
         items = new ItemStack[3];
@@ -188,8 +190,6 @@ public class TileEntityMachine extends TileEntity implements IInventory {
         }
     }
 
-    private int gravel = -1;
-
     public int getGravel() {
         if (gravel == -1) {
             calculateGravelCount();
@@ -213,8 +213,6 @@ public class TileEntityMachine extends TileEntity implements IInventory {
 
         gravel = -1;
     }
-
-    private int customGravel = 0;
 
     public int getCustomGravel() {
         return customGravel;

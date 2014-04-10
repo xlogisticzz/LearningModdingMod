@@ -34,6 +34,16 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
     private boolean isPostInit = false;
 
     /**
+     * Send this message to the server.
+     *
+     * @param message The message to send
+     */
+    public static void sendToServer(PacketLearningModding message) {
+        channels.get(Side.CLIENT).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.TOSERVER);
+        channels.get(Side.CLIENT).writeAndFlush(message);
+    }
+
+    /**
      * Register your packet with the pipeline. Discriminators are automatically set.
      *
      * @param clas the class to register
@@ -185,16 +195,6 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
         channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.DIMENSION);
         channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(dimensionId);
         channels.get(Side.SERVER).writeAndFlush(message);
-    }
-
-    /**
-     * Send this message to the server.
-     *
-     * @param message The message to send
-     */
-    public static void sendToServer(PacketLearningModding message) {
-        channels.get(Side.CLIENT).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.TOSERVER);
-        channels.get(Side.CLIENT).writeAndFlush(message);
     }
 
 }

@@ -24,19 +24,8 @@ import org.lwjgl.opengl.GL11;
 @SideOnly(Side.CLIENT)
 public class GuiMachine extends GuiContainer {
 
-    private TileEntityMachine entityMachine;
-
-    public GuiMachine(InventoryPlayer inventoryPlayer, TileEntityMachine entityMachine) {
-        super(new ContainerMachine(inventoryPlayer, entityMachine));
-        this.entityMachine = entityMachine;
-
-        xSize = 176;
-        ySize = 218;
-    }
-
     private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/machine.png");
     private static final GuiRectangle[] rectangles;
-
     static {
         rectangles = new GuiRectangle[49];
         for (int i = 0; i < 7; i++) {
@@ -44,6 +33,18 @@ public class GuiMachine extends GuiContainer {
                 rectangles[i * 7 + j] = new GuiRectangle(57 + i * 9, 70 + j * 9, 8, 8);
             }
         }
+    }
+    private static final String ENABLE_TEXT = StringUtils.localize("tile.machineBlock.button.enable");
+    private static final String DISABLE_TEXT = StringUtils.localize("tile.machineBlock.button.disable");
+    private TileEntityMachine entityMachine;
+    private boolean currentDragMode;
+
+    public GuiMachine(InventoryPlayer inventoryPlayer, TileEntityMachine entityMachine) {
+        super(new ContainerMachine(inventoryPlayer, entityMachine));
+        this.entityMachine = entityMachine;
+
+        xSize = 176;
+        ySize = 218;
     }
 
     @Override
@@ -125,9 +126,6 @@ public class GuiMachine extends GuiContainer {
         fontRendererObj.drawSplitString(str, 45, 44, 100, color);
     }
 
-    private static final String ENABLE_TEXT = StringUtils.localize("tile.machineBlock.button.enable");
-    private static final String DISABLE_TEXT = StringUtils.localize("tile.machineBlock.button.disable");
-
     @Override
     public void initGui() {
         super.initGui();
@@ -166,8 +164,6 @@ public class GuiMachine extends GuiContainer {
             }
         }
     }
-
-    private boolean currentDragMode;
 
     @Override
     protected void mouseClickMove(int x, int y, int button, long timeSinceClick) {

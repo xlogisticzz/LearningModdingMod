@@ -16,8 +16,8 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityCakeStorage extends TileEntity implements IInventory {
 
-    private ItemStack[] items;
     public byte currentDir;
+    private ItemStack[] items;
     private int timer;
     private int delay;
     private int buffer;
@@ -25,6 +25,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     private int timerMax;
     private boolean place;
     private String customName;
+    private int cake = -1;
 
     public TileEntityCakeStorage() {
         items = new ItemStack[10];
@@ -40,9 +41,9 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             if (++delay == 5) {
                 if (++timer >= timerMax) {
                     updateBuffer();
-                    if(place){
+                    if (place) {
                         dispenseCake();
-                    }else{
+                    } else {
                         eatCake();
                     }
                     timer = 0;
@@ -54,6 +55,14 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
 
     public int getTimerMax() {
         return timerMax;
+    }
+
+    public void setTimerMax(int timerMax) {
+        if (timerMax < 1) {
+            this.timerMax = 1;
+            return;
+        }
+        this.timerMax = timerMax;
     }
 
     public void decreaseMaxTime(boolean isShifted, boolean isControl) {
@@ -78,14 +87,6 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             return;
         }
         setTimerMax(getTimerMax() + 1);
-    }
-
-    public void setTimerMax(int timerMax) {
-        if (timerMax < 1) {
-            this.timerMax = 1;
-            return;
-        }
-        this.timerMax = timerMax;
     }
 
     public void decreaseMaxBuffer(boolean isShifted, boolean isControl) {
@@ -182,7 +183,6 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         }
     }
 
-
     @Override
     public int getSizeInventory() {
         return items.length;
@@ -232,7 +232,6 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     public boolean hasCustomInventoryName() {
         return this.customName != null && this.customName.length() > 0;
     }
-
 
     @Override
     public int getInventoryStackLimit() {
@@ -287,8 +286,6 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
                 setPlace(!getPlace());
         }
     }
-
-    private int cake = -1;
 
     public int getCake() {
         if (cake == -1) {
@@ -396,37 +393,37 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
 
     public boolean setAirInCurrentDir() {
         boolean state = false;
-            switch (getCurrentDir()) {
-                case 0:
-                    if (worldObj.setBlock(xCoord, yCoord + 1, zCoord, Blocks.air, 0, 2)) {
-                        state = true;
-                    }
-                    break;
-                case 1:
-                    if (worldObj.setBlock(xCoord, yCoord - 1, zCoord, Blocks.air, 0, 2)) {
-                        state = true;
-                    }
-                    break;
-                case 2:
-                    if (worldObj.setBlock(xCoord, yCoord, zCoord - 1, Blocks.air, 0, 2)) {
-                        state = true;
-                    }
-                    break;
-                case 3:
-                    if (worldObj.setBlock(xCoord, yCoord, zCoord + 1, Blocks.air, 0, 2)) {
-                        state = true;
-                    }
-                    break;
-                case 4:
-                    if (worldObj.setBlock(xCoord + 1, yCoord, zCoord, Blocks.air, 0, 2)) {
-                        state = true;
-                    }
-                    break;
-                case 5:
-                    if (worldObj.setBlock(xCoord - 1, yCoord, zCoord, Blocks.air, 0, 2)) {
-                        state = true;
-                    }
-                    break;
+        switch (getCurrentDir()) {
+            case 0:
+                if (worldObj.setBlock(xCoord, yCoord + 1, zCoord, Blocks.air, 0, 2)) {
+                    state = true;
+                }
+                break;
+            case 1:
+                if (worldObj.setBlock(xCoord, yCoord - 1, zCoord, Blocks.air, 0, 2)) {
+                    state = true;
+                }
+                break;
+            case 2:
+                if (worldObj.setBlock(xCoord, yCoord, zCoord - 1, Blocks.air, 0, 2)) {
+                    state = true;
+                }
+                break;
+            case 3:
+                if (worldObj.setBlock(xCoord, yCoord, zCoord + 1, Blocks.air, 0, 2)) {
+                    state = true;
+                }
+                break;
+            case 4:
+                if (worldObj.setBlock(xCoord + 1, yCoord, zCoord, Blocks.air, 0, 2)) {
+                    state = true;
+                }
+                break;
+            case 5:
+                if (worldObj.setBlock(xCoord - 1, yCoord, zCoord, Blocks.air, 0, 2)) {
+                    state = true;
+                }
+                break;
 
         }
 
@@ -557,6 +554,7 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             }
         }
     }
+
     private void dispenseCake() {
         if (getBuffer() > 0) {
             int missing = 0;

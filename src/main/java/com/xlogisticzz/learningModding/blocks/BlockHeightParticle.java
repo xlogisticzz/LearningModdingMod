@@ -21,6 +21,9 @@ import java.util.Random;
  */
 public class BlockHeightParticle extends Block {
 
+    @SideOnly(Side.CLIENT)
+    public IIcon ParticleIcon;
+
     public BlockHeightParticle() {
         super(Material.rock);
         setCreativeTab(LearningModdingCreativeTab.tabLearningModding);
@@ -28,9 +31,6 @@ public class BlockHeightParticle extends Block {
         setStepSound(soundTypeStone);
         setBlockName(Constants.UnLocalisedNames.HEIGHT_PARTICLE);
     }
-
-    @SideOnly(Side.CLIENT)
-    public IIcon ParticleIcon;
 
     @Override
     @SideOnly(Side.CLIENT)

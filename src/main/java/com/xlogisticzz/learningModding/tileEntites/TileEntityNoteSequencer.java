@@ -11,11 +11,10 @@ import net.minecraft.tileentity.TileEntity;
  */
 public class TileEntityNoteSequencer extends TileEntity {
 
+    private static String[] music = {"harp", "bd", "snare", "hat", "bassattack"};
+    public boolean active = false;
     private int timer;
     private int noteNumber;
-    public boolean active = false;
-
-    private static String[] music = {"harp", "bd", "snare", "hat", "bassattack"};
 
     @Override
     public void updateEntity() {

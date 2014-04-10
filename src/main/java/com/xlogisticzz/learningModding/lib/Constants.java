@@ -9,21 +9,6 @@ package com.xlogisticzz.learningModding.lib;
 
 public class Constants {
 
-    public class Mod {
-
-        public static final String MODID = "learningmodding";
-        public static final String NAME = "Learning Modding";
-        public static final String CHANNEL_NAME = MODID;
-        public static final String VERSION = "1.1.164.1";
-    }
-
-    public class Proxies {
-
-        public static final String CLIENT = "com.xlogisticzz.learningModding.proxies.ClientProxy";
-        public static final String COMMON = "com.xlogisticzz.learningModding.proxies.CommonProxy";
-
-    }
-
     public static class BlockNames {
 
         public static final String[] ORES = {"Ruby Ore", "Titanium Ore"};
@@ -111,6 +96,62 @@ public class Constants {
 
     }
 
+    public static class Misc {
+
+        public static final int RUBY_DURABILITY = 1000;
+        public static final int NUMBER_COUNT = 18;
+
+    }
+
+    public static class WorldGen {
+
+        public static final int RUBY_WORLD_GEN_AMOUNT_DEFAULT = 16;
+        public static final int RUBY_WORLD_GEN_ITERATIONS_DEFAULT = 20;
+        public static final int RUBY_WORLD_GEN_LOWESTY_DEFAULT = 1;
+        public static final int RUBY_WORLD_GEN_HIGHESTY_DEFAULT = 128;
+        public static final int TITANIUM_WORLD_GEN_AMOUNT_DEFAULT = 16;
+        public static final int TITANIUM_WORLD_GEN_ITERATIONS_DEFAULT = 20;
+        public static final int TITANIUM_WORLD_GEN_LOWESTY_DEFAULT = 1;
+        public static final int TITANIUM_WORLD_GEN_HIGHESTY_DEFAULT = 128;
+        public static int RUBY_WORLD_GEN_AMOUNT;
+        public static int RUBY_WORLD_GEN_ITERATIONS;
+        public static int RUBY_WORLD_GEN_LOWESTY;
+        public static int RUBY_WORLD_GEN_HIGHESTY;
+        public static int TITANIUM_WORLD_GEN_AMOUNT;
+        public static int TITANIUM_WORLD_GEN_ITERATIONS;
+        public static int TITANIUM_WORLD_GEN_LOWESTY;
+        public static int TITANIUM_WORLD_GEN_HIGHESTY;
+
+    }
+
+    public static class Armor {
+
+        public static final int RUBY_HELMET_REDUCTION_DEFAULT = 4;
+        public static final int RUBY_BOOTS_REDUCTION_DEFAULT = 4;
+        public static final int RUBY_CHESTPLATE_REDUCTION_DEFAULT = 10;
+        public static final int RUBY_LEGGINGS_REDUCTION_DEFAULT = 8;
+        public static int RUBY_HELMET_REDUCTION;
+        public static int RUBY_BOOTS_REDUCTION;
+        public static int RUBY_CHESTPLATE_REDUCTION;
+        public static int RUBY_LEGGINGS_REDUCTION;
+
+    }
+
+    public class Mod {
+
+        public static final String MODID = "learningmodding";
+        public static final String CHANNEL_NAME = MODID;
+        public static final String NAME = "Learning Modding";
+        public static final String VERSION = "1.1.164.1";
+    }
+
+    public class Proxies {
+
+        public static final String CLIENT = "com.xlogisticzz.learningModding.proxies.ClientProxy";
+        public static final String COMMON = "com.xlogisticzz.learningModding.proxies.CommonProxy";
+
+    }
+
     public class UnLocalisedNames {
 
         // Items
@@ -152,48 +193,6 @@ public class Constants {
 
         public static final String POISON_TEXTURE = "poison_nocolor";
         public static final String HEIGHT_TEXTURE = "height_particle";
-
-    }
-
-    public static class Misc {
-
-        public static final int RUBY_DURABILITY = 1000;
-        public static final int NUMBER_COUNT = 18;
-
-    }
-
-    public static class WorldGen {
-
-        public static int RUBY_WORLD_GEN_AMOUNT;
-        public static final int RUBY_WORLD_GEN_AMOUNT_DEFAULT = 16;
-        public static int RUBY_WORLD_GEN_ITERATIONS;
-        public static final int RUBY_WORLD_GEN_ITERATIONS_DEFAULT = 20;
-        public static int RUBY_WORLD_GEN_LOWESTY;
-        public static final int RUBY_WORLD_GEN_LOWESTY_DEFAULT = 1;
-        public static int RUBY_WORLD_GEN_HIGHESTY;
-        public static final int RUBY_WORLD_GEN_HIGHESTY_DEFAULT = 128;
-
-        public static int TITANIUM_WORLD_GEN_AMOUNT;
-        public static final int TITANIUM_WORLD_GEN_AMOUNT_DEFAULT = 16;
-        public static int TITANIUM_WORLD_GEN_ITERATIONS;
-        public static final int TITANIUM_WORLD_GEN_ITERATIONS_DEFAULT = 20;
-        public static int TITANIUM_WORLD_GEN_LOWESTY;
-        public static final int TITANIUM_WORLD_GEN_LOWESTY_DEFAULT = 1;
-        public static int TITANIUM_WORLD_GEN_HIGHESTY;
-        public static final int TITANIUM_WORLD_GEN_HIGHESTY_DEFAULT = 128;
-
-    }
-
-    public static class Armor {
-
-        public static int RUBY_HELMET_REDUCTION;
-        public static final int RUBY_HELMET_REDUCTION_DEFAULT = 4;
-        public static int RUBY_BOOTS_REDUCTION;
-        public static final int RUBY_BOOTS_REDUCTION_DEFAULT = 4;
-        public static int RUBY_CHESTPLATE_REDUCTION;
-        public static final int RUBY_CHESTPLATE_REDUCTION_DEFAULT = 10;
-        public static int RUBY_LEGGINGS_REDUCTION;
-        public static final int RUBY_LEGGINGS_REDUCTION_DEFAULT = 8;
 
     }
 }

@@ -20,6 +20,8 @@ import net.minecraft.item.ItemStack;
 public class ContainerCakeStorage extends Container {
 
     private TileEntityCakeStorage tile;
+    private int oldTimer;
+    private int oldBuffer;
 
     public ContainerCakeStorage(InventoryPlayer inventoryPlayer, TileEntityCakeStorage tile) {
         this.tile = tile;
@@ -102,9 +104,6 @@ public class ContainerCakeStorage extends Container {
             tile.setBuffer(val);
         }
     }
-
-    private int oldTimer;
-    private int oldBuffer;
 
     @Override
     public void detectAndSendChanges() {

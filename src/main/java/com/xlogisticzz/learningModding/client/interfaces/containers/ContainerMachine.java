@@ -22,6 +22,7 @@ import java.util.Arrays;
 public class ContainerMachine extends Container {
 
     TileEntityMachine entityMachine;
+    private boolean[] olddata = new boolean[49];
 
     public ContainerMachine(InventoryPlayer inventoryPlayer, TileEntityMachine entityMachine) {
         this.entityMachine = entityMachine;
@@ -98,8 +99,6 @@ public class ContainerMachine extends Container {
     public void updateProgressBar(int id, int data) {
         entityMachine.setCustomGravel(id, data != 0);
     }
-
-    private boolean[] olddata = new boolean[49];
 
     @Override
     public void detectAndSendChanges() {

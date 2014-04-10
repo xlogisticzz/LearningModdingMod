@@ -21,16 +21,6 @@ import java.util.Random;
 
 public class CommonProxy {
 
-    public void initSounds() {
-    }
-
-    public void initRenderers() {
-    }
-
-    public World getClientWorld() {
-        return null;
-    }
-
     public static void addShapedRecipe(ItemStack result, Object[] recipe) {
         CraftingManager.getInstance().addRecipe(result, recipe);
     }
@@ -42,7 +32,6 @@ public class CommonProxy {
     public static void addSmeltingRecipe(ItemStack input, ItemStack result, int xp) {
         FurnaceRecipes.smelting().func_151394_a(input, result, xp);
     }
-
 
     public static void dropItemsFromInventoryOnBlockBreak(IInventory inv, World world, int x, int y, int z, Random rand) {
         if (inv != null) {
@@ -79,5 +68,15 @@ public class CommonProxy {
             //Last Param is never used so is useless. For more info see method in world.class
             world.func_147453_f(x, y, z, world.getBlock(x, y, z));
         }
+    }
+
+    public void initSounds() {
+    }
+
+    public void initRenderers() {
+    }
+
+    public World getClientWorld() {
+        return null;
     }
 }

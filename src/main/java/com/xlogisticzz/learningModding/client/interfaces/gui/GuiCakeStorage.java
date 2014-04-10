@@ -25,7 +25,11 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiCakeStorage extends GuiContainer {
+    private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/cake.png");
+    private static String PLACE = StringUtils.localize("tile.cakeStorage.button.placeCake");
+    private static String EAT = StringUtils.localize("tile.cakeStorage.button.eatCake");
     private TileEntityCakeStorage cakeStorage;
+    private GuiButton dispense;
 
     public GuiCakeStorage(InventoryPlayer inventoryPlayer, TileEntityCakeStorage cakeStorage) {
         super(new ContainerCakeStorage(inventoryPlayer, cakeStorage));
@@ -34,8 +38,6 @@ public class GuiCakeStorage extends GuiContainer {
         xSize = 176;
         ySize = 218;
     }
-
-    private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/cake.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
@@ -86,7 +88,6 @@ public class GuiCakeStorage extends GuiContainer {
 
     }
 
-
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         String title = StringUtils.localize("tile.cakeStorage.name");
@@ -103,10 +104,6 @@ public class GuiCakeStorage extends GuiContainer {
         GuiUtils.drawCenteredString(fontRendererObj, Double.toString(((double) cakeStorage.getTimerMax() * 5) / 20), 143, 20, 0x404040);
         GuiUtils.drawCenteredString(fontRendererObj, "secs", 143, 30, 0x404040);
     }
-
-    private GuiButton dispense;
-    private static String PLACE =  StringUtils.localize("tile.cakeStorage.button.placeCake");
-    private static String EAT =  StringUtils.localize("tile.cakeStorage.button.eatCake");
 
     @Override
     public void initGui() {
@@ -130,7 +127,7 @@ public class GuiCakeStorage extends GuiContainer {
         buttonList.add(new GuiButton(4, guiLeft + 5, guiTop + 106, 12, 20, "<"));
         buttonList.add(new GuiButton(5, guiLeft + 53, guiTop + 106, 12, 20, ">"));
 
-        String stateName = cakeStorage.getPlace() ? PLACE : EAT ;
+        String stateName = cakeStorage.getPlace() ? PLACE : EAT;
         buttonList.add(new GuiButton(6, guiLeft + 108, guiTop + 58, 64, 20, stateName));
 
 
@@ -157,7 +154,7 @@ public class GuiCakeStorage extends GuiContainer {
             cakeStorage.decreaseMaxBuffer(isShiftKeyDown(), isCtrlKeyDown());
         } else if (par1GuiButton.id == 5) {
             cakeStorage.increaseMaxBuffer(isShiftKeyDown(), isCtrlKeyDown());
-        } else  if (par1GuiButton.id == 6){
+        } else if (par1GuiButton.id == 6) {
             cakeStorage.setPlace(!cakeStorage.getPlace());
             par1GuiButton.displayString = par1GuiButton.displayString.equals(EAT) ? PLACE : EAT;
         }
