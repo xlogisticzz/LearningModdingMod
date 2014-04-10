@@ -21,13 +21,17 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
     private int timer;
     private int delay;
     private int buffer;
-    private int bufferMax = 6;
-    private int timerMax = 48;
+    private int bufferMax;
+    private int timerMax;
+    private boolean place;
     private String customName;
 
     public TileEntityCakeStorage() {
         items = new ItemStack[10];
         currentDir = 0;
+        bufferMax = 6;
+        timerMax = 48;
+        place = true;
     }
 
     @Override
@@ -36,7 +40,11 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             if (++delay == 5) {
                 if (++timer >= timerMax) {
                     updateBuffer();
-                    dispenseCake();
+                    if(place){
+                        dispenseCake();
+                    }else{
+                        eatCake();
+                    }
                     timer = 0;
                 }
                 delay = 0;
@@ -139,9 +147,10 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         timer = par1NBTTagCompound.getByte("Timer");
         timerMax = par1NBTTagCompound.getInteger("TimerMax");
         bufferMax = par1NBTTagCompound.getInteger("BufferMax");
+        place = par1NBTTagCompound.getBoolean("Place");
 
         if (par1NBTTagCompound.hasKey("CustomName", 8)) {
-            this.customName = par1NBTTagCompound.getString("CustomName");
+            customName = par1NBTTagCompound.getString("CustomName");
         }
     }
 
@@ -166,8 +175,9 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         par1NBTTagCompound.setByte("Buffer", (byte) buffer);
         par1NBTTagCompound.setInteger("TimerMax", timerMax);
         par1NBTTagCompound.setInteger("BufferMax", bufferMax);
+        par1NBTTagCompound.setBoolean("Place", place);
 
-        if (this.hasCustomInventoryName()) {
+        if (hasCustomInventoryName()) {
             par1NBTTagCompound.setString("CustomName", this.customName);
         }
     }
@@ -273,6 +283,8 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             case 5:
                 increaseMaxBuffer(isShifted, isControl);
                 break;
+            case 6:
+                setPlace(!getPlace());
         }
     }
 
@@ -382,6 +394,50 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         return state;
     }
 
+    public boolean setAirInCurrentDir() {
+        boolean state = false;
+            switch (getCurrentDir()) {
+                case 0:
+                    if (worldObj.setBlock(xCoord, yCoord + 1, zCoord, Blocks.air, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 1:
+                    if (worldObj.setBlock(xCoord, yCoord - 1, zCoord, Blocks.air, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 2:
+                    if (worldObj.setBlock(xCoord, yCoord, zCoord - 1, Blocks.air, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 3:
+                    if (worldObj.setBlock(xCoord, yCoord, zCoord + 1, Blocks.air, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 4:
+                    if (worldObj.setBlock(xCoord + 1, yCoord, zCoord, Blocks.air, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+                case 5:
+                    if (worldObj.setBlock(xCoord - 1, yCoord, zCoord, Blocks.air, 0, 2)) {
+                        state = true;
+                    }
+                    break;
+
+        }
+
+        if (!state) {
+            System.out.println("could not set air " + getCurrentDir());
+        } else {
+            System.out.println("set air " + getCurrentDir());
+        }
+        return state;
+    }
+
     public void increaseDir() {
         if (getCurrentDir() == 5) {
             currentDir = 0;
@@ -470,6 +526,37 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
         this.buffer = buffer;
     }
 
+    public boolean getPlace() {
+        return place;
+    }
+
+    public void setPlace(boolean place) {
+        this.place = place;
+    }
+
+    public void eatCake() {
+        if (getBlockAtCurrentPos() == Blocks.cake) {
+            int meta = getMetaAtCurrentPos();
+            System.out.print("Meta: " + meta + " ");
+            int empty = getBufferMax() - getBuffer();
+            if (meta > -1 && meta < 6) {
+                int slices = 6 - meta;
+                int fill = Math.min(empty, slices);
+                System.out.print("Slices: " + slices + " ");
+                System.out.print("Empty: " + empty + " ");
+                System.out.print("Fill: " + fill + " ");
+                if (fill == slices) {
+                    setAirInCurrentDir();
+                    setBuffer(getBuffer() + slices);
+                } else {
+                    System.out.print("set: " + (getBuffer() + empty));
+                    System.out.print("setMeta: " + (meta - empty));
+                    placeCakeInCurrentDir(false, 6 - (slices - empty));
+                    setBuffer(getBuffer() + empty);
+                }
+            }
+        }
+    }
     private void dispenseCake() {
         if (getBuffer() > 0) {
             int missing = 0;
@@ -525,7 +612,5 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             }
             buffer = buffer + (int) (fill * 6);
         }
-
-
     }
 }

@@ -34,6 +34,7 @@ public class ModItems {
     public static ItemEntityLauncher entityLauncher;
     public static ItemPigConverter pigConverter;
     public static ItemEntityBlockTeleport entityBlockTeleporter;
+    public static ItemTestWand testWand;
 
     public static Item.ToolMaterial materialRuby = EnumHelper.addToolMaterial("ruby", 3, Constants.Misc.RUBY_DURABILITY, 4.1F, 3.0F, 40);
     public static ItemArmor.ArmorMaterial materialArmorRuby = EnumHelper.addArmorMaterial("ruby", Constants.Misc.RUBY_DURABILITY, new int[]{Constants.Armor.RUBY_HELMET_REDUCTION, Constants.Armor.RUBY_CHESTPLATE_REDUCTION, Constants.Armor.RUBY_LEGGINGS_REDUCTION, Constants.Armor.RUBY_BOOTS_REDUCTION}, 40);
@@ -58,6 +59,7 @@ public class ModItems {
         rubyChestplate = new ItemModArmor(materialArmorRuby, 0, 1, "ruby");
         rubyLeggings = new ItemModArmor(materialArmorRuby, 0, 2, "ruby");
         rubyBoots = new ItemModArmor(materialArmorRuby, 0, 3, "ruby");
+        testWand = new ItemTestWand();
 
         initLang();
     }
@@ -83,6 +85,7 @@ public class ModItems {
         GameRegistry.registerItem(card, "card");
         GameRegistry.registerItem(items, "modItems");
         GameRegistry.registerItem(deathstone, "deathstone");
+        GameRegistry.registerItem(testWand, "testWand");
 
     }
 }

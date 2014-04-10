@@ -105,6 +105,8 @@ public class GuiCakeStorage extends GuiContainer {
     }
 
     private GuiButton dispense;
+    private static String PLACE =  StringUtils.localize("tile.cakeStorage.button.placeCake");
+    private static String EAT =  StringUtils.localize("tile.cakeStorage.button.eatCake");
 
     @Override
     public void initGui() {
@@ -127,6 +129,9 @@ public class GuiCakeStorage extends GuiContainer {
 
         buttonList.add(new GuiButton(4, guiLeft + 5, guiTop + 106, 12, 20, "<"));
         buttonList.add(new GuiButton(5, guiLeft + 53, guiTop + 106, 12, 20, ">"));
+
+        String stateName = cakeStorage.getPlace() ? PLACE : EAT ;
+        buttonList.add(new GuiButton(6, guiLeft + 108, guiTop + 58, 64, 20, stateName));
 
 
     }
@@ -152,6 +157,9 @@ public class GuiCakeStorage extends GuiContainer {
             cakeStorage.decreaseMaxBuffer(isShiftKeyDown(), isCtrlKeyDown());
         } else if (par1GuiButton.id == 5) {
             cakeStorage.increaseMaxBuffer(isShiftKeyDown(), isCtrlKeyDown());
+        } else  if (par1GuiButton.id == 6){
+            cakeStorage.setPlace(!cakeStorage.getPlace());
+            par1GuiButton.displayString = par1GuiButton.displayString.equals(EAT) ? PLACE : EAT;
         }
     }
 }

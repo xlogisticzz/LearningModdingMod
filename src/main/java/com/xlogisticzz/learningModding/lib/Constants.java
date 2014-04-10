@@ -84,6 +84,7 @@ public class Constants {
         public static final String ENTITY_LAUNCHER = "entity_launcher";
         public static final String PIG_CONVERTER = "pig_converter";
         public static final String ENTITY_BLOCK_TELEPORTER = "entity_block_teleporter";
+        public static final String TEST_WAND = "test_wand";
 
         // Blocks
         public static final String[] ORES = {"ruby_ore", "titanium_ore"};
@@ -127,6 +128,7 @@ public class Constants {
         public static final String ENTITY_LAUNCHER = "entityLauncher";
         public static final String PIG_CONVERTER = "pigConverter";
         public static final String ENTITY_BLOCK_TELEPORTER = "entityBlockTeleporter";
+        public static final String TEST_WAND = "testWand";
 
         // Blocks
         public static final String ORE = "modOre";
