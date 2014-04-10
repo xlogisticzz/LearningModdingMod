@@ -5,6 +5,7 @@ package com.xlogisticzz.learningModding.network;
 */
 
 import com.xlogisticzz.learningModding.lib.Constants;
+import com.xlogisticzz.learningModding.utils.LogHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.FMLEmbeddedChannel;
 import cpw.mods.fml.common.network.FMLOutboundHandler;
@@ -40,17 +41,17 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
      */
     public boolean registerPacket(Class<? extends PacketLearningModding> clas) {
         if (packets.size() > 256) {
-            //TODO LOG
+            LogHelper.error("Learning modding is attempting to register more packets than the limit. Some things may not work. " + clas.getCanonicalName());
             return false;
         }
 
         if (packets.contains(clas)) {
-            //TODO LOG
+            LogHelper.warn("Learning modding is attempting to register a packet twice. This should not cause any problems but report it to the author never the less. " + clas.getCanonicalName());
             return false;
         }
 
         if (isPostInit) {
-            //TODO LOG
+            LogHelper.error("Learning Modding is attempting to register packets in the pre innit phase. Things will not work and report this to the mod author. " + clas.getCanonicalName());
             return false;
         }
 

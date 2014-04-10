@@ -10,6 +10,7 @@ import com.xlogisticzz.learningModding.items.ModItems;
 import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.proxies.CommonProxy;
+import com.xlogisticzz.learningModding.utils.LogHelper;
 import com.xlogisticzz.learningModding.world.WorldGenerationHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Mod;
@@ -83,6 +84,7 @@ public class LearningModding {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         packetPipeline.postInitialise();
+        LogHelper.info("Learning Modding loaded");
     }
 
     /* When the server starts */
