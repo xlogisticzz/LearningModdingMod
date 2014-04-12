@@ -17,7 +17,6 @@ public class ContainerSpaceship extends Container {
     private EntitySpaceship spaceship;
 
     public ContainerSpaceship(InventoryPlayer inventoryPlayer, EntitySpaceship spaceship) {
-
         this.spaceship = spaceship;
 
         // Player Hotbar

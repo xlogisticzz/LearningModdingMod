@@ -1,7 +1,7 @@
 package com.xlogisticzz.learningModding;
 
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
-import com.xlogisticzz.learningModding.client.interfaces.gui.GuiHandler;
+import com.xlogisticzz.learningModding.handler.GuiHandler;
 import com.xlogisticzz.learningModding.configuration.ConfigurationHandler;
 import com.xlogisticzz.learningModding.crafting.Recipies;
 import com.xlogisticzz.learningModding.dispenser.DispenserBehaviourBlockEntityTeleport;

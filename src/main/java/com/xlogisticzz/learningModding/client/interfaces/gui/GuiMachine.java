@@ -11,6 +11,7 @@ import com.xlogisticzz.learningModding.network.PacketMachineGui;
 import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
 import com.xlogisticzz.learningModding.utils.StringUtils;
+import com.xlogisticzz.learningModding.utils.gui.GuiColour;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -21,11 +22,15 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
+import java.util.List;
+
 @SideOnly(Side.CLIENT)
 public class GuiMachine extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/machine.png");
     private static final GuiRectangle[] rectangles;
+    private final GuiTab[] tabs;
+    private GuiTab activeTab;
     static {
         rectangles = new GuiRectangle[49];
         for (int i = 0; i < 7; i++) {
@@ -37,7 +42,6 @@ public class GuiMachine extends GuiContainer {
     private static final String ENABLE_TEXT = StringUtils.localize("tile.machineBlock.button.enable");
     private static final String DISABLE_TEXT = StringUtils.localize("tile.machineBlock.button.disable");
     private TileEntityMachine entityMachine;
-    private boolean currentDragMode;
 
     public GuiMachine(InventoryPlayer inventoryPlayer, TileEntityMachine entityMachine) {
         super(new ContainerMachine(inventoryPlayer, entityMachine));
@@ -45,6 +49,13 @@ public class GuiMachine extends GuiContainer {
 
         xSize = 176;
         ySize = 218;
+
+        tabs = new GuiTab[]{
+                new GuiTabCustom(0),
+                new GuiTabTest(1),
+                new GuiTabTest(2)
+        };
+        activeTab = tabs[0];
     }
 
     @Override
@@ -72,23 +83,18 @@ public class GuiMachine extends GuiContainer {
             drawTexturedModalRect(guiLeft + 157, guiTop + 40 + 27 - barHeight, srcX, srcY, 7, barHeight);
         }
 
-        if (type == 4) {
-            for (int i = 0; i < rectangles.length; i++) {
-                GuiRectangle rect = rectangles[i];
-                int srcX = xSize;
 
-                if (rect.inRect(this, x, y)) {
-                    srcX += 8;
-                }
 
-                rect.draw(this, srcX, 27);
-
-                if (entityMachine.customSetup[i]) {
-                    rect.draw(this, xSize, 35);
-                }
+        for (GuiTab tab : tabs){
+            int srcY = 43;
+            if(tab == activeTab){
+                srcY += 32;
+            } else if(tab.inRect(this, x, y)){
+                srcY += 16;
             }
-
+            tab.draw(this, xSize, srcY);
         }
+        activeTab.drawBackground(this, x, y);
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         drawTexturedModelRectFromIcon(guiLeft + 63, guiTop + 17, ModBlocks.machineblock.getIcon(1, meta), 16, 16);
@@ -124,6 +130,12 @@ public class GuiMachine extends GuiContainer {
 
         int color = invalid ? 0xD30000 : 0x404040;
         fontRendererObj.drawSplitString(str, 45, 44, 100, color);
+
+        activeTab.drawForeground(this, x, y);
+
+        for(GuiTab tab : tabs){
+            tab.drawHoverText(this, x, y,tab.getName());
+        }
     }
 
     @Override
@@ -153,31 +165,21 @@ public class GuiMachine extends GuiContainer {
     protected void mouseClicked(int x, int y, int button) {
         super.mouseClicked(x, y, button);
 
-        for (int i = 0; i < rectangles.length; i++) {
-            GuiRectangle rect = rectangles[i];
-
-            if (rect.inRect(this, x, y)) {
-                PacketPipeline.sendToServer(new PacketMachineGui(2 + i));
-                currentDragMode = entityMachine.customSetup[i];
-                entityMachine.setCustomGravel(i, !currentDragMode);
-                break;
+        for(GuiTab tab : tabs){
+            if(activeTab != tab){
+                if(tab.inRect(this, x, y)) {
+                    activeTab = tab;
+                }
             }
         }
+        activeTab.mouseClick(this,x,y,button);
     }
 
     @Override
     protected void mouseClickMove(int x, int y, int button, long timeSinceClick) {
         super.mouseClickMove(x, y, button, timeSinceClick);
 
-        for (int i = 0; i < rectangles.length; i++) {
-            GuiRectangle rect = rectangles[i];
-
-            if (entityMachine.customSetup[i] == currentDragMode && rect.inRect(this, x, y)) {
-                PacketPipeline.sendToServer(new PacketMachineGui(2 + i));
-                entityMachine.setCustomGravel(i, !currentDragMode);
-                break;
-            }
-        }
+       activeTab.mouseMovedClick(this, x, y, button, timeSinceClick);
     }
 
     protected int getLeft() {
@@ -186,5 +188,17 @@ public class GuiMachine extends GuiContainer {
 
     protected int getTop() {
         return guiTop;
+    }
+
+    public void drawHoverString(List list, int x, int y){
+        drawHoveringText(list, x , y, fontRendererObj);
+    }
+
+    public static GuiRectangle[] getRectangles() {
+        return rectangles;
+    }
+
+    public TileEntityMachine getMachine() {
+        return entityMachine;
     }
 }

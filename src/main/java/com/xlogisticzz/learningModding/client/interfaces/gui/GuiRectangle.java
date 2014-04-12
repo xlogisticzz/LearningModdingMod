@@ -4,6 +4,8 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
 */
 
+import java.util.Arrays;
+
 public class GuiRectangle {
 
     private int x;
@@ -27,5 +29,11 @@ public class GuiRectangle {
 
     public void draw(GuiMachine guiMachine, int srcX, int srcY) {
         guiMachine.drawTexturedModalRect(guiMachine.getLeft() + x, guiMachine.getTop() + y, srcX, srcY, w, h);
+    }
+
+    public void drawHoverText(GuiMachine guiMachine, int x, int y, String string){
+        if(inRect(guiMachine, x ,y)){
+            guiMachine.drawHoverString(Arrays.asList(string.split("\n")), x - guiMachine.getLeft(), y  - guiMachine.getTop());
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.xlogisticzz.learningModding.utils;
+package com.xlogisticzz.learningModding.utils.gui;
 
 import net.minecraft.client.gui.FontRenderer;
 
@@ -13,3 +13,4 @@ public class GuiUtils {
         fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2, y, colour);
     }
 }
+

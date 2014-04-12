@@ -9,7 +9,7 @@ import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.network.PacketCakeButton;
 import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
-import com.xlogisticzz.learningModding.utils.GuiUtils;
+import com.xlogisticzz.learningModding.utils.gui.GuiUtils;
 import com.xlogisticzz.learningModding.utils.StringUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

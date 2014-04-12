@@ -1,4 +1,4 @@
-package com.xlogisticzz.learningModding.client.interfaces.gui;
+package com.xlogisticzz.learningModding.handler;
 /*
 * @author xLoGisTicZz
 * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
@@ -8,6 +8,9 @@ import com.xlogisticzz.learningModding.LearningModding;
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerCakeStorage;
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerMachine;
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerSpaceship;
+import com.xlogisticzz.learningModding.client.interfaces.gui.GuiCakeStorage;
+import com.xlogisticzz.learningModding.client.interfaces.gui.GuiMachine;
+import com.xlogisticzz.learningModding.client.interfaces.gui.GuiSpaceship;
 import com.xlogisticzz.learningModding.entities.EntitySpaceship;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
