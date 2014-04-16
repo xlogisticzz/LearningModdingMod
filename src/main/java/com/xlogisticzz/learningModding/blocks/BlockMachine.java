@@ -84,8 +84,8 @@ public class BlockMachine extends BlockContainer {
             TileEntity tileEntity = par1World.getTileEntity(x, y, z);
             if (tileEntity != null && tileEntity instanceof TileEntityMachine) {
                 TileEntityMachine machine = (TileEntityMachine) tileEntity;
-                spawnGravel(par1World, machine, x, y + 20, z);
-                spawnGravel(par1World, machine, x, y + 21, z);
+                spawnGravel(par1World, machine, x, y + machine.height + 5, z);
+                spawnGravel(par1World, machine, x, y + machine.height + 6, z);
             }
         }
     }
@@ -100,23 +100,23 @@ public class BlockMachine extends BlockContainer {
                 switch (meta / 2) {
                     case 1:
                         for (int i = 0; i < 5; i++) {
-                            spawnGravel(world, machine, x, y + 20 + i, z);
+                            spawnGravel(world, machine, x, y + machine.height + 5 + i, z);
                         }
                         break;
                     case 2:
                         for (int i = -1; i <= 1; i++) {
-                            spawnGravel(world, machine, x + i, y + 20, z - 2);
-                            spawnGravel(world, machine, x + i, y + 20, z + 2);
-                            spawnGravel(world, machine, x - 2, y + 20, z + i);
-                            spawnGravel(world, machine, x + 2, y + 20, z + i);
+                            spawnGravel(world, machine, x + i, y + machine.height + 5, z - 2);
+                            spawnGravel(world, machine, x + i, y + machine.height + 5, z + 2);
+                            spawnGravel(world, machine, x - 2, y + machine.height + 5, z + i);
+                            spawnGravel(world, machine, x + 2, y + machine.height + 5, z + i);
                         }
                         break;
                     case 3:
                         for (int i = 1; i <= 3; i++) {
-                            spawnGravel(world, machine, x + i, y + 20, z);
-                            spawnGravel(world, machine, x - i, y + 20, z);
-                            spawnGravel(world, machine, x, y + 20, z + i);
-                            spawnGravel(world, machine, x, y + 20, z - i);
+                            spawnGravel(world, machine, x + i, y + machine.height + 5, z);
+                            spawnGravel(world, machine, x - i, y + machine.height + 5, z);
+                            spawnGravel(world, machine, x, y + machine.height + 5, z + i);
+                            spawnGravel(world, machine, x, y + machine.height + 5, z - i);
                         }
                         break;
 
@@ -126,7 +126,7 @@ public class BlockMachine extends BlockContainer {
                                 int dropX = x + i / 7 - 3;
                                 int dropZ = z + i % 7 - 3;
 
-                                spawnGravel(world, machine, dropX, y + 20, dropZ);
+                                spawnGravel(world, machine, dropX, y + machine.height + 5, dropZ);
                             }
                         }
                         break;

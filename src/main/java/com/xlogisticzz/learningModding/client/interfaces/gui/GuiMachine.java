@@ -7,14 +7,14 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerMachine;
 import com.xlogisticzz.learningModding.lib.Constants;
-import com.xlogisticzz.learningModding.network.PacketMachineGui;
+import com.xlogisticzz.learningModding.network.PacketMachineInterfaceGui;
 import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityMachine;
 import com.xlogisticzz.learningModding.utils.StringUtils;
-import com.xlogisticzz.learningModding.utils.gui.GuiColour;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -29,8 +29,11 @@ public class GuiMachine extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/machine.png");
     private static final GuiRectangle[] rectangles;
+    private static final String ENABLE_TEXT = StringUtils.localize("tile.machineBlock.button.enable");
+    private static final String DISABLE_TEXT = StringUtils.localize("tile.machineBlock.button.disable");
     private final GuiTab[] tabs;
     private GuiTab activeTab;
+
     static {
         rectangles = new GuiRectangle[49];
         for (int i = 0; i < 7; i++) {
@@ -39,8 +42,7 @@ public class GuiMachine extends GuiContainer {
             }
         }
     }
-    private static final String ENABLE_TEXT = StringUtils.localize("tile.machineBlock.button.enable");
-    private static final String DISABLE_TEXT = StringUtils.localize("tile.machineBlock.button.disable");
+
     private TileEntityMachine entityMachine;
 
     public GuiMachine(InventoryPlayer inventoryPlayer, TileEntityMachine entityMachine) {
@@ -52,10 +54,14 @@ public class GuiMachine extends GuiContainer {
 
         tabs = new GuiTab[]{
                 new GuiTabCustom(0),
-                new GuiTabTest(1),
-                new GuiTabTest(2)
+                new GuiTabHeight(1),
+                new GuiTabPreview(2)
         };
         activeTab = tabs[0];
+    }
+
+    public static GuiRectangle[] getRectangles() {
+        return rectangles;
     }
 
     @Override
@@ -84,12 +90,11 @@ public class GuiMachine extends GuiContainer {
         }
 
 
-
-        for (GuiTab tab : tabs){
+        for (GuiTab tab : tabs) {
             int srcY = 43;
-            if(tab == activeTab){
+            if (tab == activeTab) {
                 srcY += 32;
-            } else if(tab.inRect(this, x, y)){
+            } else if (tab.inRect(this, x, y)) {
                 srcY += 16;
             }
             tab.draw(this, xSize, srcY);
@@ -133,8 +138,8 @@ public class GuiMachine extends GuiContainer {
 
         activeTab.drawForeground(this, x, y);
 
-        for(GuiTab tab : tabs){
-            tab.drawHoverText(this, x, y,tab.getName());
+        for (GuiTab tab : tabs) {
+            tab.drawHoverText(this, x, y, tab.getName());
         }
     }
 
@@ -153,7 +158,7 @@ public class GuiMachine extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        PacketPipeline.sendToServer(new PacketMachineGui(par1GuiButton.id));
+        PacketPipeline.sendToServer(new PacketMachineInterfaceGui(0, par1GuiButton.id));
         if (par1GuiButton.id == 0) {
             par1GuiButton.displayString = par1GuiButton.displayString.equals(DISABLE_TEXT) ? ENABLE_TEXT : DISABLE_TEXT;
         } else if (par1GuiButton.id == 1) {
@@ -165,21 +170,21 @@ public class GuiMachine extends GuiContainer {
     protected void mouseClicked(int x, int y, int button) {
         super.mouseClicked(x, y, button);
 
-        for(GuiTab tab : tabs){
-            if(activeTab != tab){
-                if(tab.inRect(this, x, y)) {
+        for (GuiTab tab : tabs) {
+            if (activeTab != tab) {
+                if (tab.inRect(this, x, y)) {
                     activeTab = tab;
                 }
             }
         }
-        activeTab.mouseClick(this,x,y,button);
+        activeTab.mouseClick(this, x, y, button);
     }
 
     @Override
     protected void mouseClickMove(int x, int y, int button, long timeSinceClick) {
         super.mouseClickMove(x, y, button, timeSinceClick);
 
-       activeTab.mouseMovedClick(this, x, y, button, timeSinceClick);
+        activeTab.mouseMovedClick(this, x, y, button, timeSinceClick);
     }
 
     protected int getLeft() {
@@ -190,15 +195,21 @@ public class GuiMachine extends GuiContainer {
         return guiTop;
     }
 
-    public void drawHoverString(List list, int x, int y){
-        drawHoveringText(list, x , y, fontRendererObj);
+    public void drawHoverString(List list, int x, int y) {
+        drawHoveringText(list, x, y, fontRendererObj);
     }
 
-    public static GuiRectangle[] getRectangles() {
-        return rectangles;
+    public FontRenderer getFontRenderer() {
+        return fontRendererObj;
     }
 
     public TileEntityMachine getMachine() {
         return entityMachine;
+    }
+
+    @Override
+    protected void mouseMovedOrUp(int x, int y, int button) {
+        super.mouseMovedOrUp(x, y, button);
+        activeTab.mouseReleased(this, x, y, button);
     }
 }

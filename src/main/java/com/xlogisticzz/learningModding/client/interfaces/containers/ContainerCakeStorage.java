@@ -22,6 +22,8 @@ public class ContainerCakeStorage extends Container {
     private TileEntityCakeStorage tile;
     private int oldTimer;
     private int oldBuffer;
+    private int oldTimerMax;
+    private int oldBufferMax;
 
     public ContainerCakeStorage(InventoryPlayer inventoryPlayer, TileEntityCakeStorage tile) {
         this.tile = tile;
@@ -93,6 +95,8 @@ public class ContainerCakeStorage extends Container {
 
         player.sendProgressBarUpdate(this, 0, tile.getTimer());
         player.sendProgressBarUpdate(this, 1, tile.getBuffer());
+        player.sendProgressBarUpdate(this, 2, tile.getBufferMax());
+        player.sendProgressBarUpdate(this, 3, tile.getTimerMax());
     }
 
     @Override
@@ -102,6 +106,10 @@ public class ContainerCakeStorage extends Container {
             tile.setTimer(val);
         } else if (id == 1) {
             tile.setBuffer(val);
+        } else if (id == 2) {
+            tile.setBufferMax(val);
+        } else if (id == 3) {
+            tile.setTimerMax(val);
         }
     }
 
@@ -116,9 +124,17 @@ public class ContainerCakeStorage extends Container {
             if (oldBuffer != tile.getBuffer()) {
                 ((ICrafting) player).sendProgressBarUpdate(this, 1, tile.getBuffer());
             }
+            if (oldTimerMax != tile.getTimerMax()) {
+                ((ICrafting) player).sendProgressBarUpdate(this, 3, tile.getTimerMax());
+            }
+            if (oldBufferMax != tile.getBufferMax()) {
+                ((ICrafting) player).sendProgressBarUpdate(this, 2, tile.getBufferMax());
+            }
         }
 
         oldTimer = tile.getTimer();
         oldBuffer = tile.getBuffer();
+        oldTimerMax = tile.getTimerMax();
+        oldBufferMax = tile.getBufferMax();
     }
 }

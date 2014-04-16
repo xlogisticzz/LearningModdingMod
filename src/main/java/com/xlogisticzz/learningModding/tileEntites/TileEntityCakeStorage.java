@@ -259,31 +259,38 @@ public class TileEntityCakeStorage extends TileEntity implements IInventory {
             return itemstack.getItem() == Items.cake;
     }
 
-    public void reciveButtonEvent(byte buttonId, boolean isShifted, boolean isControl) {
-        switch (buttonId) {
+    public void reciveInterfaceEvent(int type, int data, boolean isShifted, boolean isControl) {
+        switch (type) {
             case 0:
-                if (getCake() > 0) {
-                    dispenseCake();
+                switch (data) {
+                    case 0:
+                        if (getCake() > 0) {
+                            dispenseCake();
+                        }
+                        break;
+                    case 1:
+                        increaseDir();
+                        System.out.println("incresaed dir to  " + getCurrentDir());
+                        break;
+                    case 2:
+                        decreaseMaxTime(isShifted, isControl);
+                        break;
+                    case 3:
+                        increaseMaxTime(isShifted, isControl);
+                        break;
+                    case 4:
+                        decreaseMaxBuffer(isShifted, isControl);
+                        break;
+                    case 5:
+                        increaseMaxBuffer(isShifted, isControl);
+                        break;
+                    case 6:
+                        setPlace(!getPlace());
                 }
                 break;
             case 1:
-                increaseDir();
-                System.out.println("incresaed dir to  " + getCurrentDir());
+                setTimerMax(data);
                 break;
-            case 2:
-                decreaseMaxTime(isShifted, isControl);
-                break;
-            case 3:
-                increaseMaxTime(isShifted, isControl);
-                break;
-            case 4:
-                decreaseMaxBuffer(isShifted, isControl);
-                break;
-            case 5:
-                increaseMaxBuffer(isShifted, isControl);
-                break;
-            case 6:
-                setPlace(!getPlace());
         }
     }
 

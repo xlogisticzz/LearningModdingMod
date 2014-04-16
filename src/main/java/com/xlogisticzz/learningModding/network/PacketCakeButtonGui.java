@@ -12,17 +12,19 @@ import net.minecraft.inventory.Container;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 
-public class PacketCakeButton extends PacketLearningModding {
+public class PacketCakeButtonGui extends PacketLearningModding {
 
     private int id;
+    private int type;
     private boolean isShifted;
     private boolean isControl;
 
-    public PacketCakeButton() {
+    public PacketCakeButtonGui() {
     }
 
-    public PacketCakeButton(int id, boolean isShifted, boolean isControl) {
+    public PacketCakeButtonGui(int type, int id, boolean isShifted, boolean isControl) {
         this.id = id;
+        this.type = type;
         this.isShifted = isShifted;
         this.isControl = isControl;
     }
@@ -30,6 +32,7 @@ public class PacketCakeButton extends PacketLearningModding {
     @Override
     public void encodeInto(ChannelHandlerContext ctx, ByteBuf buf) {
         buf.writeInt(id);
+        buf.writeInt(type);
         buf.writeBoolean(isShifted);
         buf.writeBoolean(isControl);
     }
@@ -37,6 +40,7 @@ public class PacketCakeButton extends PacketLearningModding {
     @Override
     public void decodeInto(ChannelHandlerContext ctx, ByteBuf buf) {
         id = buf.readInt();
+        type = buf.readInt();
         isShifted = buf.readBoolean();
         isControl = buf.readBoolean();
     }
@@ -51,7 +55,7 @@ public class PacketCakeButton extends PacketLearningModding {
         Container container = player.openContainer;
         if (container != null && container instanceof ContainerCakeStorage) {
             TileEntityCakeStorage cakeStorage = ((ContainerCakeStorage) container).getTile();
-            cakeStorage.reciveButtonEvent((byte) id, isShifted, isControl);
+            cakeStorage.reciveInterfaceEvent(type, id, isShifted, isControl);
         }
     }
 }

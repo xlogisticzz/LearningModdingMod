@@ -71,9 +71,9 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Packet
 
     public void registerPackets() {
         registerPacket(PacketSpaceShipInventory.class);
-        registerPacket(PacketMachineGui.class);
+        registerPacket(PacketMachineInterfaceGui.class);
         registerPacket(PacketSpaceshipBomb.class);
-        registerPacket(PacketCakeButton.class);
+        registerPacket(PacketCakeButtonGui.class);
     }
 
     @Override

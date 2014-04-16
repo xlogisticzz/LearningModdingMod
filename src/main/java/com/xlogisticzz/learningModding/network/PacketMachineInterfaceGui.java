@@ -11,24 +11,28 @@ import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 
-public class PacketMachineGui extends PacketLearningModding {
+public class PacketMachineInterfaceGui extends PacketLearningModding {
 
+    private int type;
     private int id;
 
-    public PacketMachineGui() {
+    public PacketMachineInterfaceGui() {
     }
 
-    public PacketMachineGui(int id) {
+    public PacketMachineInterfaceGui(int type, int id) {
+        this.type = type;
         this.id = id;
     }
 
     @Override
     public void encodeInto(ChannelHandlerContext ctx, ByteBuf buf) {
+        buf.writeInt(type);
         buf.writeInt(id);
     }
 
     @Override
     public void decodeInto(ChannelHandlerContext ctx, ByteBuf buf) {
+        type = buf.readInt();
         id = buf.readInt();
     }
 
@@ -42,7 +46,7 @@ public class PacketMachineGui extends PacketLearningModding {
         Container container = player.openContainer;
         if (container != null && container instanceof ContainerMachine) {
             TileEntityMachine machine = ((ContainerMachine) container).getMachine();
-            machine.reciveButtonEvent((byte) id);
+            machine.reciveInterfaceEvent(type, id);
         }
     }
 }

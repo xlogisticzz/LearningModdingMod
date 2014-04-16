@@ -23,6 +23,7 @@ public class ContainerMachine extends Container {
 
     TileEntityMachine entityMachine;
     private boolean[] olddata = new boolean[49];
+    private int oldHeight;
 
     public ContainerMachine(InventoryPlayer inventoryPlayer, TileEntityMachine entityMachine) {
         this.entityMachine = entityMachine;
@@ -91,13 +92,18 @@ public class ContainerMachine extends Container {
             for (int i = 0; i < entityMachine.customSetup.length; i++) {
                 par1ICrafting.sendProgressBarUpdate(this, i, entityMachine.customSetup[i] ? 1 : 0);
             }
+            par1ICrafting.sendProgressBarUpdate(this, 49, entityMachine.height);
         }
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
-        entityMachine.setCustomGravel(id, data != 0);
+        if (id < entityMachine.customSetup.length) {
+            entityMachine.setCustomGravel(id, data != 0);
+        } else if (id == 49) {
+            entityMachine.height = data;
+        }
     }
 
     @Override
@@ -111,9 +117,12 @@ public class ContainerMachine extends Container {
                         ((ICrafting) player).sendProgressBarUpdate(this, i, entityMachine.customSetup[i] ? 1 : 0);
                     }
                 }
+                if (entityMachine.height != oldHeight) {
+                    ((ICrafting) player).sendProgressBarUpdate(this, 49, entityMachine.height);
+                }
             }
         }
-
         olddata = Arrays.copyOf(entityMachine.customSetup, entityMachine.customSetup.length);
+        oldHeight = entityMachine.height;
     }
 }

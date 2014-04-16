@@ -5,20 +5,26 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 */
 
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerCakeStorage;
+import com.xlogisticzz.learningModding.entities.EntitySpaceship;
 import com.xlogisticzz.learningModding.lib.Constants;
-import com.xlogisticzz.learningModding.network.PacketCakeButton;
+import com.xlogisticzz.learningModding.network.PacketCakeButtonGui;
 import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.tileEntites.TileEntityCakeStorage;
-import com.xlogisticzz.learningModding.utils.gui.GuiUtils;
 import com.xlogisticzz.learningModding.utils.StringUtils;
+import com.xlogisticzz.learningModding.utils.gui.GuiUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
@@ -28,12 +34,20 @@ public class GuiCakeStorage extends GuiContainer {
     private static final ResourceLocation texture = new ResourceLocation(Constants.Mod.MODID, "textures/gui/cake.png");
     private static String PLACE = StringUtils.localize("tile.cakeStorage.button.placeCake");
     private static String EAT = StringUtils.localize("tile.cakeStorage.button.eatCake");
+    private final Entity cake;
+    private final Entity spaceship;
     private TileEntityCakeStorage cakeStorage;
     private GuiButton dispense;
-
+    private float yaw;
+    private float roll;
+    private boolean rollDown;
+    private boolean isDragging;
+    private int tempScrollPos;
     public GuiCakeStorage(InventoryPlayer inventoryPlayer, TileEntityCakeStorage cakeStorage) {
         super(new ContainerCakeStorage(inventoryPlayer, cakeStorage));
         this.cakeStorage = cakeStorage;
+        cake = new EntityFallingBlock(Minecraft.getMinecraft().theWorld, 0, 0, 0, Blocks.cake);
+        spaceship = new EntitySpaceship(Minecraft.getMinecraft().theWorld);
 
         xSize = 176;
         ySize = 218;
@@ -44,6 +58,10 @@ public class GuiCakeStorage extends GuiContainer {
         GL11.glColor4f(1, 1, 1, 1);
         Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+
+        drawTexturedModalRect(guiLeft + xSize + 2, guiTop, xSize, 34, 80, 32);
+        drawTexturedModalRect(guiLeft + xSize + 2, guiTop + 36, xSize, 66, 80, 80);
+
 
         float filled = cakeStorage.getCake() / 10F;
         int barHeight = (int) (filled * 34);
@@ -76,6 +94,11 @@ public class GuiCakeStorage extends GuiContainer {
         int srcY = ySize;
         drawTexturedModalRect(guiLeft + 70, guiTop + 58, srcX, srcY, 20, 22);
 
+        drawTexturedModalRect(guiLeft + xSize + 7, guiTop + 16, 0, 250, 70, 6);
+        drawTexturedModalRect(guiLeft + xSize + 7 + (isDragging ? tempScrollPos : cakeStorage.getTimerMax()), guiTop + 13, 70, 245, 6, 11);
+
+        drawCake();
+
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
 
@@ -92,6 +115,12 @@ public class GuiCakeStorage extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         String title = StringUtils.localize("tile.cakeStorage.name");
         fontRendererObj.drawString(title, 8, 6, 0x404040);
+
+        String masterCake = StringUtils.localize("tile.cakeStorage.gui.masterCake");
+        GuiUtils.drawCenteredString(fontRendererObj, masterCake, 218, 42, 0x404040);
+
+        String timerSelector = StringUtils.localize("tile.cakeStorage.gui.maxTimer");
+        GuiUtils.drawCenteredString(fontRendererObj, timerSelector, 218, 5, 0x404040);
 
         if (!cakeStorage.isAirInCurrentDir()) {
             Block block = cakeStorage.getBlockAtCurrentPos();
@@ -121,8 +150,8 @@ public class GuiCakeStorage extends GuiContainer {
 
         buttonList.add(dispense);
 
-        buttonList.add(new GuiButton(2, guiLeft + 114, guiTop + 16, 12, 20, "<"));
-        buttonList.add(new GuiButton(3, guiLeft + 160, guiTop + 16, 12, 20, ">"));
+//        buttonList.add(new GuiButton(2, guiLeft + 114, guiTop + 16, 12, 20, "<"));
+//        buttonList.add(new GuiButton(3, guiLeft + 160, guiTop + 16, 12, 20, ">"));
 
         buttonList.add(new GuiButton(4, guiLeft + 5, guiTop + 106, 12, 20, "<"));
         buttonList.add(new GuiButton(5, guiLeft + 53, guiTop + 106, 12, 20, ">"));
@@ -135,7 +164,7 @@ public class GuiCakeStorage extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        PacketPipeline.sendToServer(new PacketCakeButton(par1GuiButton.id, isShiftKeyDown(), isCtrlKeyDown()));
+        PacketPipeline.sendToServer(new PacketCakeButtonGui(0, par1GuiButton.id, isShiftKeyDown(), isCtrlKeyDown()));
         if (par1GuiButton.id == 0) {
             par1GuiButton.enabled = false;
         } else if (par1GuiButton.id == 1) {
@@ -157,6 +186,83 @@ public class GuiCakeStorage extends GuiContainer {
         } else if (par1GuiButton.id == 6) {
             cakeStorage.setPlace(!cakeStorage.getPlace());
             par1GuiButton.displayString = par1GuiButton.displayString.equals(EAT) ? PLACE : EAT;
+        }
+    }
+
+    private void drawCake() {
+
+        GL11.glPushMatrix();
+
+        GL11.glTranslatef(guiLeft + 216, guiTop + 80, 100);
+
+        float scale = 30F;
+        GL11.glScalef(-scale, scale, scale);
+
+        RenderHelper.enableStandardItemLighting();
+
+        GL11.glRotatef(180, 0, 0, 1);
+        GL11.glRotatef(roll, 1, 0, 0);
+        GL11.glRotatef(yaw, 0, 1, 0);
+
+        RenderManager.instance.renderEntityWithPosYaw(cake, 0, 0, 0, 0, 0);
+
+        RenderHelper.disableStandardItemLighting();
+        GL11.glPopMatrix();
+
+        yaw += 0.5F;
+        if (rollDown) {
+            roll -= 0.05F;
+            if (roll < -5) {
+                rollDown = false;
+                roll = -5;
+            }
+        } else {
+            roll += 0.05F;
+            if (roll > 25) {
+                rollDown = true;
+                roll = 25;
+            }
+        }
+    }
+
+    @Override
+    protected void mouseClicked(int x, int y, int button) {
+        super.mouseClicked(x, y, button);
+
+        x -= guiLeft;
+        y -= guiTop;
+
+        if (182 + cakeStorage.getTimerMax() <= x && x <= 189 + cakeStorage.getTimerMax() && 13 <= y && y <= 24) {
+            isDragging = true;
+            tempScrollPos = cakeStorage.getTimerMax();
+        }
+    }
+
+    @Override
+    protected void mouseClickMove(int x, int y, int button, long timeSinceClicked) {
+        super.mouseClickMove(x, y, button, timeSinceClicked);
+
+        x -= guiLeft;
+        y -= guiTop;
+
+        if (isDragging) {
+            tempScrollPos = x - 185;
+            if (tempScrollPos < 0) {
+                tempScrollPos = 0;
+            } else if (tempScrollPos > 64) {
+                tempScrollPos = 64;
+            }
+        }
+    }
+
+    @Override
+    protected void mouseMovedOrUp(int x, int y, int button) {
+        super.mouseMovedOrUp(x, y, button);
+
+        if (isDragging) {
+            PacketPipeline.sendToServer(new PacketCakeButtonGui(1, tempScrollPos, isShiftKeyDown(), isCtrlKeyDown()));
+            cakeStorage.setTimerMax(tempScrollPos);
+            isDragging = false;
         }
     }
 }

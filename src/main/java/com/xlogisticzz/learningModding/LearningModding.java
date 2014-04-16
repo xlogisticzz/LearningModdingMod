@@ -1,11 +1,11 @@
 package com.xlogisticzz.learningModding;
 
 import com.xlogisticzz.learningModding.blocks.ModBlocks;
-import com.xlogisticzz.learningModding.handler.GuiHandler;
 import com.xlogisticzz.learningModding.configuration.ConfigurationHandler;
 import com.xlogisticzz.learningModding.crafting.Recipies;
 import com.xlogisticzz.learningModding.dispenser.DispenserBehaviourBlockEntityTeleport;
 import com.xlogisticzz.learningModding.entities.ModEntities;
+import com.xlogisticzz.learningModding.handler.GuiHandler;
 import com.xlogisticzz.learningModding.items.ModItems;
 import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.network.PacketPipeline;

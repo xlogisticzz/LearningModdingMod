@@ -2,6 +2,8 @@ tile.cakeStorage.button.changeDir=Change Dir
 tile.cakeStorage.button.dispense=Dispense
 tile.cakeStorage.button.placeCake=Place Cakes
 tile.cakeStorage.button.eatCake=Eat Cakes
+tile.cakeStorage.gui.masterCake=Cake God
+tile.cakeStorage.gui.maxTimer=Timer delay
 
 tile.machineBlock.button.enable=Enable
 tile.machineBlock.button.disable=Disable

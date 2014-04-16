@@ -18,6 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntityMachine extends TileEntity implements IInventory {
 
     public final boolean[] customSetup;
+    public int height = 15;
     private ItemStack[] items;
     private String customName;
     private int gravel = -1;
@@ -124,6 +125,8 @@ public class TileEntityMachine extends TileEntity implements IInventory {
             this.customName = par1NBTTagCompound.getString("CustomName");
         }
 
+        height = par1NBTTagCompound.getByte("Height");
+
     }
 
     @Override
@@ -150,43 +153,54 @@ public class TileEntityMachine extends TileEntity implements IInventory {
         if (this.hasCustomInventoryName()) {
             par1NBTTagCompound.setString("CustomName", this.customName);
         }
+        par1NBTTagCompound.setByte("Height", (byte) height);
+
     }
 
-    public void reciveButtonEvent(byte buttonId) {
-        switch (buttonId) {
+    public void reciveInterfaceEvent(int type, int id) {
+        switch (type) {
             case 0:
-                int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-                int selectedType = metadata / 2;
-                int isDisabled = metadata % 2 == 1 ? 0 : 1;
-                int newMetadata = selectedType * 2 + isDisabled;
-                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMetadata, 3);
+                switch (id) {
+                    case 0:
+                        int metadata = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+                        int selectedType = metadata / 2;
+                        int isDisabled = metadata % 2 == 1 ? 0 : 1;
+                        int newMetadata = selectedType * 2 + isDisabled;
+                        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, newMetadata, 3);
+                        break;
+
+                    case 1:
+                        int metadata2 = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+                        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, metadata2 % 2, 3);
+
+                        ItemStack stack = new ItemStack(ModItems.card, 1, (metadata2 / 2) - 1);
+
+                        if (stack != null) {
+                            float spawnX = xCoord + worldObj.rand.nextFloat();
+                            float spawnY = yCoord + worldObj.rand.nextFloat();
+                            float spawnZ = zCoord + worldObj.rand.nextFloat();
+
+                            EntityItem droppedItem = new EntityItem(worldObj, spawnX, spawnY, spawnZ, stack);
+
+                            float mult = 0.05F;
+
+                            droppedItem.motionX = (-0.5F + worldObj.rand.nextFloat()) * mult;
+                            droppedItem.motionX = (4 + worldObj.rand.nextFloat()) * mult;
+                            droppedItem.motionX = (-0.5F + worldObj.rand.nextFloat()) * mult;
+
+                            worldObj.spawnEntityInWorld(droppedItem);
+                        }
+                        break;
+                }
                 break;
 
             case 1:
-                int metadata2 = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-                worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, metadata2 % 2, 3);
+                setCustomGravel(id, !customSetup[id]);
+                break;
 
-                ItemStack stack = new ItemStack(ModItems.card, 1, (metadata2 / 2) - 1);
-
-                if (stack != null) {
-                    float spawnX = xCoord + worldObj.rand.nextFloat();
-                    float spawnY = yCoord + worldObj.rand.nextFloat();
-                    float spawnZ = zCoord + worldObj.rand.nextFloat();
-
-                    EntityItem droppedItem = new EntityItem(worldObj, spawnX, spawnY, spawnZ, stack);
-
-                    float mult = 0.05F;
-
-                    droppedItem.motionX = (-0.5F + worldObj.rand.nextFloat()) * mult;
-                    droppedItem.motionX = (4 + worldObj.rand.nextFloat()) * mult;
-                    droppedItem.motionX = (-0.5F + worldObj.rand.nextFloat()) * mult;
-
-                    worldObj.spawnEntityInWorld(droppedItem);
-                }
-
-            default:
-                buttonId -= 2;
-                setCustomGravel(buttonId, !customSetup[buttonId]);
+            case 2:
+                height = id;
+                break;
         }
     }
 

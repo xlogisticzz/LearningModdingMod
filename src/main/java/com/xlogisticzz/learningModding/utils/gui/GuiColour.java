@@ -24,6 +24,7 @@ public enum GuiColour {
     WHITE(15);
 
     private int id;
+
     GuiColour(int id) {
         this.id = id;
     }

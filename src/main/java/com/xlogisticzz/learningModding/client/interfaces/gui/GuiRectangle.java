@@ -27,13 +27,21 @@ public class GuiRectangle {
         return x <= mouseX && mouseX <= x + w && y <= mouseY && mouseY <= y + h;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public void draw(GuiMachine guiMachine, int srcX, int srcY) {
         guiMachine.drawTexturedModalRect(guiMachine.getLeft() + x, guiMachine.getTop() + y, srcX, srcY, w, h);
     }
 
-    public void drawHoverText(GuiMachine guiMachine, int x, int y, String string){
-        if(inRect(guiMachine, x ,y)){
-            guiMachine.drawHoverString(Arrays.asList(string.split("\n")), x - guiMachine.getLeft(), y  - guiMachine.getTop());
+    public void drawHoverText(GuiMachine guiMachine, int x, int y, String string) {
+        if (inRect(guiMachine, x, y)) {
+            guiMachine.drawHoverString(Arrays.asList(string.split("\n")), x - guiMachine.getLeft(), y - guiMachine.getTop());
         }
     }
 }

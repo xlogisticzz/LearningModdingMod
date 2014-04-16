@@ -1,14 +1,17 @@
 package com.xlogisticzz.learningModding.client.interfaces.gui;
 
-import com.xlogisticzz.learningModding.network.PacketMachineGui;
+import com.xlogisticzz.learningModding.network.PacketMachineInterfaceGui;
 import com.xlogisticzz.learningModding.network.PacketPipeline;
 import com.xlogisticzz.learningModding.utils.gui.GuiColour;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author xLoGisTicZz
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 
+@SideOnly(Side.CLIENT)
 public class GuiTabCustom extends GuiTab {
 
     private boolean currentDragMode;
@@ -46,11 +49,11 @@ public class GuiTabCustom extends GuiTab {
         int meta = gui.getMachine().getWorldObj().getBlockMetadata(gui.getMachine().xCoord, gui.getMachine().yCoord, gui.getMachine().zCoord);
         int type = meta / 2;
 
-        if(type == 4){
-            for(int i = 0; i < GuiMachine.getRectangles().length; i++){
+        if (type == 4) {
+            for (int i = 0; i < GuiMachine.getRectangles().length; i++) {
                 GuiRectangle rectangle = GuiMachine.getRectangles()[i];
                 String text;
-                if(gui.getMachine().customSetup[i]){
+                if (gui.getMachine().customSetup[i]) {
                     text = GuiColour.GREEN + "Active";
                 } else {
                     text = GuiColour.RED + "Inactive";
@@ -69,7 +72,7 @@ public class GuiTabCustom extends GuiTab {
             GuiRectangle rect = GuiMachine.getRectangles()[i];
 
             if (rect.inRect(gui, x, y)) {
-                PacketPipeline.sendToServer(new PacketMachineGui(2 + i));
+                PacketPipeline.sendToServer(new PacketMachineInterfaceGui(1, i));
                 currentDragMode = gui.getMachine().customSetup[i];
                 gui.getMachine().setCustomGravel(i, !currentDragMode);
                 break;
@@ -83,7 +86,7 @@ public class GuiTabCustom extends GuiTab {
             GuiRectangle rect = GuiMachine.getRectangles()[i];
 
             if (gui.getMachine().customSetup[i] == currentDragMode && rect.inRect(gui, x, y)) {
-                PacketPipeline.sendToServer(new PacketMachineGui(2 + i));
+                PacketPipeline.sendToServer(new PacketMachineInterfaceGui(1, i));
                 gui.getMachine().setCustomGravel(i, !currentDragMode);
                 break;
             }
