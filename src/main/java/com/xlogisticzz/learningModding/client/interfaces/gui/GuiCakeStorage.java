@@ -5,7 +5,6 @@ package com.xlogisticzz.learningModding.client.interfaces.gui;
 */
 
 import com.xlogisticzz.learningModding.client.interfaces.containers.ContainerCakeStorage;
-import com.xlogisticzz.learningModding.entities.EntitySpaceship;
 import com.xlogisticzz.learningModding.lib.Constants;
 import com.xlogisticzz.learningModding.network.PacketCakeButtonGui;
 import com.xlogisticzz.learningModding.network.PacketPipeline;
@@ -35,7 +34,6 @@ public class GuiCakeStorage extends GuiContainer {
     private static String PLACE = StringUtils.localize("tile.cakeStorage.button.placeCake");
     private static String EAT = StringUtils.localize("tile.cakeStorage.button.eatCake");
     private final Entity cake;
-    private final Entity spaceship;
     private TileEntityCakeStorage cakeStorage;
     private GuiButton dispense;
     private float yaw;
@@ -43,11 +41,11 @@ public class GuiCakeStorage extends GuiContainer {
     private boolean rollDown;
     private boolean isDragging;
     private int tempScrollPos;
+
     public GuiCakeStorage(InventoryPlayer inventoryPlayer, TileEntityCakeStorage cakeStorage) {
         super(new ContainerCakeStorage(inventoryPlayer, cakeStorage));
         this.cakeStorage = cakeStorage;
         cake = new EntityFallingBlock(Minecraft.getMinecraft().theWorld, 0, 0, 0, Blocks.cake);
-        spaceship = new EntitySpaceship(Minecraft.getMinecraft().theWorld);
 
         xSize = 176;
         ySize = 218;
@@ -195,7 +193,7 @@ public class GuiCakeStorage extends GuiContainer {
 
         GL11.glTranslatef(guiLeft + 216, guiTop + 80, 100);
 
-        float scale = 30F;
+        float scale = 50F;
         GL11.glScalef(-scale, scale, scale);
 
         RenderHelper.enableStandardItemLighting();

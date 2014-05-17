@@ -43,6 +43,7 @@ public class LearningModding {
     /* Says where the client and server 'proxy' code is loaded. */
     @SidedProxy(clientSide = Constants.Proxies.CLIENT, serverSide = Constants.Proxies.COMMON)
     public static CommonProxy proxy;
+
     public static KeyBinding dropBomb;
 
     /* PreInitialization */
