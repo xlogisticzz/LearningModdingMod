@@ -170,6 +170,7 @@ public class Constants {
         public static final String PIG_CONVERTER = "pigConverter";
         public static final String ENTITY_BLOCK_TELEPORTER = "entityBlockTeleporter";
         public static final String TEST_WAND = "testWand";
+        public static final String SPAWN_LIGHTING = "spawnLighting";
 
         // Blocks
         public static final String ORE = "modOre";

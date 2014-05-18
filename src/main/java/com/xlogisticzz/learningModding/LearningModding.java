@@ -5,6 +5,7 @@ import com.xlogisticzz.learningModding.configuration.ConfigurationHandler;
 import com.xlogisticzz.learningModding.crafting.Recipies;
 import com.xlogisticzz.learningModding.dispenser.DispenserBehaviourBlockEntityTeleport;
 import com.xlogisticzz.learningModding.entities.ModEntities;
+import com.xlogisticzz.learningModding.handler.EntityStruckByLightningEventHandler;
 import com.xlogisticzz.learningModding.handler.GuiHandler;
 import com.xlogisticzz.learningModding.items.ModItems;
 import com.xlogisticzz.learningModding.lib.Constants;
@@ -23,6 +24,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
 import java.io.File;
@@ -57,6 +59,9 @@ public class LearningModding {
 
         proxy.initSounds();
         proxy.initRenderers();
+
+        MinecraftForge.EVENT_BUS.register(new EntityStruckByLightningEventHandler());
+
 
     }
 
