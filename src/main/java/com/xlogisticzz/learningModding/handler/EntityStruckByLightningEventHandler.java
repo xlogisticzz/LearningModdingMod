@@ -19,8 +19,10 @@ public class EntityStruckByLightningEventHandler {
             EntityPlayer player = (EntityPlayer) event.entity;
             for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
                 if (player.inventory.getStackInSlot(i) != null) {
-                    EntityItem item = new EntityItem(player.worldObj, player.posX, player.posY, player.posZ, player.inventory.getStackInSlot(i));
+                    EntityItem item = new EntityItem(player.worldObj, player.posX, player.posY + 20, player.posZ, player.inventory.getStackInSlot(i));
                     player.inventory.setInventorySlotContents(i, null);
+                    item.fireResistance = 10000;
+                    item.delayBeforeCanPickup = 40;
                     player.worldObj.spawnEntityInWorld(item);
                 }
             }
