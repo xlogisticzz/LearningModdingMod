@@ -1,20 +1,20 @@
 [
-{
-  "modid": "learningModding",
-  "name": "Learning Modding",
-  "description": "A mod to help me learn Modding made by following Pahimars lets Mod and VSWE's Summer courses",
-  "version": "0.162.1.1",
-  "url": "www.github.com/logisticzz",
-  "updateUrl": "",
-  "authorList": [
-    "xLoGisTicZz"
-  ],
-  "credits": "Pahimar for his Lets Mod series, VSWE for his Modding Courses",
-  "logoFile": "",
-  "screenshots": [
-  ],
-  "parent":"",
-  "dependencies": [
-  ]
-}
+    {
+      "modid": "learningModding",
+      "name": "Learning Modding",
+      "description": "A mod to help me learn Modding made by following Pahimars lets Mod and VSWE's Summer courses",
+      "version": "0.162.1.1",
+      "url": "www.github.com/logisticzz",
+      "updateUrl": "",
+      "authorList": [
+        "xLoGisTicZz"
+      ],
+      "credits": "Pahimar for his Lets Mod series, VSWE for his Modding Courses",
+      "logoFile": "",
+      "screenshots": [
+      ],
+      "parent":"",
+      "dependencies": [
+      ]
+    }
 ]

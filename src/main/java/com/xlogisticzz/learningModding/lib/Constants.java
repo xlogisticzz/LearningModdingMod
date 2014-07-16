@@ -91,7 +91,6 @@ public class Constants {
         public static final String NOTE_SEQUENCER = "note_sequencer";
         public static final String CAKE_TOP = "cakebox_top";
         public static final String CAKE_SIDE = "cakebox";
-        public static final String[] CUSTOM_FURNACE = {"furnace_side", "furnace_front", "furnace_front_active", "furnace_top",};
 
 
     }
